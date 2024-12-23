@@ -20,8 +20,8 @@
 #  > git_pkgs = list(list(package_name = "webgazer",
 #  > repo_url = "https://github.com/jgeller112/webgazeR/",
 #  > commit = "1fa04e0ac649fc73843a05ed83d5e7c994c801fe")),
-#  > ide = "vscode",
-#  > project_path = path_project,
+#  > ide = "code",
+#  > project_path = project_path,
 #  > overwrite = TRUE,
 #  > print = TRUE)
 # It uses nixpkgs' revision 8c4dc69b9732f6bbe826b5fbb32184987520ff26 for reproducibility purposes
@@ -39,6 +39,7 @@ let
       gtsummary
       here
       janitor
+      languageserver
       permuco
       permutes
       quarto
