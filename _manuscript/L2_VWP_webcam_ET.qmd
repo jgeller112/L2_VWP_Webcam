@@ -1346,9 +1346,6 @@ sig.clusters = cpa.lme %>% filter(Factor=='condition1_code', !is.na(cluster_mass
     mutate_at(vars(sign), as.factor)
 
 
-sig.clusters %>% 
-  tt() %>%
-  save_tt("cluster_spsp.png", overwrite=TRUE)
 ```
 
 ```{r}
@@ -1356,8 +1353,9 @@ sig.clusters %>%
 #| tbl-cap: Clustermass statistics for the Spanish-Spanish condition
 #| echo: false
 
-knitr::include_graphics("cluster_spsp.png")
-
+sig.clusters %>% 
+  flextable() %>%
+  theme_apa()
 ```
 
 ```{r}
