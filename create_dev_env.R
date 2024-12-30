@@ -3,6 +3,9 @@ rix(
   r_pkgs = c(
     "tidyverse",
     "knitr",
+    "networkD3", 
+    "htmlwidgets", 
+    "webshot", 
     "tinytable",
     "quarto",
     "remotes",
@@ -25,7 +28,7 @@ rix(
       commit = "1fa04e0ac649fc73843a05ed83d5e7c994c801fe"
     )
   ),
-  ide = "other",
+  ide = "code",
   project_path = path_to_project,
   overwrite = TRUE,
   print = TRUE
