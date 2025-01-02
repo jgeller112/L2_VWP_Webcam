@@ -86,7 +86,7 @@ author-note:
     gratitude: ~
     # Example. Because the authors are equal contributors, order of authorship was determined by a fair coin toss.
     authorship-agreements: ~
-abstract: "Eye-tracking has become a valuable tool for studying cognitive processes in second language (L2) acquisition and bilingualism (Godfroid et al., 2024). While research-grade infrared eye-trackers are commonly used, there are a number of issues that limit its wide-spread adoption. Recently, consumer-based  eye-tracking has emerged as an attractive alternative, requiring only internet access and a personal webcam. However, webcam eye-tracking presents unique design and preprocessing challenges that must be addressed for valid results. To help researchers overcome these challenges,we developed a comprehensive tutorial focused on visual world  webcam eye-tracking for L2 langauge research. Our guide will cover all key steps, from experiment design to data preprocessing and analysis, where we highlight the R package `webgazeR`, which is open source and freely available for download and installation: https://github.com/jgeller112/webgazeR. We offer best practices for environmental conditions, participant instructions,and tips for designing visual world experiments with webcam eye-tracking. To demonstrate these steps, we analyze data collected through the Gorilla platform (Anwyl-Irvine et al., 2020) using a single word Spanish visual world paradigm (VWP) and show competeiton within and between L2/L1. This tutorial aims to empower researchers by providing a step-by-step guide to successfully conduct visual world  webcam-based eye-tracking studies. To follow along with this tutorial, please download the entire manuscript and its accompaying code with data from here: https://github.com/jgeller112/L2_VWP_Webcam. "
+abstract: "Eye-tracking has become a valuable tool for studying cognitive processes in second language (L2) acquisition and bilingualism (Godfroid et al., 2024). While research-grade infrared eye-trackers are commonly used, there are a number of issues that limit its wide-spread adoption. Recently, consumer-based webcam eye-tracking has emerged as an attractive alternative, requiring only internet access and a personal webcam. However, webcam eye-tracking presents unique design and preprocessing challenges that must be addressed for valid results. To help researchers overcome these challenges,we developed a comprehensive tutorial focused on visual world  webcam eye-tracking for L2 langauge research. Our guide will cover all key steps, from experiment design to data preprocessing and analysis, where we highlight the R package `webgazeR`, which is open source and freely available for download and installation: https://github.com/jgeller112/webgazeR. We offer best practices for environmental conditions, participant instructions,and tips for designing visual world experiments with webcam eye-tracking. To demonstrate these steps, we analyze data collected through the Gorilla platform (Anwyl-Irvine et al., 2020) using a single word Spanish visual world paradigm (VWP) and show competeiton within and between L2/L1. This tutorial aims to empower researchers by providing a step-by-step guide to successfully conduct visual world  webcam-based eye-tracking studies. To follow along with this tutorial, please download the entire manuscript and its accompaying code with data from here: https://github.com/jgeller112/L2_VWP_Webcam. "
 
 # Put as many keywords at you like, separated by commmas (e.g., [reliability, validity, generalizability])
 keywords: [VWP, Tutorial, Webcam eye-tracking, R, Gorilla]
@@ -218,10 +218,10 @@ We recruited participants from Prolific, a participant recruitment platform, who
 
 ```{r}
 #| label: fig-sankey
-#| fig-cap: Participant flow through the entire experiment 
+#| fig-cap: Participant flow through the  experiment 
 #| echo: false
 
-knitr::include_graphics(here::here("_manuscript", "Figures", "sankey_plot.png"))
+knitr::include_graphics(here::here("_manuscript", "Figures", "sankey_plot.svg"))
 ```
 
 ```{r}
@@ -602,6 +602,8 @@ While most commercial eye-trackers sample at a constant rate, data captured by w
 #| label: fig-samprate-L2
 #| fig-cap: Participant sampling-rate for L2 experiment. A histogram and overlayed density plot shows median sampling rate by participant. the overall median and SD is highlighted in red.
 #| echo: true
+#| fig-width: 12
+#| fig-heigh: 8
 
 samp_rate_L2 <- analyze_sampling_rate(edat_L2)
 ```
@@ -673,8 +675,9 @@ oob_data_L2 <- gaze_oob(edat_L2)
 #| echo: false
 
 oob_data_L2 %>%
-  tt() %>%
-  save_tt(here::here("_manuscript","Figures", "oob_data_L2.png"), overwrite=TRUE)
+  flextable() %>%
+  theme_apa() %>%
+  save_as_image(here::here("_manuscript","Figures", "oob_data_L2.png"), exapnd=10, res=300)
 
 
 knitr::include_graphics(here::here("_manuscript", "Figures", "oob_data_L2.png"))
@@ -748,8 +751,8 @@ aoi_loc <- data.frame(
 
 
 aoi_loc %>% 
-  tt() %>% 
-  save_tt(here::here("_manuscript","Figures", "aoi-quad.png"), overwrite=TRUE)
+  flextable() %>% 
+  save_as_image(here::here("_manuscript","Figures", "aoi-quad.png"), res=300)
 
 
 knitr::include_graphics(here::here("_manuscript", "Figures", "aoi-quad.png"))
@@ -980,8 +983,8 @@ gaze_sub_L2 <- downsample_gaze(gaze_sub_L2_long, bin.length=100, timevar="time",
 
 gaze_sub_L2 %>%
   head() %>%
-  tt() %>%
-  save_tt(here::here("_manuscript","Figures", "downsample_table.png"), overwrite=TRUE)
+  flextable() %>%
+  save_as_image(here::here("_manuscript","Figures", "downsample_table.png"), res=300)
 
 knitr::include_graphics(here::here("_manuscript", "Figures", "downsample_table.png"))
 ```
@@ -1692,7 +1695,7 @@ knitr::include_graphics(here::here("_manuscript", "Figures",  "poor_good_table.p
 
 ### **Generalizability to Other Platforms**
 
-We demonstrated how to analyze webcam eye-tracking data from a Gorilla experiment using WebGazer.js. While we were unable to validate this pipeline on other experimental platforms using WebGazer.js, such as PCIbex (Zehr & Schwarz, 2014) or jsPsych [@deleeuw2015], we believe that this basic pipeline will generalize to those platforms, as WebGazer.js underlies them all and provides consistent output. We encourage researchers to test this pipeline in their own studies and report any issues on our GitHub repository. We are committed to continuing improvements to `webgazeR`, ensuring that users can effectively analyze webcam eye-tracking data with our package.
+We demonstrated how to analyze webcam eye-tracking data from a Gorilla experiment using WebGazer.js. While we were unable to validate this pipeline on other experimental platforms using WebGazer.js, such as PCIbex [@zehr2018penncontroller] or jsPsych [@deleeuw2015], we believe that this basic pipeline will generalize to those platforms, as WebGazer.js underlies them all and provides consistent output. We encourage researchers to test this pipeline in their own studies and report any issues on our GitHub repository. We are committed to continuing improvements to `webgazeR`, ensuring that users can effectively analyze webcam eye-tracking data with our package.
 
 ### **Power**
 

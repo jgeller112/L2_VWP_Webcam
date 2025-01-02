@@ -1,0 +1,68 @@
+<svg height="800" width="1000" xmlns="http://www.w3.org/2000/svg">
+<title>Your Diagram Title</title>
+<!-- Generated with SankeyMATIC: 1/2/2025, 10:48:07 AM -->
+<rect height="800" width="1000" fill="#ffffff"></rect>
+<g transform="translate(94.5318,18)">
+<g id="sankey_flows">
+<path id="flow0" d="M12 319.17647C104.06627 319.17647 104.06627 218.58824 196.13254 218.58824" fill="none" stroke-width="247.17647" stroke="#1b9e77" opacity="0.45"><title>Consented → Passed Headphone Screener: 121</title></path>
+<path id="flow2" d="M208.13254 228.80214C300.19881 228.80214 300.19881 267.76075 392.26508 267.76075" fill="none" stroke-width="226.74866" stroke="#d95f02" opacity="0.45"><title>Passed Headphone Screener → Entered VWP: 111</title></path>
+<path id="flow4" d="M404.26508 303.50941C496.33135 303.50941 496.33135 427.99465 588.39762 427.99465" fill="none" stroke-width="155.25134" stroke="#e7298a" opacity="0.45"><title>Entered VWP → Failed Calibration: 76</title></path>
+<path id="flow1" d="M12 510.17647C104.06627 510.17647 104.06627 694.58824 196.13254 694.58824" fill="none" stroke-width="134.82353" stroke="#1b9e77" opacity="0.45"><title>Consented → Failed Headphone Screener: 66</title></path>
+<path id="flow3" d="M404.26508 193.19925C496.33135 193.19925 496.33135 32.68449 588.39762 32.68449" fill="none" stroke-width="65.36898" stroke="#e7298a" opacity="0.45"><title>Entered VWP → Completed VWP: 32</title></path>
+<path id="flow5" d="M600.39762 0v57.19786L784.53016 57.19786v-57.19786z" fill="#66a61e" stroke-width="0.5" stroke="#66a61e" opacity="0.45"><title>Completed VWP → Final Sample: 28</title></path>
+</g>
+<g id="sankey_nodes">
+<g class="node">
+<rect id="r0_border" class="for_r0" x="0" y="195.58824" height="382" width="12" stroke="rgb(13, 77, 58)" stroke-width="3" fill="none"></rect>
+<rect id="r0" class="for_r0" x="0" y="195.58824" height="382" width="12" fill="#1b9e77" fill-opacity="1"><title>Consented:
+187</title></rect>
+</g>
+<g class="node">
+<rect id="r1_border" class="for_r1" x="196.13254" y="95" height="247.17647" width="12" stroke="rgb(106, 47, 1)" stroke-width="3" fill="none"></rect>
+<rect id="r1" class="for_r1" x="196.13254" y="95" height="247.17647" width="12" fill="#d95f02" fill-opacity="1"><title>Passed Headphone Screener:
+121</title></rect>
+</g>
+<g class="node">
+<rect id="r2_border" class="for_r2" x="196.13254" y="627.17647" height="134.82353" width="12" stroke="rgb(57, 55, 88)" stroke-width="3" fill="none"></rect>
+<rect id="r2" class="for_r2" x="196.13254" y="627.17647" height="134.82353" width="12" fill="#7570b3" fill-opacity="1"><title>Failed Headphone Screener:
+66</title></rect>
+</g>
+<g class="node">
+<rect id="r3_border" class="for_r3" x="392.26508" y="154.38642" height="226.74866" width="12" stroke="rgb(113, 20, 68)" stroke-width="3" fill="none"></rect>
+<rect id="r3" class="for_r3" x="392.26508" y="154.38642" height="226.74866" width="12" fill="#e7298a" fill-opacity="1"><title>Entered VWP:
+111</title></rect>
+</g>
+<g class="node">
+<rect id="r4_border" class="for_r4" x="588.39762" y="0" height="65.36898" width="12" stroke="rgb(50, 81, 15)" stroke-width="3" fill="none"></rect>
+<rect id="r4" class="for_r4" x="588.39762" y="0" height="65.36898" width="12" fill="#66a61e" fill-opacity="1"><title>Completed VWP:
+32</title></rect>
+</g>
+<g class="node">
+<rect id="r5_border" class="for_r5" x="588.39762" y="350.36898" height="155.25134" width="12" stroke="rgb(57, 55, 88)" stroke-width="3" fill="none"></rect>
+<rect id="r5" class="for_r5" x="588.39762" y="350.36898" height="155.25134" width="12" fill="#7570b3" fill-opacity="1"><title>Failed Calibration:
+76</title></rect>
+</g>
+<g class="node">
+<rect id="r6_border" class="for_r6" x="784.53016" y="0" height="57.19786" width="12" stroke="rgb(113, 84, 1)" stroke-width="3" fill="none"></rect>
+<rect id="r6" class="for_r6" x="784.53016" y="0" height="57.19786" width="12" fill="#e6ab02" fill-opacity="1"><title>Final Sample:
+28</title></rect>
+</g>
+</g>
+<g id="sankey_labels" font-family="sans-serif" font-size="16px" fill="#000000">
+<text text-anchor="middle" x="405.4682" y="777" font-size="12.1338px" font-weight="400" fill="#336781">Made at SankeyMATIC.com</text>
+<rect id="label0_bg" class="for_r0" x="-82.53938" y="365.81875" width="79.41281" height="41.26875" rx="4" fill="#fff" fill-opacity="0.75" stroke="none" stroke-width="0" stroke-opacity="0"></rect>
+<text id="label0" class="for_r0" text-anchor="end" x="-7.80492" y="386.58824" font-weight="400" font-size="14.4px" dy="-5.27344">Consented<tspan x="-7.80492" dy="19.32" font-weight="400" font-size="17.6px">187</tspan></text>
+<rect id="label1_bg" class="for_r1" x="102.98594" y="197.81875" width="198.69406" height="41.26875" rx="4" fill="#fff" fill-opacity="0.75" stroke="none" stroke-width="0" stroke-opacity="0"></rect>
+<text id="label1" class="for_r1" text-anchor="middle" x="202.13254" y="218.58824" font-weight="400" font-size="14.4px" dy="-5.27344">Passed Headphone Screener<tspan x="202.13254" dy="19.32" font-weight="400" font-size="17.6px">121</tspan></text>
+<rect id="label2_bg" class="for_r2" x="211.25156" y="673.81875" width="189.88156" height="41.26875" rx="4" fill="#fff" fill-opacity="0.75" stroke="none" stroke-width="0" stroke-opacity="0"></rect>
+<text id="label2" class="for_r2" text-anchor="start" x="215.93746" y="694.58824" font-weight="400" font-size="14.4px" dy="-5.27344">Failed Headphone Screener<tspan x="215.93746" dy="19.32" font-weight="400" font-size="17.6px">66</tspan></text>
+<rect id="label3_bg" class="for_r3" x="349.97031" y="246.99062" width="96.99094" height="41.26875" rx="4" fill="#fff" fill-opacity="0.75" stroke="none" stroke-width="0" stroke-opacity="0"></rect>
+<text id="label3" class="for_r3" text-anchor="middle" x="398.26508" y="267.76075" font-weight="400" font-size="14.4px" dy="-5.27344">Entered VWP<tspan x="398.26508" dy="19.32" font-weight="400" font-size="17.6px">111</tspan></text>
+<rect id="label4_bg" class="for_r4" x="536.50156" y="11.9125" width="116.19406" height="41.26875" rx="4" fill="#fff" fill-opacity="0.75" stroke="none" stroke-width="0" stroke-opacity="0"></rect>
+<text id="label4" class="for_r4" text-anchor="middle" x="594.39762" y="32.68449" font-weight="400" font-size="14.4px" dy="-5.27344">Completed VWP<tspan x="594.39762" dy="19.32" font-weight="400" font-size="17.6px">32</tspan></text>
+<rect id="label5_bg" class="for_r5" x="603.51719" y="407.225" width="121.81906" height="41.26875" rx="4" fill="#fff" fill-opacity="0.75" stroke="none" stroke-width="0" stroke-opacity="0"></rect>
+<text id="label5" class="for_r5" text-anchor="start" x="608.20254" y="427.99465" font-weight="400" font-size="14.4px" dy="-5.27344">Failed Calibration<tspan x="608.20254" dy="19.32" font-weight="400" font-size="17.6px">76</tspan></text>
+<rect id="label6_bg" class="for_r6" x="799.65781" y="7.83437" width="93.78781" height="41.26875" rx="4" fill="#fff" fill-opacity="0.75" stroke="none" stroke-width="0" stroke-opacity="0"></rect>
+<text id="label6" class="for_r6" text-anchor="start" x="804.33508" y="28.59893" font-weight="400" font-size="14.4px" dy="-5.27344">Final Sample<tspan x="804.33508" dy="19.32" font-weight="400" font-size="17.6px">28</tspan></text>
+</g>
+</g></svg>
