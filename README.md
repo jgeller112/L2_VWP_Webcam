@@ -134,10 +134,6 @@ Finally, it’s also possible to not use {rix} and instead run everything using 
 - Make sure the following is installed:
 
 ```
-library(remotes) # install github repo
-remotes::install_github("jgeller112/webgazeR")
-```
-```
 r_pkgs = c(
     "tidyverse",
     "knitr", 
@@ -155,6 +151,10 @@ r_pkgs = c(
     "foreach",
     "ggokabeito"
   )
+```
+
+```
+remotes::install_github("jgeller112/webgazeR")
 ```
 
 1.  Open `L2_VWP_Webcam.Rproj` to open a new RStudio project.
