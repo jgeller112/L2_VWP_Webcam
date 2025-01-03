@@ -80,8 +80,8 @@ To reproduce the manuscript, you will need the following:
 1. **Nix** - A package manager to create a stable environment.
 2. **Rix** - An R package for managing reproducible environments with Nix.
 3. **RStudio** or **Positron** - To run the R scripts and render the Quarto document.
-4. **Quarto** - To compile the manuscript.
-5. **apaQuarto** - APA manuscript template [https://github.com/wjschne/apaquarto/tree/main]
+5. **Quarto** - To compile the manuscript.
+6. **apaQuarto** - APA manuscript template [https://github.com/wjschne/apaquarto/tree/main]
 
 ### Installation Guides
 
@@ -98,17 +98,19 @@ To reproduce the manuscript, you will need the following:
 
 ## Steps to Reproduce
 
-### 1. Clone the Repository
+### Nix/Rix
+
+#### 1. Clone the Repository
 Clone this repository to your local machine:
 ```bash
 git clone https://github.com/your-repo-name.git
 cd your-repo-name
 ```
 
-### 2. Open the Project
+#### 2. Open the Project
 Open the R project file `L2_VWP_Webcam.Rproj` in RStudio or Positron.
 
-### 3. Build the Environment
+#### 3. Build the Environment
 Use Nix to set up the reproducible environment:
 ```bash
 nix-build
@@ -129,15 +131,8 @@ rstudio
 
 Finally, it’s also possible to not use {rix} and instead run everything using R packages that you install systemwide.
 
-0.  Install these preliminary things:
+- Make sure the following is installed:
 
-    - **R 4.4.1** (or later) and **RStudio**.
-
-    - **Quarto 1.5.54** (or later).
-      
-    - **Typst** [https://github.com/typst/typst#installation]
-    - Make sure these pacakges are installed and loaded: 
-  
 ```
 library(remotes) # install github repo
 remotes::install_github("jgeller112/webgazeR")
@@ -165,7 +160,8 @@ r_pkgs = c(
 1.  Open `L2_VWP_Webcam.Rproj` to open a new RStudio project.
 
 2.  Open `/_manuscript/L2_VWP_Webcam_ET.qmd`
-3.  Run each chunk in the manuscript
+
+4.  Run each chunk in the manuscript
 
 *Note that some computations can take a long time, depending on computer performance etc*
 
