@@ -38,7 +38,7 @@ Authors:
 | `data_exp_196386-v6_task-wrbu.csv`         | Version 6   | Headphone screener performance data.                                                          |
 | `data_exp_196386-v6_task-zlmf.csv`         | Version 6   | Task-related data (unspecified details).                                                      |
 
-- The raw subfolder (/data/L2/raw) conatins all the eye tracking files.
+- The raw subfolder (/data/L2/raw) conatins all the eye tracking files (for each participant and each trial)
 - Each data file has the following columns: 
 
 | **Column Name**         | **Description**                                                                                              |
