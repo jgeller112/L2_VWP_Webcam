@@ -21,7 +21,7 @@ Authors:
 |------------------------------------------|-------------|-------------------------------------------------------------------------------------------------|
 | `data_exp_196386-v5_questionnaire-3956.csv` | Version 5   | Demographic questions from participants.                                                      |
 | `data_exp_196386-v5_questionnaire-7ac3.csv` | Version 5   | Eye-tracking-related questionnaire data.                                                      |
-| `data_exp_196386-v5_questionnaire-f8mc.csv` | Version 5   | Consent forms from participants.                                                              |
+| `data_exp_196386-v5_questionnaire-f8mc.csv` | Version 5   | Consent form response from participants.                                                              |
 | `data_exp_196386-v5_questionnaire-ng98.csv` | Version 5   | Eye-tracking questionnaire data for participants who failed calibration.                      |
 | `data_exp_196386-v5_questionnaire-w1i9.csv` | Version 5   | Demographic questions for participants who failed calibration.                                |
 | `data_exp_196386-v5_task-n2oy.csv`         | Version 5   | Task-related data (unspecified details).                                                      |
@@ -30,7 +30,7 @@ Authors:
 | `data_exp_196386-v5_task-zlmf.csv`         | Version 5   | Task-related data (unspecified details).                                                      |
 | `data_exp_196386-v6_questionnaire-3956.csv` | Version 6   | Demographic questions from participants.                                                      |
 | `data_exp_196386-v6_questionnaire-7ac3.csv` | Version 6   | Eye-tracking-related questionnaire data.                                                      |
-| `data_exp_196386-v6_questionnaire-f8mc.csv` | Version 6   | Consent forms from participants.                                                              |
+| `data_exp_196386-v6_questionnaire-f8mc.csv` | Version 6   | Consent form response from participants.                                                              |
 | `data_exp_196386-v6_questionnaire-ng98.csv` | Version 6   | Eye-tracking questionnaire data for participants who failed calibration.                      |
 | `data_exp_196386-v6_questionnaire-w1i9.csv` | Version 6   | Demographic questions for participants who failed calibration.                                |
 | `data_exp_196386-v6_task-n2oy.csv`         | Version 6   | Task-related data (unspecified details).                                                      |
