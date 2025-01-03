@@ -68,46 +68,63 @@ Authors:
 | `zone_height_normalised` | Normalized height of the zone.                                                                             |
 
 
-## Reproduce
+# Reproducing the Manuscript
 
-To maximize reproducibility, we wrote our manuscript using [Quarto](https://quarto.org/), which allowed us to mix computational figures, text, and tables with the actual prose of the manuscript. This means that there's no need to rely on comments within code to identify the location of each appropriate result in the manuscript—all results are programmatically included when rendering the document.
+This repository contains all the resources needed to reproduce the manuscript associated with this project. To ensure maximum reproducibility, we used [Quarto](https://quarto.org/) for creating the manuscript. This allows computational figures, tables, and text to be programmatically included directly in the manuscript, ensuring that all results are seamlessly integrated into the document.
 
-### Nix/Rix
+## Prerequisites
 
-We use the {rix package} to create a stable version-specific library of R packages and the environment. This interfaces with nix. 
+### Required Software
+To reproduce the manuscript, you will need the following:
 
-Below are the steps to reproduce the project with Nix
+1. **Nix** - A package manager to create a stable environment.
+2. **Rix** - An R package for managing reproducible environments with Nix.
+3. **RStudio** or **Positron** - To run the R scripts and render the Quarto document.
+4. **Quarto** - To compile the manuscript.
+5. **apaQuarto** - APA manuscript template [https://github.com/wjschne/apaquarto/tree/main]
 
-1. Make sure you have Nix and Rix installed
+### Installation Guides
 
-   - For pc: https://docs.ropensci.org/rix/articles/b1-setting-up-and-using-rix-on-linux-and-windows.html
-   - For Mac: https://docs.ropensci.org/rix/articles/b2-setting-up-and-using-rix-on-macos.html
-      - You will need to have Positron installed to reproduce the manuscript on mac https://positron.posit.co/
+- **Nix and Rix**
+  - For Windows and Linux: [Setup Guide](https://docs.ropensci.org/rix/articles/b1-setting-up-and-using-rix-on-linux-and-windows.html)
+  - For macOS: [Setup Guide](https://docs.ropensci.org/rix/articles/b2-setting-up-and-using-rix-on-macos.html)
 
-- in R:
+- **Positron** (macOS only): [Installation Guide](https://positron.posit.co/)
+
+- **Rix** (in R):
+  ```r
+  install.packages("rix")
+  ```
+
+## Steps to Reproduce
+
+### 1. Clone the Repository
+Clone this repository to your local machine:
+```bash
+git clone https://github.com/your-repo-name.git
+cd your-repo-name
 ```
-install.packages(rix)
-```
-    
-2. Download the repository from GitHub
 
-3. Open `L2_VWP_Webcam.Rproj` to start new RStudio session
+### 2. Open the Project
+Open the R project file `L2_VWP_Webcam.Rproj` in RStudio or Positron.
 
- - To start using this environment, open a terminal in RStudio and use the following Nix command:
-
-```
+### 3. Build the Environment
+Use Nix to set up the reproducible environment:
+```bash
 nix-build
-```
-
-```
 nix-shell
 ```
 
-Once in the shell you can call Rstudio or Positron to open open up the correct enviroment for reproduceability
+Once in the shell, launch your IDE in the correct environment:
+```bash
+open -na Positron --args ~/path/to/L2_VWP_Webcam.Rproj
+```
+For RStudio, simply type:
+```bash
+rstudio
+```
 
-```
-Rstudio or
-```
+
 ###  Run locally with packages installed systemwide
 
 Finally, it’s also possible to not use {rix} and instead run everything using R packages that you install systemwide.
