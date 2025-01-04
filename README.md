@@ -117,14 +117,31 @@ Use Nix to set up the reproducible environment:
 nix-build
 nix-shell
 ```
+Once in the shell, You can: 
 
-Once in the shell, launch your IDE in the correct environment:
+1. Reproduce the manuscript
+
+```
+quarto render "~/_manuscript/L2_VWP_webcam_ET.qmd"
+```
+
+2. launch your IDE in the correct environment:
 ```bash
 open -na Positron --args ~/path/to/L2_VWP_Webcam.Rproj
 ```
 For RStudio, simply type:
 ```bash
 rstudio
+```
+
+#### Have Nix reproduce the manuscrupt
+
+In the shell 
+
+```
+quarto render "~/_manuscript/L2_VWP_webcam_ET.qmd"
+
+
 ```
 
 ###  Run locally with packages installed systemwide
@@ -136,7 +153,8 @@ Finally, it’s also possible to not use {rix} and instead run everything using 
 ```
 r_pkgs = c(
     "tidyverse",
-    "knitr", 
+    "knitr",
+    "webshot2"
     "tinytable",
     "quarto",
     "remotes",
