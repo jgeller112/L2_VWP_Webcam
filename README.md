@@ -70,7 +70,7 @@ Authors:
 
 # Reproducing the Manuscript
 
-This repository contains all the resources needed to reproduce the manuscript associated with this project. To ensure maximum reproducibility, we used [Quarto](https://quarto.org/) for creating the manuscript. This allows computational figures, tables, and text to be programmatically included directly in the manuscript, ensuring that all results are seamlessly integrated into the document.
+This repository contains all the resources needed to reproduce the manuscript associated with this project. To ensure maximum reproducibility, we used [Quarto](https://quarto.org/) for creating the manuscript. This allows computational figures, tables, and text to be programmatically included directly in the manuscript, ensuring that all results are seamlessly integrated into the document. We also provide a file called default.nix which contains the definition of the development environment that was used to work on the analysis. Reproducers can easily re-use the exact same environment by installing the Nix package manager and using the included default.nix file to set up the right environment.
 
 ## Prerequisites
 
@@ -78,7 +78,7 @@ This repository contains all the resources needed to reproduce the manuscript as
 To reproduce the manuscript, you will need the following:
 
 1. **Nix** - A package manager to create a stable environment.
-2. **Rix** - An R package for managing reproducible environments with Nix.
+2. **Git** - To get Github repos [https://git-scm.com/downloads]
 3. **RStudio** or **Positron** - To run the R scripts and render the Quarto document.
 5. **Quarto** - To compile the manuscript.
 6. **apaQuarto** - APA manuscript template [https://github.com/wjschne/apaquarto/tree/main]
@@ -89,24 +89,25 @@ To reproduce the manuscript, you will need the following:
   - For Windows and Linux: [Setup Guide](https://docs.ropensci.org/rix/articles/b1-setting-up-and-using-rix-on-linux-and-windows.html)
   - For macOS: [Setup Guide](https://docs.ropensci.org/rix/articles/b2-setting-up-and-using-rix-on-macos.html)
 
-- **Positron** (macOS only): [Installation Guide](https://positron.posit.co/)
-
-- **Rix** (in R):
-  ```r
-  install.packages("rix")
-  ```
+- **Positron**: [Installation Guide](https://positron.posit.co/)
 
 ## Steps to Reproduce
 
 ### Nix/Rix
 
 #### 1. Clone the Repository
-Clone this repository to your local machine:
-```bash
-git clone https://github.com/your-repo-name.git
-cd your-repo-name
-```
 
+Clone this repository to your local machine:
+
+```bash
+git clone https://github.com/jgeller112/L2_VWP_Webcam.git
+cd L2_VWP_Webcam
+```
+- You can also clone the repository from Github using the SSH
+  
+<img width="947" alt="Screenshot 2025-01-04 at 5 03 10 PM" src="https://github.com/user-attachments/assets/ffc9afd1-0d42-40e0-84b5-a62b95927791" />
+
+ 
 #### 2. Open the Project
 Open the R project file `L2_VWP_Webcam.Rproj` in RStudio or Positron.
 
@@ -125,7 +126,6 @@ For RStudio, simply type:
 ```bash
 rstudio
 ```
-
 
 ###  Run locally with packages installed systemwide
 
@@ -156,6 +156,8 @@ r_pkgs = c(
 ```
 remotes::install_github("jgeller112/webgazeR")
 ```
+1. Download the repository from Github
+   <img width="961" alt="Screenshot 2025-01-04 at 5 00 54 PM" src="https://github.com/user-attachments/assets/09523d6c-1a7a-435f-9dce-bb099df7adcd" />
 
 1.  Open `L2_VWP_Webcam.Rproj` to open a new RStudio project.
 
