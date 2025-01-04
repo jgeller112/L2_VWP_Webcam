@@ -57,7 +57,7 @@ Authors:
 | `y_pred_normalised`      | Normalized y-coordinate of the gaze (scaled to the screen dimensions).                                     |
 | `convergence`            | Measure of gaze convergence (e.g., quality or reliability of prediction).                                  |
 | `face_conf`              | Confidence level for face detection during eye-tracking.                                                  |
-| `zone_name`              | Name of the area of interest (AOI) or zone where the gaze is located.                                      |
+| `zone_name`              | Name of the area of interest (AOI)                                   |
 | `zone_x`                 | x-coordinate of the top-left corner of the zone on the screen.                                             |
 | `zone_y`                 | y-coordinate of the top-left corner of the zone on the screen.                                             |
 | `zone_width`             | Width of the zone in screen units.                                                                         |
