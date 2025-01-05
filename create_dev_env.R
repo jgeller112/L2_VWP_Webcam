@@ -1,11 +1,13 @@
+
+path_to_project="~/Documents/L2_VWP_Project"
+
 rix(
-  r_ver = "8c4dc69b9732f6bbe826b5fbb32184987520ff26",
+  r_ver = "latest",
   r_pkgs = c(
     "tidyverse",
+    "flextable", 
     "knitr",
-    "networkD3", 
-    "htmlwidgets", 
-    "webshot", 
+    "webshot2", 
     "tinytable",
     "quarto",
     "remotes",
@@ -25,7 +27,7 @@ rix(
     list(
       package_name = "webgazer",
       repo_url = "https://github.com/jgeller112/webgazeR/",
-      commit = "1fa04e0ac649fc73843a05ed83d5e7c994c801fe"
+      commit = "c22a3e072cbf2240a718cd28f80b454fbaa3b905"
     )
   ),
   ide = "code",
