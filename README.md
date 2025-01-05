@@ -11,6 +11,37 @@ Authors:
 - Sarah Colby
 - Julia Droulin
 
+## Overview
+
+L2_VWP_Webcam/
+├── .Rprofile
+├── .gitignore
+├── L2_VWP_Webcam.Rproj
+├── README.md
+├── create_dev_env.R
+├── default.nix
+├── .project
+├── _extensions/
+│   └── wjschne/
+│       └── apaquarto/
+├── _manuscript/
+├── data/
+├── files/
+└── result/
+
+Key Components:
+
+.Rprofile: Configuration file for R sessions.
+.gitignore: Specifies files and directories for Git to ignore.
+L2_VWP_Webcam.Rproj: RStudio project file.
+README.md: Provides an overview of the project.
+create_dev_env.R: Script to set up the development environment.
+default.nix: Configuration file for the Nix package manager.
+.project: Project configuration file.
+_extensions/: Contains extensions, including wjschne/apaquarto/.
+_manuscript/: Manuscript-related files.
+data/: Directory for data files.
+
 ## Data
 
 - All data for this manuscript can be found in the data folder (/data/L2). 
