@@ -1,7 +1,7 @@
 ---
 title: "Language Without Borders: A Step-by-Step Guide to Analyzing Webcam Eye-Tracking Data for L2 Research"
-# If blank, the running header is the title in upper case.
-shorttitle: VWP Webcam Tutorial
+# If blank, the running header is the title in 
+shorttitle: "VWP Webcam Tutorial"
 # Set names and affiliations.
 # It is nice to specify everyone's orcid, if possible.
 # There can be only one corresponding author, but declaring one is optional.
@@ -119,7 +119,7 @@ language:
   title-block-correspondence-note: "Correspondence concerning this article should be addressed to"
   title-block-role-introduction: "Author roles were classified using the Contributor Role Taxonomy (CRediT; https://credit.niso.org/) as follows:"
 format:
-  apaquarto-typst: default
+  apaquarto-docx: default
 execute: 
   echo: true
   warning: false
@@ -158,7 +158,7 @@ Methods that allow participants to use their own equipment from anywhere in the 
 
 One method, manual eye-tracking [@trueswell2008], involves using video recordings of participants, which can be collected through online teleconferencing platforms such as Zoom (www.zoom.com). Here eye gaze (direction) is manually analyzed post-hoc frame by frame from these recordings.
 
-Another method, which is the focus of this tutorial, is automated eye-tracking or webcam eye-tracking. Webcam eye-tracking requires three things: 1. A personal computer. 2. An internet connection and 3. A purchased or pre-installed webcamera. Gaze information can be collected via a web browser. One common method to perform webcam eye-tracking is through an open source, free, and actively maintained JavaScript library plugin called WebGazer.js [@papoutsaki2016]. This plugin is already incorporated into several popular experimental platforms (e.g., *Gorilla*, *jsPsych*, *PsychoPy*, and *PCIbex*; [@anwyl-irvine2020 @peirce2019; @deleeuw2015; @zehr2018penncontroller]. A benefit of WebGazer.js is that it does not require users to download any software, and is fully integrated in the browser, making it extremely easy to start webcam eye-tracking.
+Another method, which is the focus of this tutorial, is automated eye-tracking or webcam eye-tracking. Webcam eye-tracking requires three things: 1. A personal computer. 2. An internet connection and 3. A purchased or pre-installed webcamera. Gaze information can be collected via a web browser. One common method to perform webcam eye-tracking is through an open source, free, and actively maintained JavaScript library plugin called WebGazer.js [@papoutsaki2016]. This plugin is already incorporated into several popular experimental platforms [e.g., *Gorilla*, *jsPsych*, *PsychoPy*, and *PCIbex*; @anwyl-irvine2020; @peirce2019; @deleeuw2015; @zehr2018penncontroller]. A benefit of WebGazer.js is that it does not require users to download any software, and is fully integrated in the browser, making it extremely easy to start webcam eye-tracking.
 
 WebGazer.js uses facial feature detection to dynamically estimate gaze positions in real time via webcam. For every time point (based on sampling rate), x and y coordinates are recorded. WebGazer.js leverages machine learning to analyze the relative movement of the eyes and infer gaze location on a screen. To imporve accuracy, a calibration process is used in which users interaction with visual stimuli, such as looking at and clicking random dots or tracking a moving dot. This mapping process enhances the precision of the gaze-to-screen-coordinate relationship
 
@@ -237,6 +237,7 @@ knitr::include_graphics(here::here("_manuscript", "Figures", "sankey_plot.svg"))
 
 
 library(tidyverse)
+library(here)
 library(gtsummary)
 
 quest1 <- read_csv(here::here("data", "L2", "data_exp_196386-v5_questionnaire-3956.csv"))
@@ -375,7 +376,7 @@ For preprocessing visual world webcam eye data, we follow six general steps:
 
 For each of these steps, we will display R code chunks demonstrating how to perform each step with helper functions (if applicable) from the `webgazeR` [@webgazeR] package in R.
 
-### Load Packages
+### Load packages
 
 ##### Package Installation and Setup
 
@@ -383,34 +384,46 @@ Before turning to the pre-processing code below, we will need to make sure all t
 
 ##### webgazeR installation
 
-The `webgazeR` package is installed in `Code Block 1` from Github using the `remotes` package.
+The `webgazeR` package is installed from the Github repository using the `remotes` package.
 
 ```{r}
 #| label: webgazer
+#| eval: false
 library(remotes) # install github repo
 
 remotes::install_github("jgeller112/webgazeR")
 ```
 
-Once this is installed, `webgazeR` can be loaded along with additional useful packages.
+Once this is installed, `webgazeR` can be loaded along with additional useful packages. The following code will load the required packages or install them if you do not have them on your system.
 
 ```{r}
 #| label: packages
-
-options(stringsAsFactors = F) # no automatic data transformation
+options(stringsAsFactors = FALSE) # no automatic data transformation
 options("scipen" = 100, "digits" = 10) # suppress math annotation
-library(tidyverse) # data wrangling 
-library(here) # relative paths instead of abosoulte aids in reproduce
-library(tinytable) # nice tables
-library(janitor)# functions for cleaning up your column names
-library(webgazeR) # has webcam functions
-library(readxl) # read in excel files
-library(ggokabeito) # color blind 
-library(flextable) # word tables
-library(permuco) # permutation analysis
-library(foreach) # permiutation analysis
-library(geomtextpath) # for plotting labels on lines of ggplot figs
-library(cowplot) # combine ggplot figs
+
+# List of required packages
+required_packages <- c(
+  "tidyverse",      # data wrangling
+  "here",           # relative paths instead of absolute aids in reproducibility
+  "tinytable",      # nice tables
+  "janitor",        # functions for cleaning up your column names
+  "webgazeR",       # has webcam functions
+  "readxl",         # read in Excel files
+  "ggokabeito",     # color-blind friendly palettes
+  "flextable",      # Word tables
+  "permuco",        # permutation analysis
+  "foreach",        # permutation analysis
+  "geomtextpath",   # for plotting labels on lines of ggplot figures
+  "cowplot"         # combine ggplot figures
+)
+
+# Install and load each package
+for (pkg in required_packages) {
+  if (!require(pkg, character.only = TRUE)) {
+    install.packages(pkg, dependencies = TRUE)
+    library(pkg, character.only = TRUE)
+  }
+}
 ```
 
 Once `webgazeR` and other helper packages have been installed and loaded the user is ready to start cleaning your data.
@@ -602,7 +615,7 @@ trial_data_acc_clean_L2 <- trial_data_rt_L2 %>%
 
 #### RTs
 
-There is much debate on how to handle RT data [see @miller2023]. Because of this. we leave it up to the reader and researcher to decide what to do with RTs. In the current example, we ignore RTs.
+There is much debate on how to handle RT data [see @miller2023]. Because of this. we leave it up to the reader and researcher to decide what to do with RTs. In the current example we ignore RTs.
 
 #### Sampling rate
 
@@ -902,7 +915,7 @@ Once we do this we can use `assign_aoi()` to loop through our object called `dat
 
 ```{r}
 
-assign_L2 <- gazer::assign_aoi(dat_colnames_L2,X="x_pred_normalised", Y="y_pred_normalised",aoi_loc = aoi_loc)
+assign_L2 <- webgazeR::assign_aoi(dat_colnames_L2,X="x_pred_normalised", Y="y_pred_normalised",aoi_loc = aoi_loc)
 
 
 AOI_L2 <- assign_L2 %>%
@@ -947,7 +960,7 @@ dat_long_aoi_me_L2 <- AOI_L2 %>%
 
 ```
 
-We frirther clean up the object by first cleaning up the condition codes. They have a numeral appended to them and that should be removed. We then adjust the timing in the `gaze_sub_L2_comp` object by aligning time to the actual audio onset. To achieve this, we subtract `RT_audio` from time for each trial. In addition, we subtract 300 ms from this to account for the 100 ms of silence at the beginning of each audio clip and 200 ms to account for the oculomotor delay when planning an eye movement @viviani1990. Additionally, we set our interest period between 0 ms (audio onset) and 2000 ms. This was chosen based on the time course figures in @sarrett2022 . It is important that you choose your interest area carefully and preferably you preregister it. The interest period you choose can have drastic We also filter out gaze coordinates that fall outside the standardized window, ensuring only valid data points are retained. The resulting object `gaze_sub_long_L2` provides the corrected time column spanning from -200 ms to 2000 ms relative to stimulus onset with looks outside the screen removed.
+We further clean up the object by first cleaning up the condition codes. They have a numeral appended to them and that should be removed. We then adjust the timing in the `gaze_sub_L2_comp` object by aligning time to the actual audio onset. To achieve this, we subtract `RT_audio` from time for each trial. In addition, we subtract 300 ms from this to account for the 100 ms of silence at the beginning of each audio clip and 200 ms to account for the oculomotor delay when planning an eye movement @viviani1990. Additionally, we set our interest period between 0 ms (audio onset) and 2000 ms. This was chosen based on the time course figures in @sarrett2022 . It is important that you choose your interest area carefully and preferably you preregister it. The interest period you choose can have drastic We also filter out gaze coordinates that fall outside the standardized window, ensuring only valid data points are retained. The resulting object `gaze_sub_long_L2` provides the corrected time column spanning from -200 ms to 2000 ms relative to stimulus onset with looks outside the screen removed.
 
 ```{r}
 # repalce the numbers appended to conditions that somehow got added 
@@ -983,7 +996,7 @@ In addition, the `downsample_gaze()` allows you to aggregate across other variab
 
 ```{r}
 
-gaze_sub_L2 <- downsample_gaze(gaze_sub_L2_long, bin.length=100, timevar="time", aggvars=c("condition", "condition1", "time_bin"))
+gaze_sub_L2 <- webgazeR::downsample_gaze(gaze_sub_L2_long, bin.length=100, timevar="time", aggvars=c("condition", "condition1", "time_bin"))
 
 ```
 
@@ -1005,7 +1018,7 @@ To simplify the analysis, we combine the two unrelated conditions and average th
 ```{r}
 
 # Average Fix for unrelated and unrelated2, then combine with the rest
-gaze_sub_L2 <- gaze_sub_L2 %>%
+gaze_sub_L2_avg <- gaze_sub_L2 %>%
     group_by(condition, time_bin) %>%
     summarise(
         Fix = mean(Fix[condition1 %in% c("unrelated", "unrelated2")], na.rm = TRUE),
@@ -1023,7 +1036,7 @@ The above will not include the subject variable. If you want to keep participant
 #| eval: false
 
 # add subject-level data
-gaze_sub_L2_id <- downsample_gaze(gaze_sub_L2_long, bin.length=100, timevar="time", aggvars=c("subject", "condition", "condition1", "time_bin"))
+gaze_sub_L2_id <- webgazeR::downsample_gaze(gaze_sub_L2_long, bin.length=100, timevar="time", aggvars=c("subject", "condition", "condition1", "time_bin"))
 ```
 
 Aggregation is an optional step. If you do not plan to analyze proportion data, and instead what time binned data with binary outcomes preserved please set the `aggvars` argument to "none." This will return a time binned column, but will not aggregate over other variables.
@@ -1053,7 +1066,7 @@ Below we have plotted the time course data in @fig-L2comp for each condition. By
 #| echo: false
 
 tcru <- plot_IA_proportions(
-    gaze_sub_L2, 
+    gaze_sub_L2_avg, 
     ia_column = "condition1",
     time_column = "time_bin",
     proportion_column = "Fix",
@@ -1548,7 +1561,7 @@ Overall, while the methodological and sample differences between the two studies
 
 ## Limitations
 
-While the above suggests that webcam eye-tracking is a promising avenue for language research, there are some issues that we ran into that need to be addressed. One issue is data loss due to poor calibration. In our study, we had to throw out \~40% of our data due to poor calibration. Other studies have shown numbers much higher [e.g., 73%; @slim2023] and lower \[e.g., 20%; @prystauka2024\]. Given this, it is still an open question as to what contributes to better vs. poor data quality in webcam eye-tracking. To this end, we included an assessment after the VWP that included questions on the participants’ experimental set-ups and overall experiences with the eye-tracking experiment. All questions are included @tbl-question.
+While the above suggests that webcam eye-tracking is a promising avenue for language research, there are some issues that we ran into that need to be addressed. One issue is data loss due to poor calibration. In our study, we had to throw out \~40% of our data due to poor calibration. Other studies have shown numbers much higher [e.g., 73%; @slim2023] and lower [e.g., 20%; @prystauka2024]. Given this, it is still an open question as to what contributes to better vs. poor data quality in webcam eye-tracking. To this end, we included an assessment after the VWP that included questions on the participants’ experimental set-ups and overall experiences with the eye-tracking experiment. All questions are included @tbl-question.
 
 ### Poor vs. good calibrators
 
