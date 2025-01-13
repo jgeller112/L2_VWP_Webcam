@@ -258,6 +258,10 @@ Finally, it’s also possible forget {rix} and instead run everything using R pa
 ```
 r_pkgs = c(
     "tidyverse",
+    "sgvlite",
+    "buildmer",
+    "webshot",
+    "networkD3", 
     "knitr",
     "webshot2"
     "tinytable",
