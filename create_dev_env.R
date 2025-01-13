@@ -5,9 +5,13 @@ rix(
   r_ver = "latest",
   r_pkgs = c(
     "tidyverse",
+    "tinytex",
     "flextable", 
     "knitr",
     "webshot2", 
+    "webshot", 
+    "networkD3",
+    "buildmer",
     "tinytable",
     "quarto",
     "remotes",
@@ -22,7 +26,7 @@ rix(
     "foreach",
     "ggokabeito"
   ),
-  system_pkgs = c("quarto", "git"),
+  system_pkgs = c("quarto", "git", "pandoc"),
   git_pkgs = list(
     list(
       package_name = "webgazer",
@@ -31,7 +35,7 @@ rix(
     )
   ),
   ide = "code",
-  project_path = path_to_project,
+  project_path = ".",
   overwrite = TRUE,
   print = TRUE
 )
