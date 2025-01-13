@@ -35,7 +35,7 @@ L2_VWP_Webcam/
 - **`.gitignore`**: Specifies files and directories for Git to ignore.
 - **`L2_VWP_Webcam.Rproj`**: RStudio project file.
 - **`README.md`**: Provides an overview of the project.
-- **`create_dev_env.R`**: Script to set up the development environment.
+- **`create_dev_env.R`**: Script to set up the nix environment
 - **`default.nix`**: Configuration file for the Nix package manager.
 - **`.project`**: Project configuration file.
 
@@ -75,8 +75,81 @@ L2_VWP_Webcam/
 | `data_exp_196386-v6_task-wrbu.csv`         | Version 6   | Headphone screener performance data.                                                          |
 | `data_exp_196386-v6_task-zlmf.csv`         | Version 6   | Task-related data (unspecified details).                                                      |
 
+###  Trial data dictionary
+
+- Trial-level files
+
+  - `data_exp_196386-v5_task-scf6.csv`
+  - `data_exp_196386-v6_task-scf6.csv`
+
+#### Data Dictionary
+
+| Column Name                 | Data Type   | Description                                                                 |
+|-----------------------------|-------------|-----------------------------------------------------------------------------|
+| **Event Index**             | Integer     | Unique identifier for each event or record.                                |
+| **UTC Timestamp**           | Integer     | Unix timestamp in UTC for the event.                                       |
+| **UTC Date and Time**       | Datetime    | Date and time in UTC.                                                      |
+| **Local Timestamp**         | Integer     | Unix timestamp in the local timezone.                                      |
+| **Local Timezone**          | String      | Offset from UTC for the local timezone.                                    |
+| **Local Date and Time**     | Datetime    | Date and time in the local timezone.                                       |
+| **Experiment ID**           | Integer     | Identifier for the experiment.                                             |
+| **Experiment Version**      | Integer     | Version number of the experiment.                                          |
+| **Tree Node Key**           | String      | Key referencing the structure of the experiment in the tool.               |
+| **Repeat Key**              | String      | Indicates repeat instances within the same tree node, if applicable.       |
+| **Schedule ID**             | Integer     | Identifier for the schedule used.                                          |
+| **Participant Public ID**   | String      | Publicly visible participant ID.                                           |
+| **Participant Private ID**  | String      | Privately stored participant ID for anonymization.                         |
+| **Participant Starting Group** | String  | Starting group for counterbalancing or experimental design.                |
+| **Participant Status**      | String      | Status of the participant in the experiment (e.g., "complete").            |
+| **Participant Completion Code** | String  | Unique code provided upon completion of the experiment.                    |
+| **Participant External Session ID** | String | External session ID for integration with external systems.                 |
+| **Participant Device Type** | String      | Type of device used (e.g., "Desktop or Laptop").                           |
+| **Participant Device**      | String      | Specific device model or description.                                      |
+| **Participant OS**          | String      | Operating system of the participant's device (e.g., "Windows 10").         |
+| **Participant Browser**     | String      | Browser used by the participant (e.g., "Chrome 131.0.0.0").                |
+| **Participant Monitor Size** | String     | Dimensions of the participant's monitor in pixels (e.g., "1536x864").      |
+| **Participant Viewport Size** | String    | Dimensions of the browser viewport in pixels.                              |
+| **Checkpoint**              | String      | Indicates the experimental checkpoint (e.g., "Headphone Check Pass").      |
+| **Room ID**                 | Integer     | Identifier for the room in multi-room designs.                             |
+| **Room Order**              | Integer     | Order of the room within the experiment flow.                              |
+| **Task Name**               | String      | Name of the task being performed.                                          |
+| **Task Version**            | Integer     | Version of the task being executed.                                        |
+| **Spreadsheet**             | String      | Indicates which spreadsheet is used for stimuli selection.                 |
+| **Spreadsheet Name**        | String      | Name of the spreadsheet file.                                              |
+| **Spreadsheet Row**         | Integer     | Row number in the spreadsheet used for the trial.                          |
+| **Trial Number**            | Integer     | Sequential number of the trial within the task.                            |
+| **Screen Number**           | Integer     | Number of the screen presented during the trial.                           |
+| **Screen Name**             | String      | Name of the screen or display area.                                        |
+| **Zone Name**               | String      | Name of the interactive zone on the screen.                                |
+| **Zone Type**               | String      | Type of zone (e.g., "content_video", "continue_button").                   |
+| **Reaction Time**           | Float       | Reaction time for the event in milliseconds.                               |
+| **Reaction Onset**          | Float       | Onset time of the reaction.                                                |
+| **Response Type**           | String      | Type of response (e.g., "continue_button").                                |
+| **Response**                | String      | Content of the participant's response, if applicable.                      |
+| **Attempt**                 | Integer     | Number of attempts made by the participant for this event.                 |
+| **Correct**                 | Integer     | Indicates whether the response was correct (1 = correct, 0 = incorrect).   |
+| **Incorrect**               | Integer     | Indicates whether the response was incorrect (1 = incorrect, 0 = correct). |
+| **Dishonest**               | Integer     | Flag for dishonest responses, if applicable.                               |
+| **X Coordinate**            | Float       | X-coordinate of the response or interaction point on the screen.           |
+| **Y Coordinate**            | Float       | Y-coordinate of the response or interaction point on the screen.           |
+| **Timed Out**               | Integer     | Indicates whether the participant timed out (1 = yes, 0 = no).             |
+| **Randomise Blocks**        | String      | Specifies block randomization settings.                                    |
+| **Randomise Trials**        | String      | Specifies trial randomization settings.                                    |
+| **Display**                 | String      | Name of the display condition, if applicable.                              |
+| **ANSWER**                  | String      | Content of the participant's answer, if applicable.                        |
+| **tlpic, trpic, blpic, brpic** | String   | File names of the images presented in the top-left, top-right, bottom-left, and bottom-right positions. |
+| **soundfile**               | String      | Name of the audio file played during the trial.                            |
+| **eng_targetword**          | String      | English translation of the target word.                                    |
+| **targetword**              | String      | Target word presented during the trial.                                    |
+| **condition**               | String      | Condition for the trial (e.g., "TCUU-SPENG4").                             |
+| **wordsetcode**             | String      | Code identifying the word set used in the trial.                           |
+| **conditioncode**           | String      | Code identifying the specific condition.                                   |
+| **subjectnum**              | Integer     | Subject number assigned to the participant.                                |
+
+### Raw eye-tracking data
 - The raw subfolder (/data/L2/raw) conatins all the eye tracking files (for each participant and each trial)
-- Each data file has the following columns: 
+
+#### Data dictionary
 
 | **Column Name**         | **Description**                                                                                              |
 |--------------------------|------------------------------------------------------------------------------------------------------------|
@@ -118,7 +191,7 @@ To reproduce the manuscript, you will need the following:
 2. **Git** - To get Github repos [https://git-scm.com/downloads]
 3. **RStudio** or **Positron** - To run the R scripts and render the Quarto document.
 5. **Quarto** - To compile the manuscript.
-6. **apaQuarto** - APA manuscript template [https://github.com/wjschne/apaquarto/tree/main]
+6. **apaQuarto** - APA manuscript template [https://github.com/wjschne/apaquarto/tree/main] (you should not have to download this if you download the repo as the _extension file contains all the files needed)
 
 ### Installation Guides
 
@@ -140,18 +213,20 @@ Clone this repository to your local machine:
 git clone https://github.com/jgeller112/L2_VWP_Webcam.git
 cd L2_VWP_Webcam
 ```
-- You can also clone the repository from Github using the SSH
+- You can also clone the repository from Github using the SSH and opeining a project in RStudio/Positron. 
   
 <img width="947" alt="Screenshot 2025-01-04 at 5 03 10 PM" src="https://github.com/user-attachments/assets/ffc9afd1-0d42-40e0-84b5-a62b95927791" />
-
  
 #### 2. Open the Project
 Open the R project file `L2_VWP_Webcam.Rproj` in RStudio or Positron.
 
 #### 3. Build the Environment
 Use Nix to set up the reproducible environment:
-```bash
+```
 nix-build
+```
+
+```
 nix-shell
 ```
 Once in the shell, You can: 
@@ -162,7 +237,10 @@ Once in the shell, You can:
 quarto render "~/_manuscript/L2_VWP_webcam_ET.qmd"
 ```
 
-2. launch your IDE in the correct environment:
+
+or 
+
+2. Launch your IDE in the correct environment in run code and analyses:
 ```bash
 open -na Positron --args ~/path/to/L2_VWP_Webcam.Rproj
 ```
@@ -171,21 +249,11 @@ For RStudio, simply type:
 rstudio
 ```
 
-#### Have Nix reproduce the manuscrupt
-
-In the shell 
-
-```
-quarto render "~/_manuscript/L2_VWP_webcam_ET.qmd"
-
-
-```
-
 ###  Run locally with packages installed systemwide
 
-Finally, it’s also possible to not use {rix} and instead run everything using R packages that you install systemwide.
+Finally, it’s also possible forget {rix} and instead run everything using R packages that you install systemwide.
 
-- Make sure the following is installed:
+- Make sure the required software is installed above and you have the following packages:
 
 ```
 r_pkgs = c(
@@ -211,6 +279,7 @@ r_pkgs = c(
 ```
 remotes::install_github("jgeller112/webgazeR")
 ```
+
 1. Download the repository from Github
    <img width="961" alt="Screenshot 2025-01-04 at 5 00 54 PM" src="https://github.com/user-attachments/assets/09523d6c-1a7a-435f-9dce-bb099df7adcd" />
 
