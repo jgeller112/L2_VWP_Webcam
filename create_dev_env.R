@@ -2,8 +2,9 @@
 path_to_project="~/Documents/L2_VWP_Project"
 
 rix(
-  r_ver = "latest",
+  r_ver = "latest-upstream",
   r_pkgs = c(
+    "svglite",
     "tidyverse",
     "tinytex",
     "flextable", 
@@ -26,7 +27,7 @@ rix(
     "foreach",
     "ggokabeito"
   ),
-  system_pkgs = c("ungoogled-chromium", "quarto", "git", "pandoc"),
+  system_pkgs = c("quarto", "git", "pandoc", "ungoogled_chromium","librsvg"),
   git_pkgs = list(
     list(
       package_name = "webgazer",
