@@ -5,13 +5,13 @@ on:
     branches: [main, master]
   pull_request:
     branches: [main, master]
-
+    
+permissions:
+  contents: read
+  
 jobs:
-  build:
-    strategy:
-      matrix:
-        os: [ubuntu-latest, macos-latest]
-    runs-on: ${{ matrix.os }}
+  build: 
+    runs-on: ubuntu-latest
 
     steps:
     - name: Checkout Code
