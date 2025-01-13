@@ -27,7 +27,7 @@ rix(
     "foreach",
     "ggokabeito"
   ),
-  system_pkgs = c("quarto", "git", "pandoc", "ungoogled_chromium","librsvg"),
+  system_pkgs = c("quarto", "git", "pandoc", "ungoogled-chromium","librsvg"),
   git_pkgs = list(
     list(
       package_name = "webgazer",
