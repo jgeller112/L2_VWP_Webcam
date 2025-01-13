@@ -1,0 +1,40 @@
+name: Render paper with Nix and Quarto
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v3
+
+    - name: Install Nix
+      uses: DeterminateSystems/nix-installer-action@main
+      with:
+        logger: pretty
+        log-directives: nix_installer=trace
+        backtrace: full
+
+    - name: Nix cache
+      uses: DeterminateSystems/magic-nix-cache-action@main
+
+    - name: Build development environment
+      run: |
+        nix-build
+
+    - name: Quarto Render paper
+      run: |
+        nix-shell --run "quarto render _manuscript/L2_VWP_webcam_ET.qmd"
+
+    - name: Upload rendered paper
+      run: |
+        git config --global user.name "GA Bot"
+        git config --global user.email "github_actions@bot.noreply.com"
+        git add .
+        git commit -m "Rendered manuscript"
+        git push origin main
