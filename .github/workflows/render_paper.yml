@@ -17,9 +17,27 @@ jobs:
     - name: Checkout Code
       uses: actions/checkout@v3
       with:
-        token: ${{ secrets.GITHUB_TOKEN }} # Use the default GITHUB_TOKEN for authentication
+        token: ${{ secrets.GITHUB_TOKEN }}
+        fetch-depth: 0
+
+    - name: Check if manuscript changed
+      id: check_changes
+      run: |
+        # Check if there is at least one commit
+        if git rev-list --count HEAD >/dev/null 2>&1 && [ "$(git rev-list --count HEAD)" -gt 1 ]; then
+          # Check against the previous commit
+          if git diff --name-only HEAD^ HEAD | grep -q "^_manuscript/L2_VWP_webcam_ET.qmd$"; then
+            echo "changed=true" >> $GITHUB_ENV
+          else
+            echo "changed=false" >> $GITHUB_ENV
+          fi
+        else
+          # Handle initial commit or shallow clone (always render)
+          echo "changed=true" >> $GITHUB_ENV
+        fi
 
     - name: Install Nix
+      if: env.changed == 'true'
       uses: DeterminateSystems/nix-installer-action@main
       with:
         logger: pretty
@@ -27,17 +45,21 @@ jobs:
         backtrace: full
 
     - name: Nix cache
+      if: env.changed == 'true'
       uses: DeterminateSystems/magic-nix-cache-action@main
 
     - name: Build development environment
+      if: env.changed == 'true'
       run: |
         nix-build
 
     - name: Quarto Render paper
+      if: env.changed == 'true'
       run: |
         nix-shell --run "quarto render _manuscript/L2_VWP_webcam_ET.qmd"
 
     - name: Upload rendered paper
+      if: env.changed == 'true'
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
@@ -46,3 +68,4 @@ jobs:
         git add .
         git commit -m "Rendered manuscript"
         git push origin main
+  
