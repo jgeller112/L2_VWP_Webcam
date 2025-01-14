@@ -2,7 +2,7 @@
 path_to_project="~/Documents/L2_VWP_Project"
 
 rix(
-  r_ver = "latest-upstream",
+  date = "2025-01-14",
   r_pkgs = c(
     "svglite",
     "tidyverse",
