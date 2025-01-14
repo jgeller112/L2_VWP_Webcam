@@ -255,7 +255,7 @@ rstudio
 
 ###  Run locally with packages installed systemwide
 
-Finally, it’s also possible forget {rix} and instead run everything using R packages that you install systemwide.
+Finally, it’s also possible to forget {rix} and instead run everything using R packages that you install systemwide.
 
 - Make sure the required software is installed above and you have the following packages:
 
