@@ -229,6 +229,7 @@ We recruited participants from Prolific, a participant recruitment platform, who
 #| label: fig-sankey
 #| fig-cap: Participant flow through the  experiment 
 #| echo: false
+#| eval: false
 
 knitr::include_graphics(here::here("_manuscript", "Figures", "sankey_plot.svg"))
 ```
