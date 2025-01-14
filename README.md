@@ -241,8 +241,12 @@ quarto render "~/_manuscript/L2_VWP_webcam_ET.qmd"
 or 
 
 2. Launch your IDE in the correct environment in run code and analyses:
+
+- Positron
+  - To use Positron from the shell you will need to make sure the correct path is set (see https://github.com/posit-dev/positron/discussions/4485#discussioncomment-10456159). Once this is done you can open Positron from the shell
+
 ```bash
-open -na Positron --args ~/path/to/L2_VWP_Webcam.Rproj
+positron
 ```
 For RStudio, simply type:
 ```bash
