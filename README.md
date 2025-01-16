@@ -189,7 +189,7 @@ To reproduce the manuscript, you will need the following:
 
 1. **Nix** - A package manager to create a stable environment.
 2. **Git** - To get Github repos [https://git-scm.com/downloads]
-3. **RStudio** or **Positron** - To run the R scripts and render the Quarto document.
+3. **RStudio** or **Positron**  or **VS Code**- To run the R scripts and render the Quarto document.
 5. **Quarto** - To compile the manuscript.
 6. **apaQuarto** - APA manuscript template [https://github.com/wjschne/apaquarto/tree/main] (you should not have to download this if you download the repo as the _extension file contains all the files needed)
 
@@ -291,7 +291,7 @@ remotes::install_github("jgeller112/webgazeR")
 1. Download the repository from Github
    <img width="961" alt="Screenshot 2025-01-04 at 5 00 54 PM" src="https://github.com/user-attachments/assets/09523d6c-1a7a-435f-9dce-bb099df7adcd" />
 
-1.  Open `L2_VWP_Webcam.Rproj` to open a new RStudio project.
+2.  Open `L2_VWP_Webcam.Rproj` to open a new RStudio project.
 
 2.  Open `/_manuscript/L2_VWP_Webcam_ET.qmd`
 
