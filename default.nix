@@ -28,7 +28,8 @@
 #  > "pandoc",
 #  > "ungoogled-chromium",
 #  > "librsvg",
-#  > "typst"),
+#  > "typst",
+#  > "TinyTex"),
 #  > git_pkgs = list(list(package_name = "webgazer",
 #  > repo_url = "https://github.com/jgeller112/webgazeR/",
 #  > commit = "c22a3e072cbf2240a718cd28f80b454fbaa3b905")),
@@ -93,6 +94,7 @@ let
       pandoc
       quarto
       R
+      TinyTex
       typst
       ungoogled-chromium;
   };
