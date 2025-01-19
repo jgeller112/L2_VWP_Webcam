@@ -3,7 +3,6 @@
 # >rix(date = "2025-01-14",
 #  > r_pkgs = c("svglite",
 #  > "tidyverse",
-#  > "tinytex",
 #  > "flextable",
 #  > "knitr",
 #  > "webshot2",
@@ -28,8 +27,7 @@
 #  > "pandoc",
 #  > "ungoogled-chromium",
 #  > "librsvg",
-#  > "typst",
-#  > "tinytex"),
+#  > "typst"),
 #  > git_pkgs = list(list(package_name = "webgazer",
 #  > repo_url = "https://github.com/jgeller112/webgazeR/",
 #  > commit = "c22a3e072cbf2240a718cd28f80b454fbaa3b905")),
@@ -67,7 +65,6 @@ let
       svglite
       tidyverse
       tinytable
-      tinytex
       webshot
       webshot2;
   };
@@ -94,7 +91,6 @@ let
       pandoc
       quarto
       R
-      tinytex
       typst
       ungoogled-chromium;
   };
