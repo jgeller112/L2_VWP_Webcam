@@ -3,7 +3,6 @@
 # >rix(date = "2025-01-14",
 #  > r_pkgs = c("svglite",
 #  > "tidyverse",
-#  > "tinytex",
 #  > "flextable",
 #  > "knitr",
 #  > "webshot2",
@@ -32,7 +31,6 @@
 #  > git_pkgs = list(list(package_name = "webgazer",
 #  > repo_url = "https://github.com/jgeller112/webgazeR/",
 #  > commit = "c22a3e072cbf2240a718cd28f80b454fbaa3b905")),
-#  >      tex_pkgs = c("tinytex"),
 #  > ide = "code",
 #  > project_path = ".",
 #  > overwrite = TRUE,
@@ -67,7 +65,6 @@ let
       svglite
       tidyverse
       tinytable
-      tinytex
       webshot
       webshot2;
   };
@@ -84,12 +81,6 @@ let
           tidyverse;
       };
     });
-  
-  tex = (pkgs.texlive.combine {
-    inherit (pkgs.texlive) 
-      scheme-small
-      tinytex;
-  });
   
   system_packages = builtins.attrValues {
     inherit (pkgs) 
