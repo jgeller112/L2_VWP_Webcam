@@ -31,7 +31,7 @@
 #  > git_pkgs = list(list(package_name = "webgazer",
 #  > repo_url = "https://github.com/jgeller112/webgazeR/",
 #  > commit = "c22a3e072cbf2240a718cd28f80b454fbaa3b905")),
-#  > ide = "code",
+#  >      ide = "code",
 #  > project_path = ".",
 #  > overwrite = TRUE,
 #  > print = TRUE,
@@ -81,7 +81,7 @@ let
           tidyverse;
       };
     });
-  
+    
   system_packages = builtins.attrValues {
     inherit (pkgs) 
       git
@@ -106,6 +106,6 @@ pkgs.mkShell {
    LC_PAPER = "en_US.UTF-8";
    LC_MEASUREMENT = "en_US.UTF-8";
 
-  buildInputs = [ webgazer rpkgs system_packages   ];
+  buildInputs = [ webgazer rpkgs  system_packages   ];
   
 }

@@ -6,7 +6,6 @@ rix(
   r_pkgs = c(
     "svglite",
     "tidyverse",
-    "tinytex",
     "flextable", 
     "knitr",
     "webshot2", 
@@ -27,7 +26,7 @@ rix(
     "foreach",
     "ggokabeito"
   ),
-  system_pkgs = c("quarto", "git", "pandoc", "ungoogled-chromium","librsvg", "typst", "TinyTex"),
+  system_pkgs = c("quarto", "git", "pandoc", "ungoogled-chromium","librsvg", "typst"),
   git_pkgs = list(
     list(
       package_name = "webgazer",
@@ -35,6 +34,7 @@ rix(
       commit = "c22a3e072cbf2240a718cd28f80b454fbaa3b905"
     )
   ),
+  tex_pkgs = c("TinyTex"), 
   ide = "code",
   project_path = ".",
   overwrite = TRUE,
