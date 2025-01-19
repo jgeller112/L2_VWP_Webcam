@@ -94,7 +94,7 @@ let
       pandoc
       quarto
       R
-      TinyTex
+      tinytex
       typst
       ungoogled-chromium;
   };
