@@ -137,8 +137,9 @@ execute:
 #| echo: false
 
 library(knitr)
+library(formatR)
 
-opts_chunk$set(fig.align='center', size="small", tidy.opts=list(width.cutoff=50), tidy=TRUE)
+opts_chunk$set(fig.align='center', size="small", tidy.opts=list(width.cutoff=60), tidy=TRUE)
 
 options(chromote.timeout = 60)
 
