@@ -33,8 +33,6 @@
 #  > commit = "c22a3e072cbf2240a718cd28f80b454fbaa3b905")),
 #  >      tex_pkgs = c(
 #  > "amsmath",
-#  > "tikz",
-#  > "biblatex",
 #  > "fontawesome"),
 #  > ide = "code",
 #  > project_path = ".",
@@ -91,10 +89,8 @@ let
     inherit (pkgs.texlive) 
       scheme-small
       amsmath
-      biblatex
-      fontawesome
-      tikz;
-  });
+      fontawesome; 
+    });
   
   system_packages = builtins.attrValues {
     inherit (pkgs) 
