@@ -74,6 +74,7 @@ let
       ggokabeito
       gtsummary
       here
+      formatR
       janitor
       knitr
       languageserver
