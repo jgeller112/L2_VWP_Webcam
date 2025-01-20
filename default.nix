@@ -4,6 +4,7 @@
 #  > r_pkgs = c("svglite",
 #  > "tidyverse",
 #  > "flextable",
+#  > "formatR", 
 #  > "knitr",
 #  > "webshot2",
 #  > "webshot",
