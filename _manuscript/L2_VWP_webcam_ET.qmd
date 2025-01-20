@@ -138,7 +138,7 @@ execute:
 
 library(knitr)
 
-opts_chunk$set(fig.align='center', size="small", tidy.opts=list(width.cutoff=60), tidy=TRUE)
+opts_chunk$set(fig.align='center', size="small", tidy.opts=list(width.cutoff=60), tidy=FALSE)
 
 options(chromote.timeout = 60)
 
