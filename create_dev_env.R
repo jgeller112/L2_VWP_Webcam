@@ -34,7 +34,13 @@ rix(
       commit = "c22a3e072cbf2240a718cd28f80b454fbaa3b905"
     )
   ),
-  tex_pkgs = c("TinyTex"), 
+  tex_pkgs = c(
+    "latex-base", "geometry", "graphicx", "xcolor", "hyperref",
+    "amsmath", "amssymb", "amsfonts", "babel", "booktabs", "fancyhdr",
+    "titlesec", "caption", "lmodern", "fontspec", "mathptmx",
+    "helvet", "courier", "tikz", "pgfplots", "enumitem",
+    "setspace", "natbib", "biblatex", "biber", "etoolbox",
+    "ifthen", "xkeyval", "fontawesome"), 
   ide = "code",
   project_path = ".",
   overwrite = TRUE,
