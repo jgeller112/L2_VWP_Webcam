@@ -21,3 +21,5 @@ foreach
 geomtextpath
 cowplot
 permutes
+knitr
+flextable
