@@ -120,7 +120,6 @@ language:
   title-block-role-introduction: "Author roles were classified using the Contributor Role Taxonomy (CRediT; https://credit.niso.org/) as follows:"
 format:
   apaquarto-pdf: default
-    mainfont: "Calibri"
 execute: 
   echo: true
   warning: false
