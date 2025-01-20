@@ -33,7 +33,8 @@
 #  > commit = "c22a3e072cbf2240a718cd28f80b454fbaa3b905")),
 #  >      tex_pkgs = c(
 #  > "amsmath",
-#  > "fontawesome"),
+#  > "fontawesome", 
+#  > "apa7"),
 #  > ide = "code",
 #  > project_path = ".",
 #  > overwrite = TRUE,
@@ -89,7 +90,8 @@ let
     inherit (pkgs.texlive) 
       scheme-small
       amsmath
-      fontawesome; 
+      fontawesome
+      apa7; 
     });
   
   system_packages = builtins.attrValues {
