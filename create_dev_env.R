@@ -5,6 +5,7 @@ rix(
   r_pkgs = c(
     "svglite",
     "tidyverse",
+    "formatR", 
     "flextable", 
     "knitr",
     "webshot2", 
