@@ -3,8 +3,8 @@
 # >rix(date = "2025-01-14",
 #  > r_pkgs = c("svglite",
 #  > "tidyverse",
+#  > "formatR",
 #  > "flextable",
-#  > "formatR", 
 #  > "knitr",
 #  > "webshot2",
 #  > "webshot",
@@ -70,11 +70,11 @@ let
       cowplot
       flextable
       foreach
+      formatR
       geomtextpath
       ggokabeito
       gtsummary
       here
-      formatR
       janitor
       knitr
       languageserver
