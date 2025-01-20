@@ -29,7 +29,7 @@ jobs:
           if git diff --name-only HEAD^ HEAD | grep -q "^_manuscript/L2_VWP_webcam_ET.qmd$"; then
             echo "changed=true" >> $GITHUB_ENV
           else
-            echo "changed=false" >> $GITHUB_ENV
+            echo "changed=true" >> $GITHUB_ENV
           fi
         else
           # Handle initial commit or shallow clone (always render)
@@ -48,6 +48,16 @@ jobs:
       if: env.changed == 'true'
       uses: DeterminateSystems/magic-nix-cache-action@main
 
+    - name: Generate default.nix
+      if: env.changed == 'true'
+      run: nix-shell -p R rPackages.rix --run "R -e 'source(\"create_dev_env.R\")'"
+
+    - name: Install MS fonts
+      run: |
+        echo "ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select true" | sudo debconf-set-selections
+        sudo apt-get install -y --no-install-recommends fontconfig ttf-mscorefonts-installer
+        fc-cache -fv
+
     - name: Build development environment
       if: env.changed == 'true'
       run: |
@@ -56,6 +66,7 @@ jobs:
     - name: Quarto Render paper
       if: env.changed == 'true'
       run: |
+        export NIXPKGS_ALLOW_UNFREE=1
         nix-shell --run "quarto render _manuscript/L2_VWP_webcam_ET.qmd"
 
     - name: Upload rendered paper
