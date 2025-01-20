@@ -32,31 +32,14 @@
 #  > repo_url = "https://github.com/jgeller112/webgazeR/",
 #  > commit = "c22a3e072cbf2240a718cd28f80b454fbaa3b905")),
 #  >      tex_pkgs = c("latex-base",
-#  > "geometry",
-#  > "graphicx",
-#  > "xcolor",
-#  > "hyperref",
 #  > "amsmath",
-#  > "babel",
-#  > "booktabs",
-#  > "fancyhdr",
 #  > "titlesec",
 #  > "caption",
 #  > "lmodern",
 #  > "fontspec",
 #  > "mathptmx",
-#  > "helvet",
-#  > "courier",
 #  > "tikz",
-#  > "pgfplots",
-#  > "enumitem",
-#  > "setspace",
-#  > "natbib",
 #  > "biblatex",
-#  > "biber",
-#  > "etoolbox",
-#  > "ifthen",
-#  > "xkeyval",
 #  > "fontawesome"),
 #  > ide = "code",
 #  > project_path = ".",
@@ -113,32 +96,15 @@ let
     inherit (pkgs.texlive) 
       scheme-small
       amsmath
-      babel
-      biber
       biblatex
-      booktabs
       caption
-      courier
-      enumitem
-      etoolbox
-      fancyhdr
       fontawesome
       fontspec
-      geometry
-      graphicx
-      helvet
-      hyperref
-      ifthen
       latex-base
       lmodern
       mathptmx
-      natbib
-      pgfplots
-      setspace
       tikz
-      titlesec
-      xcolor
-      xkeyval;
+      titlesec;
   });
   
   system_packages = builtins.attrValues {
