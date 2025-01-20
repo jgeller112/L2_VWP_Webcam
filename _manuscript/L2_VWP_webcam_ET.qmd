@@ -137,6 +137,7 @@ execute:
 #| echo: false
 
 library(knitr)
+library(formatR)
 opts_chunk$set(fig.align='center', size="small", tidy.opts=list(width.cutoff=50), tidy=TRUE)
 
 options(chromote.timeout = 60)
@@ -412,7 +413,6 @@ required_packages <- c(
   "foreach",        # permutation analysis
   "geomtextpath",   # for plotting labels on lines of ggplot figures
   "cowplot"         # combine ggplot figures
-  "formatR"    # better looking code chunks
 )
 
 # Install and load each package
