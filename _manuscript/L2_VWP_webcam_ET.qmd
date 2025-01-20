@@ -132,13 +132,7 @@ execute:
   code-overflow: wrap
 ---
 
-```{=typst}
-#set page(background: rotate(24deg,
-  text(32pt, fill: rgb("FFCBC4"))[
-    *DRAFT*
-  ]
-))
-```
+
 ```{r}
 #| echo: false
 
