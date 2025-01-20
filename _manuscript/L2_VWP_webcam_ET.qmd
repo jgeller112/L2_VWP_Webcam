@@ -120,7 +120,6 @@ language:
   title-block-role-introduction: "Author roles were classified using the Contributor Role Taxonomy (CRediT; https://credit.niso.org/) as follows:"
 format:
   apaquarto-pdf: default
-    code-overflow: wrap
 execute: 
   echo: true
   warning: false
@@ -138,8 +137,10 @@ execute:
 #| echo: false
 
 library(knitr)
-opts_chunk$set(fig.align='center', size="small")
+opts_chunk$set(fig.align='center', size="small", tidy.opts=list(width.cutoff=60), tidy=TRUE)
+
 options(chromote.timeout = 60)
+
 ```
 
 Eye-tracking technology, which has a history spanning over a century, has seen remarkable advancements. In the early days, eye-tracking sometimes required the use of contact lenses fitted with search coils, often requiring anesthesia, or the attachment of suction cups to the sclera of the eyes [@pluzyczka2018]. These methods were not only cumbersome for the researcher, but also uncomfortable and invasive for participants. Over time, such approaches have been replaced by non-invasive, lightweight, and user-friendly systems. Today, modern eye-tracking technology is widely accessible in laboratories worldwide, enabling researchers to tackle critical questions about cognitive processes . This evolution has had a profound impact on fields such as psycholinguistics and bilingualism opening up new possibilities for understanding how language is processed in real time [@godfroid].
@@ -411,6 +412,7 @@ required_packages <- c(
   "foreach",        # permutation analysis
   "geomtextpath",   # for plotting labels on lines of ggplot figures
   "cowplot"         # combine ggplot figures
+  "formatR"    # better looking code chunks
 )
 
 # Install and load each package
