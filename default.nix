@@ -31,10 +31,26 @@
 #  > git_pkgs = list(list(package_name = "webgazer",
 #  > repo_url = "https://github.com/jgeller112/webgazeR/",
 #  > commit = "c22a3e072cbf2240a718cd28f80b454fbaa3b905")),
-#  >      tex_pkgs = c(
-#  > "amsmath",
-#  > "fontawesome", 
-#  > "apa7"),
+#  >      tex_pkgs = c("amsmath",
+#  > "ninecolors",
+#  > "apa7",
+#  > "scalerel",
+#  > "threeparttable",
+#  > "threeparttablex",
+#  > "endfloat",
+#  > "environ",
+#  > "multirow",
+#  > "tcolorbox",
+#  > "pdfcol",
+#  > "tikzfill",
+#  > "fontawesome5",
+#  > "framed",
+#  > "newtx",
+#  > "fontaxes",
+#  > "xstring",
+#  > "wrapfig",
+#  > "tabularray",
+#  > "siunitx"),
 #  > ide = "code",
 #  > project_path = ".",
 #  > overwrite = TRUE,
@@ -90,9 +106,26 @@ let
     inherit (pkgs.texlive) 
       scheme-small
       amsmath
-      fontawesome
-      apa7; 
-    });
+      apa7
+      endfloat
+      environ
+      fontawesome5
+      fontaxes
+      framed
+      multirow
+      newtx
+      ninecolors
+      pdfcol
+      scalerel
+      siunitx
+      tabularray
+      tcolorbox
+      threeparttable
+      threeparttablex
+      tikzfill
+      wrapfig
+      xstring;
+  });
   
   system_packages = builtins.attrValues {
     inherit (pkgs) 
