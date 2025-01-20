@@ -1,5 +1,4 @@
-
-path_to_project="~/Documents/L2_VWP_Project"
+library("rix")
 
 rix(
   date = "2025-01-14",
@@ -26,7 +25,7 @@ rix(
     "foreach",
     "ggokabeito"
   ),
-  system_pkgs = c("quarto", "git", "pandoc", "ungoogled-chromium","librsvg", "typst"),
+  system_pkgs = c("quarto", "git", "pandoc", "ungoogled-chromium", "librsvg", "typst"),
   git_pkgs = list(
     list(
       package_name = "webgazer",
