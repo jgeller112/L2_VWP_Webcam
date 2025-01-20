@@ -37,8 +37,6 @@
 #  > "xcolor",
 #  > "hyperref",
 #  > "amsmath",
-#  > "amssymb",
-#  > "amsfonts",
 #  > "babel",
 #  > "booktabs",
 #  > "fancyhdr",
@@ -114,9 +112,7 @@ let
   tex = (pkgs.texlive.combine {
     inherit (pkgs.texlive) 
       scheme-small
-      amsfonts
       amsmath
-      amssymb
       babel
       biber
       biblatex
