@@ -31,13 +31,8 @@
 #  > git_pkgs = list(list(package_name = "webgazer",
 #  > repo_url = "https://github.com/jgeller112/webgazeR/",
 #  > commit = "c22a3e072cbf2240a718cd28f80b454fbaa3b905")),
-#  >      tex_pkgs = c("latex-base",
+#  >      tex_pkgs = c(
 #  > "amsmath",
-#  > "titlesec",
-#  > "caption",
-#  > "lmodern",
-#  > "fontspec",
-#  > "mathptmx",
 #  > "tikz",
 #  > "biblatex",
 #  > "fontawesome"),
@@ -97,14 +92,8 @@ let
       scheme-small
       amsmath
       biblatex
-      caption
       fontawesome
-      fontspec
-      latex-base
-      lmodern
-      mathptmx
-      tikz
-      titlesec;
+      tikz;
   });
   
   system_packages = builtins.attrValues {
