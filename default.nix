@@ -129,13 +129,13 @@ let
   
   system_packages = builtins.attrValues {
     inherit (pkgs) 
+      R
       git
       glibcLocales
       librsvg
       nix
       pandoc
       quarto
-      R
       typst
       ungoogled-chromium;
   };
