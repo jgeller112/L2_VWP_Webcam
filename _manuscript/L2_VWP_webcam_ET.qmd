@@ -119,7 +119,8 @@ language:
   title-block-correspondence-note: "Correspondence concerning this article should be addressed to"
   title-block-role-introduction: "Author roles were classified using the Contributor Role Taxonomy (CRediT; https://credit.niso.org/) as follows:"
 format:
-  apaquarto-docx: default
+   apaquarto-pdf:
+    documentmode: doc
 execute: 
   echo: true
   warning: false
@@ -130,6 +131,7 @@ execute:
   code-line-numbers: true
   keep-with-next: true
   code-overflow: wrap
+  out-width: 65%
 ---
 
 
