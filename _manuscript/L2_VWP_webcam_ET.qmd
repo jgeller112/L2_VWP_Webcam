@@ -118,9 +118,19 @@ language:
   title-block-author-note: "Author Note"
   title-block-correspondence-note: "Correspondence concerning this article should be addressed to"
   title-block-role-introduction: "Author roles were classified using the Contributor Role Taxonomy (CRediT; https://credit.niso.org/) as follows:"
-format:
-   apaquarto-pdf:
+format: 
+  apaquarto-pdf:
     documentmode: doc
+    include-in-header:
+      - text: |
+          \usepackage{fvextra} % Advanced verbatim environment for better wrapping
+          \DefineVerbatimEnvironment{Highlighting}{Verbatim}{breaklines,commandchars=\\\{\}}
+          \renewcommand{\baselinestretch}{1.2} % Adjust line spacing for readability
+          \setlength{\parskip}{0.5em} % Paragraph spacing for better readability
+          \usepackage{geometry} % Control margins
+          \geometry{margin=1in} % Ensure text does not overflow page
+          \usepackage{setspace} % Allows flexible line spacing
+          \setstretch{1.2} % Slightly stretch lines for better readability
 execute: 
   echo: true
   warning: false
