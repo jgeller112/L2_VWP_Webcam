@@ -51,7 +51,11 @@
 #  > "xstring",
 #  > "wrapfig",
 #  > "tabularray",
-#  > "siunitx"),
+#  > "siunitx",
+#  > "fvextra",
+#  > "geometry",
+#  > "setspace",
+#  > "fancyvrb"),
 #  > ide = "code",
 #  > project_path = ".",
 #  > overwrite = TRUE,
@@ -111,14 +115,18 @@ let
       apa7
       endfloat
       environ
+      fancyvrb
       fontawesome5
       fontaxes
       framed
+      fvextra
+      geometry
       multirow
       newtx
       ninecolors
       pdfcol
       scalerel
+      setspace
       siunitx
       tabularray
       tcolorbox
