@@ -34,7 +34,8 @@ rix(
       commit = "c22a3e072cbf2240a718cd28f80b454fbaa3b905"
     )
   ),
-  tex_pkgs = c("amsmath", "ninecolors", "apa7", "scalerel", "threeparttable", "threeparttablex", "endfloat", "environ", "multirow", "tcolorbox", "pdfcol", "tikzfill", "fontawesome5", "framed", "newtx", "fontaxes", "xstring", "wrapfig", "tabularray", "siunitx"), 
+tex_pkgs = c("amsmath", "ninecolors", "apa7", "scalerel", "threeparttable", "threeparttablex", "endfloat", "environ", "multirow", "tcolorbox", "pdfcol", "tikzfill", "fontawesome5", "framed", "newtx", "fontaxes", "xstring", "wrapfig", "tabularray", "siunitx", 
+               "fvextra", "geometry","setspace", "fancyvrb"), 
   ide = "code",
   project_path = ".",
   overwrite = TRUE,
