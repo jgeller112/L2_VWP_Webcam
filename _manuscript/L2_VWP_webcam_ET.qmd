@@ -1384,9 +1384,23 @@ gaze_sub_L2_cp1 <- gaze_sub_L2_long_cp %>%
 library(permutes) # cpa
 library(permuco) # cpa
 library(foreach) # for par processing 
+library(doParallel)
 
-cpa.lme = permutes::clusterperm.glmer(Looks~ condition1_code + (1|subject) + (1|trial), data=gaze_sub_L2_cp1, series.var=~time_bin, nperm = 1000, parallel=TRUE)
+# Step 1: Set up parallel backend
+num_cores <- detectCores() - 1  # Use all available cores minus one for system stability
+cl <- makeCluster(num_cores)
+registerDoParallel(cl)
 
+# Step 2: Define the total number of permutations
+total_perms <- 1000
+
+# Step 3: Split the permutations across available cores
+perms_per_core <- total_perms / num_cores
+
+# Step 4: Use foreach to run the function in parallel
+cpa.lme <- foreach(i = 1:num_cores, .combine = 'rbind', .packages = 'permutes') %dopar% {
+ permutes::clusterperm.glmer(Looks~ condition1_code + (1|subject) + (1|trial), data=gaze_sub_L2_cp1, series.var=~time_bin, nperm = perms_per_core)
+}
 ```
 
 ```{r}
