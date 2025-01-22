@@ -44,9 +44,6 @@ jobs:
         log-directives: nix_installer=trace
         backtrace: full
 
-    - name: Nix cache
-      if: env.changed == 'true'
-      uses: DeterminateSystems/magic-nix-cache-action@main
 
     - name: Use rstats-on-nix cache
       if: env.changed == 'true'
@@ -59,6 +56,7 @@ jobs:
       run: nix-shell -p R rPackages.rix --run "R -e 'source(\"create_dev_env.R\")'"
 
     - name: Install MS fonts
+      if: env.changed == 'true'
       run: |
         echo "ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select true" | sudo debconf-set-selections
         sudo apt-get install -y --no-install-recommends fontconfig ttf-mscorefonts-installer
