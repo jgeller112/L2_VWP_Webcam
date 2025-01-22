@@ -1742,12 +1742,9 @@ final_table <- percentage_responses_filtered %>%
     mutate(Question = factor(Question, levels = question_order)) %>%
     arrange(Question, Response) %>% na.omit() %>%
   mutate(percentage_good = round(percentage_good, 3), percentage_bad=round(percentage_bad, 3))
-# View the final cleaned table
 
-final_table %>%
-  flextable() %>%
-  autofit() %>% 
-  save_as_image(here::here("_manuscript", "Figures",  "poor_good_table.png"), res=300)
+# View the final cleaned table
+  
 # Optional: Export the final table for publication
 #write.csv(final_table, "final_cleaned_data_no_questions_11_12.csv", row.names = FALSE)
 
