@@ -259,7 +259,12 @@ Finally, it’s also possible to forget {rix} and instead run everything using R
 
 - Make sure the required software is installed above and you have the following packages:
 
+- R 4.4.1 (or later) and RStudio.
+
+- Quarto 1.6.1 (or later)
+
 ```
+# these are the packages nix uses to build the manuscript 
 r_pkgs = c(
     "svglite",
     "tidyverse",
@@ -289,6 +294,7 @@ r_pkgs = c(
 
 ```
 remotes::install_github("jgeller112/webgazeR")
+library(webgazeR)
 ```
 
 1. Download the repository from Github
