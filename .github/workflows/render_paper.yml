@@ -48,6 +48,12 @@ jobs:
       if: env.changed == 'true'
       uses: DeterminateSystems/magic-nix-cache-action@main
 
+    - name: Use rstats-on-nix cache
+      if: env.changed == 'true'
+      uses: cachix/cachix-action@v15
+      with:
+        name: rstats-on-nix
+
     - name: Generate default.nix
       if: env.changed == 'true'
       run: nix-shell -p R rPackages.rix --run "R -e 'source(\"create_dev_env.R\")'"
