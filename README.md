@@ -259,9 +259,9 @@ Finally, it’s also possible to forget {rix} and instead run everything using R
 
 - Make sure the required software is installed above and you have the following packages:
 
-- R 4.4.1 (or later) and RStudio.
+  - R 4.4.1 (or later) and RStudio.
 
-- Quarto 1.6.1 (or later)
+  - Quarto 1.6.1 (or later)
 
 ```
 # these are the packages nix uses to build the manuscript 
