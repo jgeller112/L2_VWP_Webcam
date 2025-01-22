@@ -261,13 +261,15 @@ Finally, it’s also possible to forget {rix} and instead run everything using R
 
 ```
 r_pkgs = c(
+    "svglite",
     "tidyverse",
-    "sgvlite",
-    "buildmer",
-    "webshot",
-    "networkD3", 
+    "formatR", 
+    "flextable", 
     "knitr",
-    "webshot2"
+    "webshot2", 
+    "webshot", 
+    "networkD3",
+    "buildmer",
     "tinytable",
     "quarto",
     "remotes",
@@ -280,8 +282,9 @@ r_pkgs = c(
     "permuco",
     "cowplot",
     "foreach",
+    "doParallel", 
     "ggokabeito"
-  )
+  ),
 ```
 
 ```
