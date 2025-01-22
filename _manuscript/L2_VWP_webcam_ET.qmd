@@ -254,7 +254,7 @@ quest4 <- read_csv(here::here("data", "L2", "data_exp_196386-v6_questionnaire-w1
 
 quest <- rbind(quest1, quest2, quest3, quest4)
 
-quest %>%
+quest <- quest  %>%
     select(`Participant Private ID`, `Question Key`, Response, `Participant Browser`) %>%
     drop_na() %>%
     filter(
@@ -292,10 +292,7 @@ quest %>%
       all_categorical() ~ "{n} / {N} ({p}%)"
     ),) %>%
    bold_labels() %>%
-  as_gt() %>%
-    gt::gtsave( # save table as image
-    filename = here::here("_manuscript", "Figures", "my_demo.png"
-  ))
+  as_gt()
 ```
 
 ```{r}
