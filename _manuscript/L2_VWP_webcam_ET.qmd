@@ -1422,9 +1422,8 @@ sig.clusters = cpa.lme %>%
 #| out-width: 50%
 
 sig.clusters %>% 
-  flextable() %>%
-  autofit() %>%
-  theme_apa()
+tt(width=.9) %>%
+format_tt(escape=TRUE)
 ```
 
 ```{r}
@@ -1508,7 +1507,9 @@ sig.clusters = cpa.glmer %>% filter(Factor=='condition1_code', !is.na(cluster_ma
     mutate_at(vars(sign), as.factor)
 
 
-sig.clusters
+sig.clusters %>%
+tt(width=.9)
+
 ```
 
 ```{r}
