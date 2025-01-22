@@ -23,3 +23,5 @@ cowplot
 permutes
 knitr
 flextable
+iterators
+doParallel
