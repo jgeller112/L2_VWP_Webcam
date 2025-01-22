@@ -148,8 +148,7 @@ execute:
 ```{r}
 #| echo: false
 
-options(chromote.timeout = 60)
-options(chromote.args = c("--headless=new"))
+options(chromote.timeout = 80)
 
 
 ```
