@@ -1631,12 +1631,11 @@ agg_eye_data_quest <- rbind(eye_quest_good1, eye_quest_good2, eye_quest_bad1, ey
 #| label: tbl-question
 #| tbl-cap: Eye-tracking questionaire items
 #| echo: false
-eye_quests %>% select(Question,Key) %>% 
+eye_quests <- eye_quests  %>% select(Question,Key) %>% 
   filter(Key=="value") %>% 
   select(-Key) %>%
   distinct() %>% 
- tt() %>%
-  save_tt(here::here("_manuscript", "Figures",  "Quest.png"), overwrite = TRUE)
+ tt()
 
 knitr::include_graphics(here::here("_manuscript", "Figures","Quest.png"))
   
