@@ -1401,27 +1401,33 @@ perms_per_core <- total_perms / num_cores
 cpa.lme <- foreach(i = 1:num_cores, .combine = 'rbind', .packages = 'permutes') %dopar% {
  permutes::clusterperm.glmer(Looks~ condition1_code + (1|subject) + (1|trial), data=gaze_sub_L2_cp1, series.var=~time_bin, nperm = perms_per_core)
 }
+
+# Step 5: Stop the parallel backend
+stopCluster(cl)
+
 ```
 
 ```{r}
 #| label: clustermass
 #| echo: false
-sig.clusters = cpa.lme %>% filter(Factor=='condition1_code', !is.na(cluster_mass), p.cluster_mass<.05) %>% 
-    mutate_at(vars(time_bin), as.numeric) %>% group_by(cluster) %>% 
+sig.clusters = cpa.lme %>% 
+    filter(Factor=='condition1_code', !is.na(cluster_mass), p.cluster_mass<.05) %>% 
+    mutate_at(vars(time_bin), as.numeric) %>% 
+    group_by(cluster) %>% 
     summarise(cluster_mass=min(cluster_mass), p.cluster_mass=min(p.cluster_mass), bin_start=min(time_bin), bin_end=max(time_bin), t=mean(t)) %>% 
     mutate(sign=ifelse(t<0,-1,1), time_start=(bin_start-2)*100, time_end=(bin_end-2)*100) %>% 
     mutate_at(vars(sign), as.factor)
-
-
 ```
 
 ```{r}
 #| label: tbl-clustermass
 #| tbl-cap: Clustermass statistics for the Spanish-Spanish condition
 #| echo: false
+#| out-width: 50%
 
 sig.clusters %>% 
   flextable() %>%
+  autofit() %>%
   theme_apa()
 ```
 
@@ -1479,9 +1485,19 @@ gaze_sub_L2_cp_engeng <- gaze_sub_L2_long_cp  %>%
 #| echo: false
 #| eval: false
 
+# Step 2: Define the total number of permutations
+total_perms <- 1000
 
-cpa.glmer = permutes::clusterperm.glmer(Looks~ condition1_code + (1|subject) + (1|trial), data=gaze_sub_L2_cp_engeng, series.var=~time_bin, nperm = 1000, parallel=TRUE)
+# Step 3: Split the permutations across available cores
+perms_per_core <- total_perms / num_cores
 
+# Step 4: Use foreach to run the function in parallel
+cpa.glmer <- foreach(i = 1:num_cores, .combine = 'rbind', .packages = 'permutes') %dopar% {
+ permutes::clusterperm.glmer(Looks~ condition1_code + (1|subject) + (1|trial), data=gaze_sub_L2_cp_engeng, series.var=~time_bin, nperm = perms_per_core)
+}
+
+# Step 5: Stop the parallel backend
+stopCluster(cl)
 
 ```
 
