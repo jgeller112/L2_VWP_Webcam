@@ -36,7 +36,6 @@ author:
   - name: Yanina Prystauka
     orcid: 0000-0000-0000-0002
     roles:
-      - writing
       - editing
       - formal analysis
     affiliations: 
@@ -46,7 +45,6 @@ author:
   - name: Sarah Colby
     orcid: 0000-0000-0000-0003
     roles: 
-      - writing
       - editing
     affiliations:
      - id: id3
@@ -56,7 +54,6 @@ author:
     orcid: 0000-0000-0000-0003
     roles: 
       - conceptualziation
-      - writing
       - editing
       - funding acquisition
     affiliations:
@@ -266,12 +263,13 @@ quest <- quest  %>%
         Age = `response-1`,
         Gender = `response-2`,
      `Spoken dialect` = `response-3`,
-        Race = `response-4`,
+        Ethnicity = `response-4`,
      Browser=`Participant Browser`, 
      `Years Speaking Spanish` =`response-7`, 
      `Age Learned` = `response-6`, 
      `Percentage Time Speaking Spanish` = `response-8`
     ) %>%
+    mutate(Race = coalesce(!!!select(., starts_with("response-5")))) %>% 
   mutate(Age = as.numeric(Age),
     `Percentage Time Speaking Spanish` = as.numeric(gsub("%", "", `Percentage Time Speaking Spanish`)), 
       Browser = gsub("[0-9]", "", Browser), 
@@ -284,7 +282,7 @@ quest <- quest  %>%
     ),
     `Years Speaking Spanish` = as.numeric(`Years Speaking Spanish`)              # Convert to numeric
   ) %>%  
-    select(Age, Gender, `Spoken dialect`, Race, Browser, `Years Speaking Spanish`, `Percentage Time Speaking Spanish`) %>%
+    select(Age, Gender, `Spoken dialect`, Ethnicity, Race, Browser, `Years Speaking Spanish`, `Percentage Time Speaking Spanish`) %>%
   tbl_summary(statistic = list(
       Age ~ "({min}, {max}), {mean}({sd})", 
       `Percentage Time Speaking Spanish` ~ "{mean}({sd})", 
@@ -294,6 +292,114 @@ quest <- quest  %>%
    bold_labels() %>%
   as_gt()
 ```
+
+
+```{r}
+#| eval: false
+#| echo: false
+
+
+quest3 <- read_csv(here::here("data", "L2", "data_exp_196386-v5_questionnaire-w1i9.csv"))
+quest4 <- read_csv(here::here("data", "L2", "data_exp_196386-v6_questionnaire-w1i9.csv"))
+
+quest <- rbind(quest3, quest4)
+
+quest <- quest  %>%
+    select(`Participant Private ID`, `Question Key`, Response, `Participant Browser`) %>%
+    drop_na() %>%
+    filter(
+        !`Question Key` %in% c("END QUESTIONNAIRE", "BEGIN QUESTIONNAIRE") &
+            !str_detect(`Question Key`, "quantised")
+    ) %>%
+    pivot_wider(names_from = `Question Key`, values_from = Response) %>%
+    rename(
+        Age = `response-1`,
+        Gender = `response-2`,
+     `Spoken dialect` = `response-3`,
+        Ethnicity = `response-4`,
+     Browser=`Participant Browser`, 
+     `Years Speaking Spanish` =`response-7`, 
+     `Age Learned` = `response-6`, 
+     `Percentage Time Speaking Spanish` = `response-8`
+    ) %>%
+    mutate(Race = coalesce(!!!select(., starts_with("response-5")))) %>% 
+  mutate(Age = as.numeric(Age),
+    `Percentage Time Speaking Spanish` = as.numeric(gsub("%", "", `Percentage Time Speaking Spanish`)), 
+      Browser = gsub("[0-9]", "", Browser), 
+      Browser= gsub("\\.+$", "", Browser), 
+    `Years Speaking Spanish` = gsub(" .*", "", `Years Speaking Spanish`), # Extract numeric part before any spaces
+    `Years Speaking Spanish` = gsub("[^0-9.]", "",`Years Speaking Spanish`),     # Remove non-numeric characters
+    `Years Speaking Spanish` = case_when(                             # Map special cases to 0
+      `Years Speaking Spanish` %in% c("", "N/A", "Zero", "I do not use spanish") ~ "0",
+      TRUE ~ `Years Speaking Spanish`
+    ),
+    `Years Speaking Spanish` = as.numeric(`Years Speaking Spanish`)              # Convert to numeric
+  ) %>%  
+    select(Age, Gender, `Spoken dialect`, Ethnicity, Race, Browser, `Years Speaking Spanish`, `Percentage Time Speaking Spanish`) %>%
+  tbl_summary(statistic = list(
+      Age ~ "({min}, {max}), {mean}({sd})", 
+      `Percentage Time Speaking Spanish` ~ "{mean}({sd})", 
+      `Years Speaking Spanish` ~ "({min}, {max}), {mean}({sd})", 
+      all_categorical() ~ "{n} / {N} ({p}%)"
+    ),) %>%
+   bold_labels() %>%
+  as_gt()
+```
+
+
+```{r}
+#| eval: false
+#| echo: false
+
+quest1 <- read_csv(here::here("data", "L2", "data_exp_196386-v5_questionnaire-3956.csv"))
+quest2 <- read_csv(here::here("data", "L2", "data_exp_196386-v6_questionnaire-3956.csv"))
+
+quest <- rbind(quest1, quest2)
+
+
+quest <- quest  %>%
+    select(`Participant Private ID`, `Question Key`, Response, `Participant Browser`) %>%
+    drop_na() %>%
+    filter(
+        !`Question Key` %in% c("END QUESTIONNAIRE", "BEGIN QUESTIONNAIRE") &
+            !str_detect(`Question Key`, "quantised")
+    ) %>%
+    pivot_wider(names_from = `Question Key`, values_from = Response) %>%
+    rename(
+        Age = `response-1`,
+        Gender = `response-2`,
+     `Spoken dialect` = `response-3`,
+        Ethnicity = `response-4`,
+     Browser=`Participant Browser`, 
+     `Years Speaking Spanish` =`response-7`, 
+     `Age Learned` = `response-6`, 
+     `Percentage Time Speaking Spanish` = `response-8`
+    ) %>%
+    mutate(Race = coalesce(!!!select(., starts_with("response-5")))) %>% 
+  mutate(Age = as.numeric(Age),
+    `Percentage Time Speaking Spanish` = as.numeric(gsub("%", "", `Percentage Time Speaking Spanish`)), 
+      Browser = gsub("[0-9]", "", Browser), 
+      Browser= gsub("\\.+$", "", Browser), 
+    `Years Speaking Spanish` = gsub(" .*", "", `Years Speaking Spanish`), # Extract numeric part before any spaces
+    `Years Speaking Spanish` = gsub("[^0-9.]", "",`Years Speaking Spanish`),     # Remove non-numeric characters
+    `Years Speaking Spanish` = case_when(                             # Map special cases to 0
+      `Years Speaking Spanish` %in% c("", "N/A", "Zero", "I do not use spanish") ~ "0",
+      TRUE ~ `Years Speaking Spanish`
+    ),
+    `Years Speaking Spanish` = as.numeric(`Years Speaking Spanish`)              # Convert to numeric
+  ) %>%  
+    select(Age, Gender, `Spoken dialect`, Ethnicity, Race, Browser, `Years Speaking Spanish`, `Percentage Time Speaking Spanish`) %>%
+  tbl_summary(statistic = list(
+      Age ~ "({min}, {max}), {mean}({sd})", 
+      `Percentage Time Speaking Spanish` ~ "{mean}({sd})", 
+      `Years Speaking Spanish` ~ "({min}, {max}), {mean}({sd})", 
+      all_categorical() ~ "{n} / {N} ({p}%)"
+    ),) %>%
+   bold_labels() %>%
+  as_gt()
+```
+
+
 
 ```{r}
 #| label: tbl-demo2
