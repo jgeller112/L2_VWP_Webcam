@@ -353,7 +353,6 @@ quest <- quest  %>%
 ```{r}
 #| eval: false
 #| echo: false
-#| out-height: 
 
 quest1 <- read_csv(here::here("data", "L2", "data_exp_196386-v5_questionnaire-3956.csv"))
 quest2 <- read_csv(here::here("data", "L2", "data_exp_196386-v6_questionnaire-3956.csv"))
