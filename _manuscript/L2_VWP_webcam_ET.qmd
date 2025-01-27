@@ -137,7 +137,7 @@ execute:
   fig-align: center
   tbl-align: center
   code-line-numbers: true
-  keep-with-next: true
+ # keep-with-next: true
   code-overflow: wrap
   out-width: 65%
 ---
