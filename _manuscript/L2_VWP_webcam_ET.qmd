@@ -803,8 +803,8 @@ oob_data_L2 <- gaze_oob(edat_L2)
 #| echo: false
 
 oob_data_L2 %>%
-  mutate(across(where(is.numeric), !round(.x, 2))) %<%
-  head() %<%
+  mutate(across(where(is.numeric), !round(.x, 2))) %>%
+  head() %>%
   tt(width=.9) %>%
   format_tt(escape=TRUE)
 ```
@@ -1105,7 +1105,7 @@ gaze_sub_L2 <- webgazeR::downsample_gaze(gaze_sub_L2_long, bin.length=100, timev
 #| echo: false
 
 gaze_sub_L2 %>%
-  mutate(across(where(is.numeric), ~round(.x, 2))) %<%
+  mutate(across(where(is.numeric), ~round(.x, 2))) %>%
   head() %>%
   tt() %>%
   format_tt(escape=TRUE)
