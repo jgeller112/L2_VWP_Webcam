@@ -237,7 +237,10 @@ knitr::include_graphics(here::here("_manuscript", "Figures", "sankey_plot.svg"))
 ```
 
 ```{r}
+#| label: tbl-demo2
+#| tbl-cap: Participant demographic variables 
 #| echo: false
+#| out-height: 50%
 
 
 library(tidyverse)
@@ -251,7 +254,7 @@ quest4 <- read_csv(here::here("data", "L2", "data_exp_196386-v6_questionnaire-w1
 
 quest <- rbind(quest1, quest2, quest3, quest4)
 
-quest <- quest  %>%
+quest  %>%
     select(`Participant Private ID`, `Question Key`, Response, `Participant Browser`) %>%
     drop_na() %>%
     filter(
@@ -350,6 +353,7 @@ quest <- quest  %>%
 ```{r}
 #| eval: false
 #| echo: false
+#| out-height: 
 
 quest1 <- read_csv(here::here("data", "L2", "data_exp_196386-v5_questionnaire-3956.csv"))
 quest2 <- read_csv(here::here("data", "L2", "data_exp_196386-v6_questionnaire-3956.csv"))
@@ -399,17 +403,6 @@ quest <- quest  %>%
   as_gt()
 ```
 
-
-
-```{r}
-#| label: tbl-demo2
-#| tbl-cap: Participant demographic variables 
-#| out-width: 50%
-#| echo: false
-
-knitr::include_graphics(here::here("_manuscript", "Figures", "my_demo.png"))
-
-```
 
 ### Materials
 
@@ -811,14 +804,10 @@ oob_data_L2 <- gaze_oob(edat_L2)
 #| echo: false
 
 oob_data_L2 %>%
-  flextable() %>%
-  autofit() %>%
-  theme_apa() %>%
-  save_as_image(here::here("_manuscript","Figures", "oob_data_L2.png"), exapnd=10, res=300)
-
-
-knitr::include_graphics(here::here("_manuscript", "Figures", "oob_data_L2.png"))
-
+  mutate(across(where(is.numeric), !round(.x, 2))) %<%
+  head() %<%
+  tt(width=.9) %>%
+  format_tt(escape=TRUE)
 ```
 
 We can also add add by-participant and by-trial out of bounds data to our behavioral, trial-level, data (`filter_edat_L2`) and finally exclude participants and trials with more than 30% missing data. The value of 30 is just a suggestion and should not be used as a rule of thumb for all studies nor are we endorsing this value.
@@ -888,11 +877,9 @@ aoi_loc <- data.frame(
 
 
 aoi_loc %>% 
-  flextable() %>% 
-  save_as_image(here::here("_manuscript","Figures", "aoi-quad.png"), res=300)
+  tt() %>%
+  format_tt(escape=TRUE)
 
-
-knitr::include_graphics(here::here("_manuscript", "Figures", "aoi-quad.png"))
 ```
 
 We plot all the fixations in each of the quadrants highlighted in different colors (@fig-quads), removing points outside the standardized screen space.
@@ -1119,11 +1106,11 @@ gaze_sub_L2 <- webgazeR::downsample_gaze(gaze_sub_L2_long, bin.length=100, timev
 #| echo: false
 
 gaze_sub_L2 %>%
+  mutate(across(where(is.numeric), ~round(.x, 2))) %<%
   head() %>%
-  flextable() %>%
-  save_as_image(here::here("_manuscript","Figures", "downsample_table.png"), res=300)
+  tt() %>%
+  format_tt(escape=TRUE)
 
-knitr::include_graphics(here::here("_manuscript", "Figures", "downsample_table.png"))
 ```
 
 To simplify the analysis, we combine the two unrelated conditions and average them (this is for the proportional plots).
@@ -1238,8 +1225,10 @@ aois_L2 <- extract_aois(vwp_paths_filtered_L2, zone_names =  c("TL", "BR", "TR",
 #| label: tbl-gorgaze
 #| tbl-cap: Gorilla provided gaze coordinates
 #| echo: false
-knitr::include_graphics(here::here("_manuscript", "Figures", "gorilla_cords.png"))
 
+aois_L2 %>%
+  tt(width=.9) %>%
+  format_tt(escape=TRUE)
 ```
 
 ```{r}
