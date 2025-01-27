@@ -56,7 +56,8 @@
 #  > "fvextra",
 #  > "geometry",
 #  > "setspace",
-#  > "fancyvrb"),
+#  > "fancyvrb",
+#  > "anyfontsize"),
 #  > ide = "code",
 #  > project_path = ".",
 #  > overwrite = TRUE,
@@ -114,6 +115,7 @@ let
     inherit (pkgs.texlive) 
       scheme-small
       amsmath
+      anyfontsize
       apa7
       endfloat
       environ

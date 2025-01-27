@@ -26,3 +26,5 @@ networkD3
 htmlwidgets
 webshot
 knitr
+iterators
+doParallel
