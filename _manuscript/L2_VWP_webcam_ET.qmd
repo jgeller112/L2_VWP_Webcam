@@ -658,12 +658,10 @@ trial_data_rt_L2 <- merge(eye_behav_L2, audio_rt_L2, by=c("subject", "trial"))
 As stated above, participants who did not successfully calibrate 3 times or less were rejected from the experiment. Let's take a look at how many trials each participant had using the `trial_data_rt_L2` object. Deciding to remove trials is ultimately up to the researcher. In our case, we removed participants with less than 100 trials. In @tbl-partL2 we can see several participants failed some of the calibration attempts and do not have an adequate number of trials. Again we make no strong recommendations here. If you to decide to do this, we recommend pre-registering this decision.
 
 ```{r}
-#| echo: false
-# find out how many trials each participant had 
+# find out how many trials each participant had
 edatntrials_L2 <-trial_data_rt_L2 %>%
  dplyr::group_by(subject)%>%
- dplyr::summarise(ntrials=length(unique(trial)))%>%
-  dplyr::filter(ntrials > 100) # keep Ps with less than 100 trials
+ dplyr::summarise(ntrials=length(unique(trial)))
 ```
 
 ```{r}
@@ -673,14 +671,14 @@ edatntrials_L2 <-trial_data_rt_L2 %>%
 
 edatntrials_L2 %>%
   filter(ntrials<100) %>%
-   tt(width=.9) %>%
+  tt() %>%
   format_tt(escape=TRUE)
 
 ```
 
 ```{r}
 #| label: badsubsL2
-#| echo: true
+#| echo: false
 # get bad subs and remove them the analysis
 
 edatntrials_bad_L2 <-trial_data_rt_L2 %>%
@@ -689,8 +687,7 @@ edatntrials_bad_L2 <-trial_data_rt_L2 %>%
   dplyr::filter(ntrials > 100)
   
 ```
-
-Let's remove them from the analysis using the below code.
+Let's remove them participants with less than 100 trials from the analysis using the below code.
 
 ```{r}
 #| label: remove bads L2
@@ -1380,7 +1377,7 @@ tcru <- plot_IA_proportions(
                 "TCUU-SPSP" = "Spanish-Spanish"
             )
         ),
-        ncol = 1               # Specify 2 columns to achieve 2 on top row, 1 on bottom
+        ncol = 1                # Specify 2 columns to achieve 2 on top row, 1 on bottom
     ) +
     labs(tag = "a") +         # Optional tag for labeling
     theme(
