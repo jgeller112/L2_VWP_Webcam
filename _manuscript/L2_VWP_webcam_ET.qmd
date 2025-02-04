@@ -739,8 +739,8 @@ When using the above function, separate dataframes are produced by-participants 
 
 ```{r}
 # Extract by-subject and by-trial sampling rates from the result
-subject_sampling_rate <- samp_rate$summary_SR_by_subject  # Sampling rate by subject
-trial_sampling_rate <- samp_rate$SR_by_trial  # Sampling rate by trial
+subject_sampling_rate <- samp_rate_L2$summary_SR_by_subject  # Sampling rate by subject
+trial_sampling_rate <- samp_rate_L2$SR_by_trial  # Sampling rate by trial
 
 # Ensure subject and trial are factors for proper merging
 trial_sampling_rate$subject <- as.factor(trial_sampling_rate$subject)
@@ -753,7 +753,7 @@ colnames(subject_sampling_rate)[colnames(subject_sampling_rate) == "summary_SR"]
 colnames(trial_sampling_rate)[colnames(trial_sampling_rate) == "SR"] <- "sampling_rate_trial"
 
 # Merge by-subject sampling rate with target data
-target_data_with_subject_SR <- trial_data_rt %>%
+target_data_with_subject_SR <- trial_data_rt_L2 %>%
   left_join(subject_sampling_rate, by = "subject")
 
 # Merge by-trial sampling rate with target data
