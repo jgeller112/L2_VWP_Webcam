@@ -658,10 +658,12 @@ trial_data_rt_L2 <- merge(eye_behav_L2, audio_rt_L2, by=c("subject", "trial"))
 As stated above, participants who did not successfully calibrate 3 times or less were rejected from the experiment. Let's take a look at how many trials each participant had using the `trial_data_rt_L2` object. Deciding to remove trials is ultimately up to the researcher. In our case, we removed participants with less than 100 trials. In @tbl-partL2 we can see several participants failed some of the calibration attempts and do not have an adequate number of trials. Again we make no strong recommendations here. If you to decide to do this, we recommend pre-registering this decision.
 
 ```{r}
-# find out how many trials each participant had
+#| echo: false
+# find out how many trials each participant had 
 edatntrials_L2 <-trial_data_rt_L2 %>%
  dplyr::group_by(subject)%>%
- dplyr::summarise(ntrials=length(unique(trial)))
+ dplyr::summarise(ntrials=length(unique(trial)))%>%
+  dplyr::filter(ntrials > 100) # keep Ps with less than 100 trials
 ```
 
 ```{r}
@@ -671,15 +673,14 @@ edatntrials_L2 <-trial_data_rt_L2 %>%
 
 edatntrials_L2 %>%
   filter(ntrials<100) %>%
-  flextable()%>% 
-  autofit() %>%
-  theme_apa()
+   tt(width=.9) %>%
+  format_tt(escape=TRUE)
 
 ```
 
 ```{r}
 #| label: badsubsL2
-#| echo: false
+#| echo: true
 # get bad subs and remove them the analysis
 
 edatntrials_bad_L2 <-trial_data_rt_L2 %>%
@@ -734,39 +735,34 @@ While most commercial eye-trackers sample at a constant rate, data captured by w
 #| fig-width: 12
 #| fig-heigh: 8
 
-samp_rate_L2 <- analyze_sampling_rate(edat_L2)
+samp_rate_L2 <- analyze_sampling_rate(edat_L2, summary_stat="median")
 ```
 
 When using the above function, separate dataframes are produced by-participants and by-trial. These can be added to the behavioral dataframe using the below code.
 
 ```{r}
 # Extract by-subject and by-trial sampling rates from the result
-subject_sampling_rate_L2 <- samp_rate_L2$median_SR_by_subject  # Sampling rate by subject
-trial_sampling_rate_L2 <- samp_rate_L2$SR_by_trial  # Sampling rate by trial
-trial_sampling_rate_L2$subject<-as.factor(trial_sampling_rate_L2$subject)
+subject_sampling_rate <- samp_rate$summary_SR_by_subject  # Sampling rate by subject
+trial_sampling_rate <- samp_rate$SR_by_trial  # Sampling rate by trial
 
-# Assuming target_data is your other dataset that contains subject and trial information
-# Append the by-subject sampling rate to target_data (based on subject)
-subject_sampling_rate_L2$subject <- as.factor(subject_sampling_rate_L2$subject)
+# Ensure subject and trial are factors for proper merging
+trial_sampling_rate$subject <- as.factor(trial_sampling_rate$subject)
+trial_sampling_rate$trial <- as.factor(trial_sampling_rate$trial)
 
-# Assuming target_data is your other dataset that contains subject and trial information
-# Append the by-subject sampling rate to target_data (based on subject)
-trial_sampling_rate_L2$subject<-as.factor(trial_sampling_rate_L2$subject)
+subject_sampling_rate$subject <- as.factor(subject_sampling_rate$subject)
 
-# Assuming target_data is your other dataset that contains subject and trial information
-# Append the by-subject sampling rate to target_data (based on subject)
-subject_sampling_rate_L2$subject <- as.factor(subject_sampling_rate_L2$subject)
-trial_data_acc_clean_L2$subject <- as.factor(trial_data_acc_clean_L2$subject)
+# Rename column dynamically based on function output (summary_stat can be "mean" or "median")
+colnames(subject_sampling_rate)[colnames(subject_sampling_rate) == "summary_SR"] <- "sampling_rate_subject"
+colnames(trial_sampling_rate)[colnames(trial_sampling_rate) == "SR"] <- "sampling_rate_trial"
 
-target_data_with_subject_SR_L2 <- trial_data_acc_clean_L2 %>%
-  left_join(subject_sampling_rate_L2, by = "subject")
+# Merge by-subject sampling rate with target data
+target_data_with_subject_SR <- trial_data_rt %>%
+  left_join(subject_sampling_rate, by = "subject")
 
-target_data_with_subject_SR_L2$trial <- as.factor(target_data_with_subject_SR_L2$trial)
-
-# Append the by-trial sampling rate to target_data (based on subject and trial)
-target_data_with_full_SR_L2 <- target_data_with_subject_SR_L2 %>%
-  select(subject, trial, med_SR)%>%
-  full_join(trial_sampling_rate_L2, by = c("subject", "trial"))
+# Merge by-trial sampling rate with target data
+target_data_with_full_SR <- target_data_with_subject_SR %>%
+  select(subject, trial, sampling_rate_subject) %>%
+  left_join(trial_sampling_rate, by = c("subject", "trial"))
 
 ```
 
@@ -1384,7 +1380,7 @@ tcru <- plot_IA_proportions(
                 "TCUU-SPSP" = "Spanish-Spanish"
             )
         ),
-        ncol = 2                # Specify 2 columns to achieve 2 on top row, 1 on bottom
+        ncol = 1               # Specify 2 columns to achieve 2 on top row, 1 on bottom
     ) +
     labs(tag = "a") +         # Optional tag for labeling
     theme(
