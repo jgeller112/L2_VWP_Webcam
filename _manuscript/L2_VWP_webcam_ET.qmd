@@ -241,7 +241,7 @@ knitr::include_graphics(here::here("_manuscript", "Figures", "sankey_plot.svg"))
 #| label: tbl-demo2
 #| tbl-cap: Participant demographic variables 
 #| echo: false
-#| out-height: 50%
+#| out-height: 30%
 
 
 library(tidyverse)
@@ -757,7 +757,7 @@ target_data_with_subject_SR <- trial_data_rt_L2 %>%
   left_join(subject_sampling_rate, by = "subject")
 
 # Merge by-trial sampling rate with target data
-target_data_with_full_SR <- target_data_with_subject_SR %>%
+target_data_with_full_SR_L2 <- target_data_with_subject_SR %>%
   select(subject, trial, sampling_rate_subject) %>%
   left_join(trial_sampling_rate, by = c("subject", "trial"))
 
@@ -1175,7 +1175,7 @@ tcru <- plot_IA_proportions(
                 "TCUU-SPSP" = "Spanish-Spanish"
             )
         ),
-        ncol = 2                # Specify 2 columns to achieve 2 on top row, 1 on bottom
+        ncol = 1                # Specify 2 columns to achieve 2 on top row, 1 on bottom
     ) +
     labs(tag = c("a", "b", "c")) +         # Optional tag for labeling
     theme(
