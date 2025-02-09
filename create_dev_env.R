@@ -27,7 +27,7 @@ rix(
     "doParallel", 
     "ggokabeito"
   ),
-  system_pkgs = c("quarto", "git", "pandoc", "ungoogled-chromium", "librsvg", "typst"),
+  system_pkgs = c("quarto", "git", "pandoc", "librsvg", "typst"),
   git_pkgs = list(
     list(
       package_name = "webgazer",
