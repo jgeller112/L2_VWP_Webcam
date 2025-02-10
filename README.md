@@ -180,7 +180,14 @@ L2_VWP_Webcam/
 
 # Reproducing the Manuscript
 
+
 This repository contains all the resources needed to reproduce the manuscript associated with this project. To ensure maximum reproducibility, we used [Quarto](https://quarto.org/) for creating the manuscript. This allows computational figures, tables, and text to be programmatically included directly in the manuscript, ensuring that all results are seamlessly integrated into the document. We also provide a file called default.nix which contains the definition of the development environment that was used to work on the analysis. Reproducers can easily re-use the exact same environment by installing the Nix package manager and using the included default.nix file to set up the right environment.
+
+## Video Tutorial
+
+Here is a video tutorial showing you how to reproduce this manuscript: 
+
+[![Reproduce Manuscript with Nix/Rix](https://img.youtube.com/vi/SRis9gUrhak/0.jpg)](https://www.youtube.com/watch?v=SRis9gUrhak)
 
 ## Prerequisites
 
