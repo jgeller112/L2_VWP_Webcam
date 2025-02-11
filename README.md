@@ -188,7 +188,6 @@ This repository contains all the resources needed to reproduce the manuscript as
 Here is a video tutorial showing you how to reproduce this manuscript: 
 
 [![Reproduce Manuscript with Nix/Rix](https://img.youtube.com/vi/SRis9gUrhak/0.jpg)](https://www.youtube.com/watch?v=SRis9gUrhak)
-
 ## Prerequisites
 
 ### Required Software
