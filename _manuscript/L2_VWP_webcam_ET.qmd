@@ -138,7 +138,7 @@ execute:
   tbl-align: center
   keep-with-next: true
   code-overflow: wrap
-  out-width: 50%
+  out-width: 40%
 ---
 
 Eye-tracking technology, which has a history spanning over a century, has seen remarkable advancements. In the early days, eye-tracking sometimes required the use of contact lenses fitted with search coils, often requiring anesthesia, or the attachment of suction cups to the sclera of the eyes [@pluzyczka2018]. These methods were not only cumbersome for the researcher, but also uncomfortable and invasive for participants. Over time, such approaches have been replaced by non-invasive, lightweight, and user-friendly systems. Today, modern eye-tracking technology is widely accessible in laboratories worldwide, enabling researchers to tackle critical questions about cognitive processes . This evolution has had a profound impact on fields such as psycholinguistics and bilingualism, opening up new possibilities for understanding how language is processed in real time [@godfroid].
@@ -208,8 +208,6 @@ To highlight the preprocessing steps required to analyze webcam eye-tracking dat
 It is well established that competition plays a critical role in language processing [@magnuson2007]. In speech perception, as the auditory signal unfolds over time, competitors (or cohorts)—phonological neighbors that differ from the target by an initial phoneme—become activated. To successfully recognize the spoken word, these competitors must be inhibited or suppressed. For example, as the word *wizard* is spoken, cohorts like *whistle* might also be briefly activated and in order for wizard to be recognized, *whistle* must be suppressed. A key question in the L2 literature is whether competition can occur cross-linguistically, with interactions between a speaker’s first language (L1) and second language (L2). Recent work by @sarrett2022 explored this question using carefully designed stimuli to examine within- and between linguistic (L2/L1) competition in adult L2 Spanish learners using a Spanish VWP. Their study included two key conditions:
 
 1.  Spanish-Spanish condition: A Spanish competitor was presented alongside the target word. For example, if the target word spoken was *cielo* (sky), the Spanish competitor was *ciencia* (science).
-
-<!-- -->
 
 2.  Spanish-English (cross-linguistic) condition: An English competitor was presented for the Spanish target word. For example, if the target word spoken was *botas* (boots), the English competitor was *border*.
 
