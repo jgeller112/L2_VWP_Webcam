@@ -8,9 +8,6 @@ rix(
     "formatR", 
     "flextable", 
     "knitr",
-    "webshot2", 
-    "webshot", 
-    "networkD3",
     "buildmer",
     "tinytable",
     "quarto",
@@ -32,7 +29,7 @@ rix(
     list(
       package_name = "webgazer",
       repo_url = "https://github.com/jgeller112/webgazeR/",
-      commit = "542c8cec5e64bd03decb8f0694816cba16d9a90d"
+      commit = "f58d3d73fd3957d2455ba0f5f495f06e841e9e2d"
     )
   ),
 tex_pkgs = c("amsmath", "ninecolors", "apa7", "scalerel", "threeparttable", "threeparttablex", "endfloat", "environ", "multirow", "tcolorbox", "pdfcol", "tikzfill", "fontawesome5", "framed", "newtx", "fontaxes", "xstring", "wrapfig", "tabularray", "siunitx", 
