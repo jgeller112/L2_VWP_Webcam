@@ -25,3 +25,4 @@ knitr
 flextable
 iterators
 doParallel
+gt
