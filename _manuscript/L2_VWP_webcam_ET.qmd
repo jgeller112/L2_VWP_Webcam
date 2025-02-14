@@ -138,7 +138,7 @@ execute:
   tbl-align: center
   keep-with-next: true
   code-overflow: wrap
-  out-width: 40%
+  out-width: 60%
 ---
 
 Eye-tracking technology, which has a history spanning over a century, has seen remarkable advancements. In the early days, eye-tracking sometimes required the use of contact lenses fitted with search coils, often requiring anesthesia, or the attachment of suction cups to the sclera of the eyes [@pluzyczka2018]. These methods were not only cumbersome for the researcher, but also uncomfortable and invasive for participants. Over time, such approaches have been replaced by non-invasive, lightweight, and user-friendly systems. Today, modern eye-tracking technology is widely accessible in laboratories worldwide, enabling researchers to tackle critical questions about cognitive processes . This evolution has had a profound impact on fields such as psycholinguistics and bilingualism, opening up new possibilities for understanding how language is processed in real time [@godfroid].
@@ -1783,8 +1783,7 @@ agg_eye_data_quest <- rbind(eye_quest_good1, eye_quest_good2, eye_quest_bad1, ey
 #| tbl-cap: Eye-tracking questionnaire items
 #| echo: false
 #| out-width: 30%
-#
-#
+
 eye_quests %>%
   select(Question, Key) %>%
   filter(Key == "value") %>%
@@ -1816,7 +1815,7 @@ write.csv(qq_good, file = "quest_goodcal_responses.csv")
 #| label: tbl-goodbad
 #| echo: false
 #| tbl-cap: "Responses to eye-tracking questions for participants who successfully calibrated vs. participants who had trouble calibratrin"
-#| out-width: 40%
+#| out-width: 20%
 
 # Calculate percentages for good participants
 # Define the cleaning function
