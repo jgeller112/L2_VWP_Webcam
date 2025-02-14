@@ -187,30 +187,29 @@ This repository contains all the resources needed to reproduce the manuscript as
 
 Here is a video tutorial showing you how to reproduce this manuscript: 
 
-[![Reproduce Manuscript with Nix/Rix](https://img.youtube.com/vi/SRis9gUrhak/0.jpg)](https://www.youtube.com/watch?v=SRis9gUrhak)
+[![Reproduce Manuscript with Nix/Rix](https://img.youtube.com/vi/nb9NfGfwAwc/0.jpg)](https://www.youtube.com/watch?v=nb9NfGfwAwc)
 
 ## Prerequisites
 
 ### Required Software
-To reproduce the manuscript, you will need the following:
+To reproduce the manuscript, you will need the following if not using rix/nix:
 
-1. **Nix** - A package manager to create a stable environment.
-2. **Git** - To get Github repos [https://git-scm.com/downloads]
-3. **RStudio** or **Positron**  or **VS Code**- To run the R scripts and render the Quarto document.
-5. **Quarto** - To compile the manuscript.
-6. **apaQuarto** - APA manuscript template [https://github.com/wjschne/apaquarto/tree/main] (you should not have to download this if you download the repo as the _extension file contains all the files needed)
-
-### Installation Guides
-
-- **Nix and Rix**
-  - For Windows and Linux: [Setup Guide](https://docs.ropensci.org/rix/articles/b1-setting-up-and-using-rix-on-linux-and-windows.html)
-  - For macOS: [Setup Guide](https://docs.ropensci.org/rix/articles/b2-setting-up-and-using-rix-on-macos.html)
+1. **Git** - To get Github repos [https://git-scm.com/downloads]
+2. **RStudio** or **Positron**  or **VS Code**- To run the R scripts and render the Quarto document.
+3. **Quarto** - To compile the manuscript.
+4. **apaQuarto** - APA manuscript template [https://github.com/wjschne/apaquarto/tree/main] (you should not have to download this if you download the repo as the _extension file contains all the files needed)
 
 - **Positron**: [Installation Guide](https://positron.posit.co/)
 
 ## Steps to Reproduce
 
 ### Nix/Rix
+
+#### Installation Guides
+
+- **Nix and Rix**
+  - For Windows and Linux: [Setup Guide](https://docs.ropensci.org/rix/articles/b1-setting-up-and-using-rix-on-linux-and-windows.html)
+  - For macOS: [Setup Guide](https://docs.ropensci.org/rix/articles/b2-setting-up-and-using-rix-on-macos.html)
 
 #### 1. Clone the Repository
 
