@@ -36,7 +36,7 @@ author:
   - name: Yanina Prystauka
     orcid: 0000-0001-8258-2339
     roles:
-      - Method
+      - methodology
       - editing
       - formal analysis
     affiliations: 
