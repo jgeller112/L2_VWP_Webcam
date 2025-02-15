@@ -138,7 +138,8 @@ execute:
   tbl-align: center
   keep-with-next: true
   code-overflow: wrap
-  out-width: 60%
+  out-width: 50%
+  out-height: 50%
 ---
 
 Eye-tracking technology, which has a history spanning over a century, has seen remarkable advancements. In the early days, eye-tracking sometimes required the use of contact lenses fitted with search coils, often requiring anesthesia, or the attachment of suction cups to the sclera of the eyes [@pluzyczka2018]. These methods were not only cumbersome for the researcher, but also uncomfortable and invasive for participants. Over time, such approaches have been replaced by non-invasive, lightweight, and user-friendly systems. Today, modern eye-tracking technology is widely accessible in laboratories worldwide, enabling researchers to tackle critical questions about cognitive processes . This evolution has had a profound impact on fields such as psycholinguistics and bilingualism, opening up new possibilities for understanding how language is processed in real time [@godfroid].
@@ -151,7 +152,7 @@ Time constraints also pose a significant hurdle. Many labs possess only a limite
 
 In addition to the above, an issue often not discussed is the burden placed on participants. Participating in eye-tracking studies requires participants to come into the lab. This significantly limits the sample or population researchers can recruit. Behavioral science research, in general, frequently suffers from a lack of diversity, relying heavily on participants who are predominantly Western, Educated, Industrialized, Rich, Democratic, and able-bodied (WEIRD-A) [@henrich2010]. This focus often excludes individuals from geographically dispersed areas, those from lower socioeconomic backgrounds, and people with disabilities who may face barriers to accessing research facilities. In language research, this issue is particularly evident, as it often prioritizes modal listeners and speakers, which are typically characterized as young, monolingual, and neurotypical [@blasi2022; @bylund2024; @mcmurray2010]
 
-Collectively, these challenges—expertise, cost, time, and location—mean that not all researchers have the resources or capacity to incorporate eye-tracking into their research programs, potentially limiting the broader adoption of this powerful methodology in fields where it could provide valuable insights.
+Collectively, these challenges—expertise, cost, time, and space/location—mean that not all researchers have the resources or capacity to incorporate eye-tracking into their research program nor recruit the sample they want, thereby limiting the broader adoption of this powerful methodology in fields where it could provide valuable insights.
 
 ## Eye-tracking outside the lab
 
@@ -161,7 +162,7 @@ One method, manual eye-tracking [@trueswell2008], involves using video recording
 
 Another method, which is the focus of this tutorial, is automated eye-tracking or webcam eye-tracking. Webcam eye-tracking requires three things: 1. A personal computer. 2. An internet connection and 3. A purchased or pre-installed webcamera. Gaze information can be collected via a web browser. One common method to perform webcam eye-tracking is through an open source, free, and actively maintained JavaScript library plugin called WebGazer.js [@papoutsaki2016]. This plugin is already incorporated into several popular experimental platforms (e.g., Gorilla, *jsPsych*, PsychoPy, and PCIbex; [@anwyl-irvine2020; @peirce2019; @deleeuw2015; @zehr2018penncontroller]. WebGazer.js runs locally through a person's personal computer via a browser. A benefit of WebGazer.js is that it does not require users to download any software, and is fully integrated in the browser, making it extremely easy to start webcam eye-tracking. In addition, videos taken from webcams are not recorded and saved which eliminates some of the ethical and privacy concerns.
 
-WebGazer.js utilizes facial feature detection to estimate gaze positions in real time through a webcam. At each time point, determined by the sampling rate, **x** and **y** coordinates of the gaze are recorded. The system employs machine learning to analyze the relative movement of the eyes and infer the gaze location on the screen. To enhance accuracy, calibration and validation procedures are implemented, during which participants fixate on markers with known positions on the screen.
+WebGazer.js utilizes facial feature detection to estimate gaze positions in real time through a webcam. At each time point, determined by the sampling rate, x and y coordinates of the gaze are recorded. The system employs machine learning to analyze the relative movement of the eyes and infer the gaze location on the screen. To enhance accuracy, calibration and validation procedures are implemented, during which participants fixate on markers with known positions on the screen.
 
 During calibration, users interact with visual stimuli by looking at and clicking on randomly placed dots or by following a moving dot across the screen. This interaction allows the system to map eye positions to specific screen coordinates. In the subsequent validation phase, participants repeat a similar procedure, enabling researchers to assess the accuracy of the gaze predictions. These procedures provide an estimate of the deviation between the calibrated eye-tracking data (where the system predicts the participant looked) and the actual known positions of the stimuli, thus allowing for the evaluation and refinement of gaze estimation accuracy.
 
@@ -173,7 +174,7 @@ This leads to an important question: how does consumer-grade webcam eye tracking
 
 To compare, a study of 15 research-grade eye-trackers by @hooge2024 found that precision ranged from 0.1° to 0.35°, while accuracy ranged from 0.3° to 0.75°. Additionally, research-grade eye-trackers have low latency and can achieve high sampling rates—for example, the SR EyeLink 1000 Plus can sample at 2,000 Hz. These advanced capabilities make research-grade systems ideal for studies requiring high temporal and spatial resolution.
 
-## Bringing the visual world paradigm online
+## Bringing the visual world paradigm (VWP) online
 
 Despite the differences between research-grade and consumer grade eye-tracking, a number of studies have begun to look at if lab-based results replicate online using webcam eye-tracking. Most relevant to this tutorial are online replications using the VWP [@tanenhaus1995; cf. @cooper1974]. For the past 25 years, the VWP has been a dominant force in language research, helping researchers tackle a wide range of topics, including sentence processing [@altmann1999; @huettig2011; @kamide2003], word recognition [@allopenna1998; @dahan2001; @huettig2007; @mcmurray2002], bilingualism [@hopp2013; @ito2018; @rossi2019], and the effects of brain damage on language [@mirman2012; @yee2008].
 
@@ -183,13 +184,13 @@ Most research on visual world eye-tracking has been conducted in laboratory sett
 
 More relevant to the current paper are findings from single-word VWP studies conducted online. To date, only one study has investigated visual world webcam eye-tracking with single words. @slim2024 examined a phonemic cohort task. In the cohort task, pictures were displayed randomly in one of four quadrants, and participants were instructed to fixate on the target based on the auditory cue. On each trial, one of the pictures was phonemically similar to the target in onset (e.g., *MILK* – *MITTEN*).
 
-They were able to observe significant fixations to the cohort compared to the control condition, replicating lab-based single word VWP experiments with research grade eye-trackers [e.g., @allopenna1998]. However, @slim2024 only observed these competition effects in a later time window compared to traditional, lab-based eye-tracking.\
+They were able to observe significant fixations to the cohort compared to the control condition, replicating lab-based single word VWP experiments with research grade eye-trackers [e.g., @allopenna1998]. However, @slim2024 only observed these competition effects in a later time window compared to traditional, lab-based eye-tracking.
 
 It is important to note, however, that while these studies represent successful replication attempts, there is an important caveat. Most notably, some studies [e.g., @degen2021; @slim2023; @slim2024] reported considerable delays in the temporal onset of effects. Several factors likely contribute to these delays, including reduced spatial precision, computational demands, the size of areas of interest (AOIs), and the number of calibrations performed [@degen2021].
 
 More recent work has addressed these limitations by utilizing an updated version of WebGazer.js and using different experimental platforms. For instance, @vos2022 demonstrated a significant reduction in delays—approximately 50 ms—when comparing lab-based and online versions of the VWP using an updated version of WebGazer.js within the jsPsych framework [@deleeuw2015]. Furthermore, studies by @prystauka2024 and @bramlett2024, which leveraged the Gorilla platform alongside the improved WebGazer algorithm, reported effects comparable to those observed in traditional lab-based VWP studies.
 
-These findings underscore the potential of the online version of the VWP, powered by webcam eye-tracking, to achieve results similar to those of traditional lab-based methods. Importantly, they demonstrate that this approach can effectively be used to study competition effects in single-word speech perception
+These findings underscore the potential of the online version of the VWP, powered by webcam eye-tracking, to achieve results similar to those of traditional lab-based methods. Importantly, they demonstrate that this approach can effectively be used to study competition effects in single-word speech perception.
 
 ## Tutorial
 
@@ -207,13 +208,13 @@ To highlight the preprocessing steps required to analyze webcam eye-tracking dat
 
 It is well established that competition plays a critical role in language processing [@magnuson2007]. In speech perception, as the auditory signal unfolds over time, competitors (or cohorts)—phonological neighbors that differ from the target by an initial phoneme—become activated. To successfully recognize the spoken word, these competitors must be inhibited or suppressed. For example, as the word *wizard* is spoken, cohorts like *whistle* might also be briefly activated and in order for wizard to be recognized, *whistle* must be suppressed. A key question in the L2 literature is whether competition can occur cross-linguistically, with interactions between a speaker’s first language (L1) and second language (L2). Recent work by @sarrett2022 explored this question using carefully designed stimuli to examine within- and between linguistic (L2/L1) competition in adult L2 Spanish learners using a Spanish VWP. Their study included two key conditions:
 
-1.  Spanish-Spanish condition: A Spanish competitor was presented alongside the target word. For example, if the target word spoken was *cielo* (sky), the Spanish competitor was *ciencia* (science).
+1.  Spanish-Spanish (within) condition: A Spanish competitor was presented alongside the target word. For example, if the target word spoken was *cielo* (sky), the Spanish competitor was *ciencia* (science).
 
-2.  Spanish-English (cross-linguistic) condition: An English competitor was presented for the Spanish target word. For example, if the target word spoken was *botas* (boots), the English competitor was *border*.
+2.  Spanish-English (cross-ligustic) condition: An English competitor was presented for the Spanish target word. For example, if the target word spoken was *botas* (boots), the English competitor was *border*.
 
-@sarrett2022 also included a no competition condition where the Spanish-English pairs were not cross-linguistic competitors (e.g., *frontera* as the target word and *botas*-*boots* as an unrelated item in the pair). They observed competition effects in both of the critical conditions: within-Spanish competition (e.g., *cielo* - *ciencia*) and cross-linguistic competition (e.g., *botas* - *border*). For this tutorial, we collected data to conceptually replicate their pattern of findings.
+@sarrett2022 also included a no competition condition where the Spanish-English pairs were not cross-linguistic competitors (e.g., *frontera* as the target word and *botas* - *boots* as an unrelated item in the pair). They observed competition effects in both of the critical conditions: within (e.g., *cielo* - *ciencia*) and between (e.g., *botas* - *border*). For this tutorial, we collected data to conceptually replicate their pattern of findings.
 
-There are two key differences between our dataset and the original study by @sarrett2022 worth noting. First, @sarrett2022 focused on adult L2 Spanish speakers and posed more fine-grained questions about the time course of competition and resolution and its relationship with L2 language acquisition. Second, unlike @sarrett2022 , who measured Spanish proficiency objectively (e.g., using LexTALE-esp; [@izura2014]), we relied on Prolific’s filters to recruit L2 Spanish speakers.
+There are two key differences between our dataset and the original study by @sarrett2022 worth noting. First, @sarrett2022 focused on adult L2 Spanish speakers and posed more fine-grained questions about the time course of competition and resolution and its relationship with L2 language acquisition. Second, unlike @sarrett2022 , who measured Spanish proficiency objectively using LexTALE-esp [@izura2014]), we relied on Prolific’s filters to recruit L2 Spanish speakers.
 
 Our primary goal here was to demonstrate the pre-processing steps required to analyze webcam-based eye-tracking data. A secondary goal was to provide evidence of L2 competition within and between or cross-linguistically using this methodology. To our knowledge, no papers have looked at spoken word recognition and competition using online methods. It is our hope that researchers can use this to test more detailed questions about L2 processing using webcam-based eye-tracking.
 
@@ -413,7 +414,7 @@ We adapted materials from @sarrett2022. In their cross-linguistic VWP, participa
 
 The item sets consisted of two types of phonologically-related word pairs: one pair of Spanish-Spanish words and another of Spanish-English words. The Spanish-Spanish pairs were unrelated to the Spanish-English pairs. All the word pairs were carefully controlled on a number of dimensions [see @sarrett2022].
 
-There were three experimental conditions: (1) the Spanish-Spanish condition, where one of the Spanish words was the target and the other was the competitor; (2) the Spanish-English condition, where a Spanish word was the target and its English phonological cohort served as the competitor; and (3) the No Competitor condition, where the Spanish word did not overlap with any other word in the set. The Spanish-Spanish condition had twice as many trials as the other conditions due to the interchangeable nature of the target and competitor words in that pair.
+There were three experimental conditions: (1) the Spanish-Spanish (within) condition, where one of the Spanish words was the target and the other was the competitor; (2) the Spanish-English (cross-lingustic) condition, where a Spanish word was the target and its English phonological cohort served as the competitor; and (3) the No Competitor condition, where the Spanish word did not overlap with any other word in the set. The Spanish-Spanish condition had twice as many trials as the other conditions due to the interchangeable nature of the target and competitor words in that pair.
 
 There were 15 sets of 4 items (half the number of sets used in [@sarrett2022]. Each item within a set was repeated 4 times as the target word. This yielded 240 trials (15 sets × 4 items per set × 4 repetitions). Each item set consisted of one Spanish-Spanish cohort pair and one Spanish-English cohort pair. Both items in a Spanish-Spanish pair had a“reciprocal” competitor relationship (that is, we could test activation for *cielo* given *ciencia*, and for *ciencia* given *cielo*). Consequently, there were 120 trials in the Spanish-Spanish condition. In contrast, only one item from the Spanish-English pair had the speciﬁed competitor relationship (we could test activation for frontera *border*, given *botas*, but when hearing *frontera*, there was no competitor). Thus, there were only 60 trials for each the Spanish-English competition as well as the No Competitor condition. Items occurred in each of the four corners of the screen on an equal numbers of trials.
 
@@ -447,7 +448,7 @@ The experiment was programmed in the Gorilla Experiment Platform [@anwyl-irvine2
 
 Next, participants completed a headphone screening test. They had three attempts to pass this test. If unsuccessful by the third attempt, participants were directed to an early exit screen, followed by the questionnaire.
 
-For those who passed the screening, the next task was the VWP. This began with instructional videos providing specific guidance on the ideal experiment setup for eye-tracking and calibration procedures. You can view this videos here: <https://osf.io/mgkd2/>. Participants were then required to enter full-screen mode before calibration. A 9 point calibration procedure was used. Calibration occurred every 60 trials for a total of 3 calibrations. Participants had three attempts to successfully complete each calibration phase. If calibration was unsuccessful, participants were directed to an early exit screen, followed by the questionnaire.
+For those who passed the screening, the next task was the VWP. This began with instructional videos providing specific guidance on the ideal experiment setup for eye-tracking and calibration procedures. You can view the videos here: <https://osf.io/mgkd2/>. Participants were then required to enter full-screen mode before calibration. A 9-point calibration procedure was used. Calibration occurred every 60 trials for a total of 3 calibrations. Participants had three attempts to successfully complete each calibration phase. If calibration was unsuccessful, participants were directed to an early exit screen, followed by the questionnaire.
 
 In the main VWP task, each trial began with a 500 ms fixation cross at the center of the screen. This was followed by a preview screen displaying four images, each positioned in a corner of the screen. After 1500 ms, a start button appeared in the center. Participants clicked the button to confirm they were focused on the center before the audio played. Once clicked, the audio was played, and the images remained visible. Participants were instructed to click the image that best matched the spoken target word, while their eye movements were recorded. Eye movements were only recorded on that screen. @fig-vwptrial displays the VWP trial sequence.
 
@@ -668,7 +669,7 @@ trial_data_rt_L2 <- merge(eye_behav_L2, audio_rt_L2, by=c("subject", "trial"))
 
 #### Trial removal
 
-As stated above, participants who did not successfully calibrate 3 times or less were rejected from the experiment. Let's take a look at how many trials each participant by probing the `trial_data_rt_L2` object. Deciding to remove trials is ultimately up to the researcher. In our case, we removed participants with less than 100 trials. In @tbl-partL2 we can see several participants failed some of the calibration attempts and do not have an adequate number of trials. Again we make no strong recommendations here. If you decide to use a criterion such as this, we recommend pre-registering your choice.
+As stated above, participants who did not successfully calibrate 3 times or less were rejected from the experiment. Deciding to remove trials is ultimately up to the researcher. In our case, we removed participants with less than 100 trials.  Let's take a look at how many participants meet this criterion by probing the `trial_data_rt_L2` object.In @tbl-partL2 we can see several participants failed some of the calibration attempts and do not have an adequate number of trials. Again we make no strong recommendations here. If you decide to use a criterion such as this, we recommend pre-registering your choice.
 
 ```{r}
 # find out how many trials each participant had
@@ -717,7 +718,7 @@ trial_data_rt_L2 <- trial_data_rt_L2 %>%
 
 #### Low accuracy
 
-In our experiment, we want to make sure accuracy is high (\> 80%). Again, we want participants that are fully attentive in the experiment. In the below code, we keep participants with accuracy equal to or above 80% and only include correct trials and save it to `trial_data_acc_clean_L2`.
+In our experiment, we want to make sure accuracy is high (\> 80%). Again, we want participants that are fully attentive in the experiment. In the below code, we keep participants with accuracy equal to or above 80% and only include correct trials and assign it to `trial_data_acc_clean_L2`.
 
 ```{r}
 #| label: accuracy-L2
@@ -796,15 +797,13 @@ trial_data_L2 <- merge(trial_data_acc_clean_L2, target_data_with_full_SR_L2, by=
 
 ```
 
-Now we can use this information to filter out data with poor sampling rates. Users can use the `filter_sampling_rate()` function. The `filter_sampling_rate()` function is designed to process a dataset containing participant-level and trial-level sampling rates. It allows the user to either filter out data that falls below a certain sampling rate threshold or simply label it as “bad”. The function gives flexibility by allowing the threshold to be applied at the participant-level, trial-level, or both. It also lets the user decide whether to remove the data or flag it as below the threshold without removing it. If `action` = remove, the function will output how many subjects and trials were removed by the threshold. We leave it up to the user to decide what to do with low sampling rates and make no specific recommendations. Here we use the `filter_sampling_rate()` function to remove trials and participants from the`trial_data_L2` object.
+Now we can use this information to filter out data with poor sampling rates. Users can use the `filter_sampling_rate()` function. The `filter_sampling_rate()` function is designed to process a dataset containing participant-level and trial-level sampling rates. It allows the user to either filter out data that falls below a certain sampling rate threshold or simply label it as “bad”. The function gives flexibility by allowing the threshold to be applied at the participant-level, trial-level, or both. It also lets the user decide whether to remove the data or flag it as below the threshold without removing it. If `action` = remove, the function will output how many subjects and trials were removed using the threshold. We leave it up to the user to decide what to do with low sampling rates and make no specific recommendations. Here we use the `filter_sampling_rate()` function to remove trials and participants from the`trial_data_L2` object.
 
 ```{r}
 filter_edat_L2 <- filter_sampling_rate(trial_data_L2,threshold = 5,
                                          action = "remove",
                                          by = "both")
 ```
-
-The message produced states that 1 subject is thrown out along with 107 trials (trials associated with the 1 subject).
 
 #### Out-of-bounds (outside of screen)
 
@@ -836,15 +835,14 @@ oob_data_L2 %>%
   theme_apa()
   
 ```
-
 We can also add add by-participant and by-trial out of bounds data to our behavioral, trial-level, data (`filter_edat_L2`) and finally exclude participants and trials with more than 30% missing data. The value of 30 is just a suggestion and should not be used as a rule of thumb for all studies nor are we endorsing this value.
 
 ```{r}
 
-remove_missing <- oob_data_L2 %>%                             # Start with the `oob_data` dataset and assign the result to `remove_missing`
-  select(subject, total_missing_percentage) %>%            # Select only the `subject` and `total_missing_percentage` columns from `oob_data`
-  left_join(filter_edat_L2, by = "subject") %>%               # Perform a left join with `filter_edat` on the `subject` column, keeping all rows from `oob_data`
-  filter(total_missing_percentage < 30)  %>%                   # Filter the data to keep only rows where `total_missing_percentage` is less than 30 %>%
+remove_missing <- oob_data_L2 %>%                     # Start with the `oob_data` dataset and assign the result to `remove_missing`
+  select(subject, total_missing_percentage) %>%       # Select only the `subject` and `total_missing_percentage` columns from `oob_data`
+  left_join(filter_edat_L2, by = "subject") %>%        # Perform a left join with `filter_edat` on the `subject` column, keeping all rows from `oob_data`
+  filter(total_missing_percentage < 30)  %>%           # Filter the data to keep only rows where `total_missing_percentage` is less than 30 %>%
 na.omit()
 
 ```
@@ -863,7 +861,7 @@ edat_1_L2 <- edat_L2 %>%
 
 #### Combining eye and trial-level data
 
-Next, we will combine the eye-tracking data and behavioral data. In this case, we’ll use right_join to add the behavioral data to the eye-tracking data. This ensures that all rows from the eye-tracking data are preserved, even if there isn’t a matching entry in the behavioral data (missing values will be filled with NA). The resulting object is called dat_L2. We use the `distinct()` function afterward to remove any duplicate rows that may arise during the join
+Next, we will combine the eye-tracking data and behavioral data. In this case, we’ll use `right_join` to add the behavioral data to the eye-tracking data. This ensures that all rows from the eye-tracking data are preserved, even if there isn’t a matching entry in the behavioral data (missing values will be filled with NA). The resulting object is called dat_L2. We use the `distinct()`function afterward to remove any duplicate rows that may arise during the join
 
 ```{r}
 
