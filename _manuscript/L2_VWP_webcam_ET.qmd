@@ -1173,6 +1173,7 @@ The above will not include the subject variable. If you want to keep participant
 # add subject-level data
 gaze_sub_L2_id <- webgazeR::downsample_gaze(gaze_sub_L2_long, bin.length=100, timevar="time", aggvars=c("subject", "condition", "condition1", "time_bin"))
 ```
+## Aggregation
 
 Aggregation is an optional step. If you do not plan to analyze proportion data, and instead what time binned data with binary outcomes preserved please set the `aggvars` argument to "none." This will return a time binned column, but will not aggregate over other variables.
 
@@ -1184,6 +1185,7 @@ gaze_sub_id <- downsample_gaze(gaze_sub_L2_long, bin.length=100, timevar="time",
 We need to make sure we only have one unrelated value.
 
 ```{r}
+# make only one unrelated condition
 gaze_sub_id <- gaze_sub_id %>% 
   mutate(condition1 = ifelse(condition1=="unrelated2", "unrelated", condition1))
 ```
@@ -1459,8 +1461,6 @@ Before I show you how to apply this method to the current dataset, I want to bri
 
 The clustering procedure involves three main steps:
 
-The clustering procedure involves three main steps:
-
 1.  Cluster Formation: With our data, a multilevel logistic model is conducted for every data point (condition by time). Please note that any statistical test can be run here. Adjacent data points that surpass the mass univariate significance threshold (e.g., p \\\< .05) are combined into clusters. The cluster-level statistic, typically the sum of the t-values (or F-values) within the cluster, is computed labeled as SumStatitic is output below). By clustering adjacent significant data points, this step accounts for autocorrelation by considering temporal dependencies rather than treating each data point as independent.
 
 2.  Null Distribution Creation: Next, the same analysis is run as in step 1. However, the analysis is based on randomly permuting or shuffling the conditions within subjects. This principle of exchangeability is important here, as it suggests that the condition labels can be exchanged without altering the underlying data structure. This randomization is repeated n times (e.g., 1000 shuffles), and for each permutation, the cluster-level statistic is computed. This step addresses the issue of multiple comparisons by constructing a distribution of cluster-level statistics under the null hypothesis, providing a baseline against which observed cluster statistics can be compared. By doing so, the method controls the family-wise error rate and ensures that significant findings are not simply due to chance.
@@ -1552,7 +1552,7 @@ sig.clusters = cpa.lme %>%
     filter(Factor=='condition1_code', !is.na(cluster_mass), p.cluster_mass<.05) %>% 
     mutate_at(vars(time_bin), as.numeric) %>% 
     group_by(cluster) %>% 
-    summarise(cluster_mass=min(cluster_mass), p.cluster_mass=min(p.cluster_mass), bin_start=min(time_bin), bin_end=max(time_bin), t=mean(t)) %>% 
+    summarise(cluster_mass=max(cluster_mass), p.cluster_mass=max(p.cluster_mass), bin_start=min(time_bin), bin_end=max(time_bin), t=mean(t)) %>% 
     mutate(sign=ifelse(t<0,-1,1), time_start=(bin_start-2)*100, time_end=(bin_end-2)*100) %>% 
     mutate_at(vars(sign), as.factor)
 ```
@@ -1595,6 +1595,9 @@ SPSP <- plot_IA_proportions(
             )
         )
     ) +
+
+    labs(tag = "A") + # Optional tag for labeling
+
     theme(
         strip.text = element_text(size = 14),  # Adjust facet label text size
         panel.spacing = unit(1, "lines")       # Add space between panels
@@ -1648,7 +1651,7 @@ stopCluster(cl)
 
 sig.clusters = cpa.glmer %>% filter(Factor=='condition1_code', !is.na(cluster_mass), p.cluster_mass<.05) %>% 
     mutate_at(vars(time_bin), as.numeric) %>% group_by(cluster) %>% 
-    summarise(cluster_mass=min(cluster_mass), p.cluster_mass=min(p.cluster_mass), bin_start=min(time_bin), bin_end=max(time_bin), t=mean(t)) %>% 
+    summarise(cluster_mass=max(cluster_mass), p.cluster_mass=max(p.cluster_mass), bin_start=min(time_bin), bin_end=max(time_bin), t=mean(t)) %>% 
     mutate(sign=ifelse(t<0,-1,1), time_start=(bin_start-2)*100, time_end=(bin_end-2)*100) %>% 
     mutate_at(vars(sign), as.factor)
 
@@ -1683,7 +1686,7 @@ SPENG <- plot_IA_proportions(
             )
         )
     ) +
-    labs(tag = "b") +         # Optional tag for labeling
+    labs(tag = "B") +         # Optional tag for labeling
     theme(
         strip.text = element_text(size = 14),  # Adjust facet label text size
         panel.spacing = unit(1, "lines")       # Add space between panels
@@ -1705,7 +1708,7 @@ In the analysis for the Spanish-Spanish condition, one significant cluster was o
 
 ```{r}
 #| label: fig-clustermass
-#| fig-cap: "Average looks in the cross-lingustic VWP task over time for the Spanish-Spanish condition (a) and the Spanish-English condition (b). The shaded rectangles indicate when cohort looks were greater than chance baed on the CPA." 
+#| fig-cap: "Average looks in the cross-linguistic VWP task over time for the Spanish-Spanish condition (a) and the Spanish-English condition (b). The shaded rectangles indicate when cohort looks were greater than chance based on the CPA." 
 #| echo: false
 #| fig.width: 8
 #| fig.height: 12
