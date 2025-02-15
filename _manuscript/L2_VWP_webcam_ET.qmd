@@ -1298,7 +1298,7 @@ ggplot() +
   geom_text(data = quadrants, aes(x = x + width/2, y = y + height/2, label = label), color = 'black', size = 5) +
   scale_fill_identity() +
   coord_fixed() +
-  labs(x = 'Normalized X', y = 'Normalized Y', title = 'Quadrants with Width Annotations') +
+  labs(x = 'Normalized X', y = 'Normalized Y') +
   theme_minimal(base_size = 14)
 
 ggsave(here::here("_manuscript", "Figures", "Figure7.png"), width=8, height=12, dpi=400)
