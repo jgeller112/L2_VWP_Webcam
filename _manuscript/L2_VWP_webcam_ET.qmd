@@ -1790,12 +1790,7 @@ eye_quests %>%
   select(-Key) %>%
   distinct() %>%
     as_tibble() %>%
- flextable() %>% 
-    fontsize(size = 12) %>%  # Reduce font size
-  padding(padding = 2) %>%  # Reduce padding inside cells
-  font(fontname = "Times New Roman", part = "all") %>%
-   set_table_properties(layout="autofit") %>% # Reduce padding inside cells
-  autofit()
+tt(width=.9)
 ```
 
 ```{r}
@@ -1814,7 +1809,7 @@ write.csv(qq_good, file = "quest_goodcal_responses.csv")
 ```{r}
 #| label: tbl-goodbad
 #| echo: false
-#| tbl-cap: "Responses to eye-tracking questions for participants who successfully calibrated vs. participants who had trouble calibratrin"
+#| tbl-cap: "Responses to eye-tracking questions for participants who successfully calibrated vs. participants who had trouble calibrating"
 #| out-width: 20%
 
 # Calculate percentages for good participants
