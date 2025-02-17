@@ -51,7 +51,7 @@ author:
     affiliations:
      - id: id3
        name: "University of Ottawa"
-       department: Department of Lingustics
+       department: Department of Linguistics
   - name: Julia R. Drouin
     orcid: 0000-0003-0798-3268
     roles: 
