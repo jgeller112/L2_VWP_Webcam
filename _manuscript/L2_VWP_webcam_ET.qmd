@@ -43,7 +43,7 @@ author:
       - id: id2
         name: "University of Bergen"
         department: Department of Linguistic, Literary and Aesthetic Studies
-  - name: Sarah Colby
+  - name: Sarah E. Colby
     orcid: 0000-0002-2956-3072
     roles: 
       - methodology
@@ -52,7 +52,7 @@ author:
      - id: id3
        name: "University of Ottawa"
        department: Department of Lingustics
-  - name: Julia Droulin
+  - name: Julia R. Drouin
     orcid: 0000-0003-0798-3268
     roles: 
       - methodology
