@@ -17,6 +17,7 @@
 
 - **`references.bib`**: Bibliography file in BibTeX format, containing all references cited in the manuscript.
 - **`survey_responses/`**: Contains survey data related to the manuscript study.
+- - **`combined_data/`**: zipped data combined eye-tracking data and trial level data
 
 ### Archive
 
