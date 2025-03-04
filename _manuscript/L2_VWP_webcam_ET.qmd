@@ -62,7 +62,7 @@ author:
     affiliations:
      - id: id4
        name: "University of North Carolina at Chapel Hill"
-       department: Department of Psychology and Neuroscience
+       department: Division of Speech and Hearing Sciences
 author-note:
   status-changes: 
     # Example: [Author name] is now at [affiliation].
