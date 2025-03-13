@@ -23,10 +23,10 @@ L2_VWP_Webcam/
 ├── create_dev_env.R
 ├── default.nix
 ├── .project
-├── _extensions/
-│   └── wjschne/
-│       └── apaquarto/
 ├── _manuscript/
+│   └── _extensions/
+│       └── wjschne/
+│           └── apaquarto/
 ├── data/
 ├── files/
 └── result/
