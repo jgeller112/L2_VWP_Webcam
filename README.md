@@ -14,7 +14,6 @@ Authors:
 ## Overview
 
 ```
-
 L2_VWP_Webcam/
 ├── .Rprofile
 ├── .gitignore
@@ -24,12 +23,15 @@ L2_VWP_Webcam/
 ├── default.nix
 ├── .project
 ├── _manuscript/
-│   └── _extensions/
-│       └── wjschne/
-│           └── apaquarto/
+│   ├── _extensions/
+│   │   └── wjschne/
+│   │       └── apaquarto/
+│   ├── apa7.csl
+│   ├── manuscript.qmd
+│   └── references.bib
 ├── data/
-├── files/
-└── result/
+└── result
+
 ```
 - **`.Rprofile`**: Configuration file for R sessions.
 - **`.gitignore`**: Specifies files and directories for Git to ignore.
