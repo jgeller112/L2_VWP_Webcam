@@ -26,7 +26,6 @@ L2_VWP_Webcam/
 │   ├── _extensions/
 │   │   └── wjschne/
 │   │       └── apaquarto/
-│   ├── apa7.csl
 │   ├── manuscript.qmd
 │   └── references.bib
 ├── data/
