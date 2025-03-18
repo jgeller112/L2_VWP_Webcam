@@ -806,7 +806,7 @@ filter_edat_L2 <- filter_sampling_rate(trial_data_L2,threshold = 5,
 
 #### Out-of-bounds (outside of screen)
 
-It is important that we do not include points that fall outside the standardized coordinates (0,1). The `gaze_oob()` function calculates how many of the data points fall outside the standardized range. Here we need our eye-tracking data (`edat_L2`). Running the `gaze_oob()` function returns a table listing how many data points fall outside this range (total, X and Y), and also provides percentages (see @tbl-oob-L2). This information would be useful to include in the final report. 
+It is important that we do not include points that fall outside the standardized coordinates (0,1). The `gaze_oob()` function calculates how many of the data points fall outside the standardized range. Here we need our eye-tracking data (`edat_L2`). Running the `gaze_oob()` function returns a table listing how many data points fall outside this range (total, X and Y), and also provides percentages (see @tbl-oob-L2). This information would be useful to include in the final paper or report.  
 
 ```{r}
 #| echo: true
