@@ -806,7 +806,7 @@ filter_edat_L2 <- filter_sampling_rate(trial_data_L2,threshold = 5,
 
 #### Out-of-bounds (outside of screen)
 
-It is important that we do not include points that fall outside the standardized coordinates (0,1). The `gaze_oob()` function calculates how many of the data points fall outside the standardized range. Here we need our eye-tracking data (`edat_L2`). Running the `gaze_oob()` function returns a table listing how many data points fall outside this range (total, X and Y), and also provides percentages (see @tbl-oob-L2). This information would be useful to include in the final
+It is important that we do not include points that fall outside the standardized coordinates (0,1). The `gaze_oob()` function calculates how many of the data points fall outside the standardized range. Here we need our eye-tracking data (`edat_L2`). Running the `gaze_oob()` function returns a table listing how many data points fall outside this range (total, X and Y), and also provides percentages (see @tbl-oob-L2). This information would be useful to include in the final report. 
 
 ```{r}
 #| echo: true
@@ -817,10 +817,10 @@ oob_data_L2 <- gaze_oob(edat_L2)
 
 ```{r}
 #| label: tbl-oob-L2
-#| tbl-cap: Out of bounds gaze statistics
+#| tbl-cap: Out of bounds gaze statistics by-participant
 #| echo: false
 
-oob_data_L2 %>%
+oob_data_L2$subject_results %>%
   mutate(across(where(is.numeric), ~round(.x, 2))) %>%
   rename_with(~ gsub("_", "\n", .x)) %>%         # Replace underscores with line breaks
   rename_with(~ gsub("percentage", "%", .x, ignore.case = TRUE)) %>%  # Replace 'percent' with '%'
@@ -837,11 +837,17 @@ oob_data_L2 %>%
 We can also add add by-participant and by-trial out of bounds data to our behavioral, trial-level, data (`filter_edat_L2`) and finally exclude participants and trials with more than 30% missing data. The value of 30 is just a suggestion and should not be used as a rule of thumb for all studies nor are we endorsing this value.
 
 ```{r}
+ trial_missing <-oob_data$trial_results %>% 
+select(subject, trial, trial_missing_percentage)
 
-remove_missing <- oob_data_L2 %>%                     # Start with the `oob_data` dataset and assign the result to `remove_missing`
-  select(subject, total_missing_percentage) %>%       # Select only the `subject` and `total_missing_percentage` columns from `oob_data`
-  left_join(filter_edat_L2, by = "subject") %>%        # Perform a left join with `filter_edat` on the `subject` column, keeping all rows from `oob_data`
-  filter(total_missing_percentage < 30)  %>%           # Filter the data to keep only rows where `total_missing_percentage` is less than 30 %>%
+ subject_missing <-oob_data$subject_results %>% 
+select(subject, subject_missing_percentage)
+
+missing <- merge(trial_missing, subject_missing) 
+
+remove_missing <- missing %>%                     # Start with the `oob_data` dataset and assign the result to `remove_missing`
+  left_join(filter_edat_L2, by = c("subject", "trial")) %>%        # Perform a left join with `filter_edat` on the `subject` column, keeping all rows from `oob_data`
+  filter(trial_missing_percentage < 30 | subject_missing_percentage < 30)  %>%           # Filter the data to keep only rows where `total_missing_percentage` is less than 30 %>%
 na.omit()
 
 ```
@@ -1521,27 +1527,10 @@ gaze_sub_L2_cp1 <- gaze_sub_L2_long_cp %>%
 
 library(permutes) # cpa
 library(permuco) # cpa
-library(foreach) # for par processing 
-library(doParallel)
 
-# Step 1: Set up parallel backend
-num_cores <- detectCores() - 1  # Use all available cores minus one for system stability
-cl <- makeCluster(num_cores)
-registerDoParallel(cl)
-
-# Step 2: Define the total number of permutations
 total_perms <- 1000
 
-# Step 3: Split the permutations across available cores
-perms_per_core <- total_perms / num_cores
-
-# Step 4: Use foreach to run the function in parallel
-cpa.lme <- foreach(i = 1:num_cores, .combine = 'rbind', .packages = 'permutes') %dopar% {
- permutes::clusterperm.glmer(Looks~ condition1_code + (1|subject) + (1|trial), data=gaze_sub_L2_cp1, series.var=~time_bin, nperm = perms_per_core)
-}
-# Step 5: Stop the parallel backend
-stopCluster(cl)
-
+cpa.lme <-  permutes::clusterperm.glmer(Looks~ condition1_code + (1|subject) + (1|trial), data=gaze_sub_L2_cp1, series.var=~time_bin, nperm = total_perms)
 ```
 
 ```{r}
