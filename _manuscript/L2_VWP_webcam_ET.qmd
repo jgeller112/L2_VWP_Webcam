@@ -837,10 +837,10 @@ oob_data_L2$subject_results %>%
 We can also add add by-participant and by-trial out of bounds data to our behavioral, trial-level, data (`filter_edat_L2`) and finally exclude participants and trials with more than 30% missing data. The value of 30 is just a suggestion and should not be used as a rule of thumb for all studies nor are we endorsing this value.
 
 ```{r}
- trial_missing <-oob_data$trial_results %>% 
+ trial_missing <-oob_data_L2$trial_results %>% 
 select(subject, trial, trial_missing_percentage)
 
- subject_missing <-oob_data$subject_results %>% 
+ subject_missing <-oob_data_L2$subject_results %>% 
 select(subject, subject_missing_percentage)
 
 missing <- merge(trial_missing, subject_missing) 
