@@ -4,40 +4,188 @@ format:
   hikmah-response-typst: default
 ---
 
-Thank you for giving us the opportunity to revise and resubmit our manuscript, "On the Surgical Removal of Cardassian Cranial Implants: A case study of a Cardassian patient" (Manuscript ID `SMJ-R-2373-0023`). We found the Editor's and the Reviewers' comments to be very insightful and helpful and we have used these comments to rewrite and improve the manuscript in a number of ways. In this memo, we describe how we have revised the paper in response to these comments. The Editor's and Reviewers' comments are cited or summarized in [red italicized text]{.memo-reviewer-inline}, and our responses are in black Roman text. We include excerpts from our revised manuscript in [blue]{.memo-excerpt-inline}.
+Thank you for giving us the opportunity to revise and resubmit our manuscript, "Language Without Borders: A Step-by-Step Guide to Analyzing Webcam Eye-Tracking Data for L2 Research" (Manuscript ID `RMAL-D-25-00055`). We found the Editor's and the Reviewers' comments to be very insightful and helpful and we have used these comments to rewrite and improve the manuscript in a number of ways. I would like to say that I really appreciate the time Reviewer 1 took to provide constructive comments and edits, including providing code. In this memo, we describe how we have revised the paper in response to these comments. The Editor's and Reviewers' comments are cited or summarized in [red italicized text]{.memo-reviewer-inline}, and our responses are in black Roman text. We include excerpts from our revised manuscript in [blue]{.memo-excerpt-inline}. 
 
-# Editor's broader concerns
+# Reviewer 1
 
-::: {.memo-reviewer}
-***Editor***: This is all great, but you should reframe the theory to fit within the broader literature on cybernetic implants in humanoids. 
+## Borader concerns
+
+The authors noted overlap in some of the methods dicussed in the paper. 
+
+::: memo-reviewer
+***Reviewer 1***: There are some places of plagiarism. We do not think this was intentional, but it is a serious concern and one that the authors should be aware of and remedy.
+
+- Two extensive chunks copied from:
+  Prystauka, Y., Altmann, G. T., & Rothman, J. (2024). Online eye tracking and real-time sentence processing: On opportunities and efficacy for capturing psycholinguistic effects of different magnitudes and diversity. Behavior Research Methods, 56(4), 3504-3522.
+
+  As discussed in the Gorilla documentation, the Gorilla layout engine lays everything out in a 4:3 frame and makes that frame as big as possible. The normalized coordinates are then expressed relative to this frame; for example, the coordinate 0.5, 0.5 will always be the center of the screen, regardless of the size of the participant's screen. We used the normalized coordinates in our analysis.
+
+  This represents the model's confidence in finding a face (and accurately predicting eye movements). Values vary from 0 to 1, and numbers less than 0.5 suggest that the model has probably converged. Another metric is .face_conf, which represents the support vector machine (SVM) classifier score for the face model fit. This score indicates how strongly the image under the model resembles a face. Values vary from 0 to 1, and here numbers greater than 0.5 are indicative of a good model fit.
+
+- One chunk copied from
+https://slcladal.netlify.app/pwr.html
+
+  If you have already installed the packages mentioned below, then you can skip ahead and ignore this section. To install the necessary packages, simply run the following code - it may take some time (between 1 and 5 minutes to install all of the libraries so you do not need to worry if it takes some time.
+
+
+- One extensive methods chunk copied from Sarrett et al. (2022):
+
+  Each item within a set was repeated 4 times as the target word. This yielded 240 trials (15 sets × 4 items per set × 4 repetitions). Each item set consisted of one Spanish-Spanish cohort pair and one Spanish-English cohort pair. Both items in a Spanish-Spanish pair had a"reciprocal" competitor
+relationship (that is, we could test activation for cielo given ciencia, and for ciencia given cielo).
+Consequently, there were 120 trials in the Spanish-Spanish condition. In contrast, only one item
+from the Spanish-English pair had the specified competitor relationship (we could test activation
+for frontera border, given botas, but when hearing frontera, there was no competitor). Thus, there were only 60 trials for the Spanish-English as well as the No Competitor conditions. Items
+occurred in each of the four corners of the screen on an equal number of trials.
 :::
 
-We appreciate the editor's help in reframing our paper. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
+First and foremost, we would like to sincerely apologize for the textual overlap identified in our manuscript. We want to be clear that this was not intentional, and we take this concern very seriously. We are grateful to the reviewer for bringing this to our attention.
 
-::: {.memo-excerpt}
-Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem.
+Upon reviewing the identified sections, we found that several sentences were unintentionally reproduced with language that closely resembled the original sources. To address this, we have thoroughly revised the relevant passages to ensure they are fully original, appropriately paraphrased, and, where applicable, directly cited.
+
+We have conducted a full review of the manuscript to ensure there are no additional instances of overlap and have taken this as an opportunity to reinforce our commitment to academic integrity and responsible writing practices. Below you will find the rewritten paragraphs. 
+
+::: memo-excerpt
+Gorilla standardizes gaze coordinates relative to a fixed 4:3 aspect ratio that is centered within the participant’s browser window. Rather than using raw screen pixels, gaze positions are transformed into normalized coordinates ranging from 0 to 1, where (0, 0) represents the bottom-left corner of the Gorilla stage and (1, 1) represents the top-right. This normalization accounts for potential whitespace or letterboxing that occurs when a participant’s screen has a different aspect ratio than the Gorilla stage. As a result, normalized coordinates are comparable across participants, regardless of their individual screen resolutions or browser sizes. For example, a normalized coordinate of (0.5, 0.5) always refers to the center of the Gorilla stage, ensuring spatial consistency in analyses.
 :::
 
-# Reviewer 2
+::: memo-excerpt
 
-::: {.memo-reviewer}
-***Reviewer 2***: This is the worst paper I have ever read.
+To ensure data quality, we removed rows with poor convergence and low face confidence from our eye-tracking dataset. The Gorilla eye-tracking output includes two key columns for this purpose: convergence and face_conf (similar variables may be available in other platforms as well). The convergence column contains values between 0 and 1, with lower values indicating better convergence—that is, greater model confidence in predicting gaze location and finding a face. Values below 0.5 typically reflect adequate convergence. The face_conf column reflects how confidently the algorithm detected a face in the frame, also ranging from 0 to 1. Here, values above 0.5 indicate a good model fit.
 :::
 
-We appreciate and welcome Reviewer 2's opinion here. To make the paper better, we added this to the introduction:
 
-::: {.memo-excerpt}
-Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?
+::: memo-excerpt
+Before proceeding, make sure to load the required packages by running the code below. If you already have these packages installed and loaded, feel free to skip this step. The code in this tutorial will not run correctly if any of the necessary packages are missing or not properly loaded. Depending on your computer’s performance, it may take a few moments for the packages to load—please be patient.
 :::
 
----
 
-::: {.memo-reviewer}
-***Reviewer 2***: Seriously, you should never research again.
+::: memo-excerpt
+Each item within a set appeared four times as the target word, resulting in a total of 240 trials (15 sets × 4 items per set × 4 repetitions). Each set included one Spanish–Spanish cohort pair and one Spanish–English cohort pair. In the Spanish–Spanish condition, both words in the pair served as mutual competitors—for example, cielo activated ciencia, and vice versa. This bidirectional relationship yielded 120 trials for the Spanish–Spanish condition.
+
+In contrast, the Spanish–English pairs had an asymmetrical relationship: only one item in each pair functioned as a competitor (e.g., botas could activate frontera, but frontera did not have a corresponding competitor). As a result, there were 60 trials each for the Spanish–English and No Competitor conditions. Across all trials, target items were equally distributed among the four screen quadrants to ensure balanced visual presentation
 :::
 
-We once again appreciate Reviewer 2's valuable thoughts and have included this in the conclusion, announcing that we have retired from all scientific endeavors:
+## Introduction
 
-::: {.memo-excerpt}
-Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem.
+::: memo-reviewer
+ ***Reviewer 1***: Pages 2 to 6 start with strawman arguments. This paper probably works best if we get straight to where we are as of March 2025. We know web-based eye-tracking works. There are many published replications. Researchers (including us) have written guides. This manuscript is, in fact, a guide. What the field needs right now is guidance on how to make web-based eye tracking more accessible, transparent, and reliable.
+
+This section, particularly from pages 3-4, also has arguments that have been made from these: cost, weird populations. It is nice to see that the arguments are used but this weakens the overall paper because those arguments are no longer relevant. Furthermore, those studies should be cited for making the same arguments.
+
+Solution/edit: Start the manuscript at the last paragraph (line 121) on Page 6. This is really where the field is right now. The authors' guide offers two contributions to the field at this moment: the webgazeR package and the bilingual lexical competition replication. Focus on these two contributions in the introduction and tell the reader how these two contributions advance our understanding.
 :::
+
+We appreciate the reviewer’s thoughtful feedback and agree that the original introduction included arguments (e.g., cost savings, WEIRD populations) that are now well established in the literature and no longer advance the discussion meaningfully. We are especially grateful for the reviewer’s concrete suggestion to reorient the manuscript by starting with the final paragraph on page 6 and centering our contributions.
+
+In response, we have substantially rewritten the introduction to reflect the current state of the field. Rather than revisiting early justifications for webcam-based eye tracking, the revised introduction now:
+
+- Focuses on webgazer.js as a tool and its positioning relative to research-grade eye trackers;
+- Summarizes what we currently know about the use of webcam eye tracking within the Visual World Paradigm (VWP), including key validation studies and limitations;
+- Introduces the two core contributions of this manuscript:
+	1. The webgazeR R package as an accessible, transparent tool for processing web-based eye-tracking data; and
+	2. A replication of bilingual lexical competition effects using webcam-based eye tracking.
+
+These changes are intended to clarify the tutorial’s relevance and help move the field toward more reliable, reproducible, and accessible use of webcam eye tracking.
+
+::: memo-reviewer
+***Reviewer 1 ***: On line 83-84 you state: "Another method, which is the focus of this tutorial, is automated eye-tracking or webcam Eye-tracking. Webcam eye-tracking requires three things: 1. A personal computer. 2. An internet connection and 3. A purchased or pre-installed webcamera."
+
+However, this is not entirely true in terms of internet connection for webcam eye-tracking. You could do it without the internet as long as the experiment is fully loaded in advance and all necessary resources are locally available. This is meaningful because some researchers may still be interested in testing a local population or use a high quality webcam to answer a specific research question that requires a particular framerate. Additionally, we also worry about longevity here. It is likely that some eye-tracking could move to tablet based experiments in the future. While we don't know of any current study that has attempted such work, it could be done.
+:::
+
+
+We appreciate and welcome Reviewer 1's opinion here. However, I am not aware of this actually being done (nor are the reviewers). I think Labvanced may allow for this, but I have not played around with their eye-tracking component. To hedge this a bit, we included the work generally instead of requires. 
+
+::: memo-excerpt
+Webcam eye-tracking generally requires three things: 1. A personal computer. 2. An internet connection and 3. A purchased or pre-installed webcamera. 
+:::
+
+
+::: memo-reviewer
+***Reviewer 1***: The section titled "Eye-tracking outside the lab" is meant to focus on remote eye-tracking, but it spends too much time comparing it to lab-based methods rather than discussing its own strengths and challenges. While some comparison is useful, the current framing makes it feel like a defense of webcam-based tracking rather than a clear explanation of its methodologies and applications. This weakens the message and confuses the focus. Instead of positioning remote eye-tracking as an inferior alternative, the section would be stronger if it presented it on its own terms—highlighting its advantages, limitations, and successful implementations—before making selective comparisons where necessary.
+:::
+
+We have reframed this discussion in the rewritten introduction. 
+
+::: memo-reviewer
+***Reviewer 1***:
+Line 140, "Most relevant to this tutorial are online replications using the VWP (Tanenhaus et al., 1995; cf. Cooper, 1974)." What does this sentence refer to? What is the online replication you are referring to here
+:::
+
+We have rewrittent this sentence. 
+
+::: memo-excerpt
+Despite these limitations, one domain where webcam-based eye tracking has shown particular promise is in the adaptation of the Visual World Paradigm (VWP) [@tanenhaus1995; cf. @cooper1974] to online research environments. 
+:::
+
+::: memo-reviewer
+***Reviewer 1***:
+Page 8, top paragraph some of this VWP stuff is not accurate. VWP can involve written words:
+
+Participants can also simply look and listen (i.e., no need to click on anything) as in the Altmann & Kamide paper the authors cite:
+
+Lines 153-155, "Remarkably, looks to each object align very closely—and with precise timing—with the mental activation of the word or concept it represents" lacks precision.
+
+This statement lacks precision because it overstates the directness of the relationship between eye movements and lexical activation. In reality: 1) Eye movements are influenced by multiple factors, including visual salience, task demands, and prior expectations, not just word activation.
+2) Timing variability exists—while VWP studies rely on time-locked analyses, there is no perfect one-to-one mapping between when a concept is activated and when the eyes move. 3) Alternative explanations are possible—such as strategic guessing or attentional shifts unrelated to lexical access.
+:::
+
+The reviewer is correct. The VWP can involve words. However, we are describing the classic VWP, which does not include words. We have updated our descirption of the VWP to be a bit clearer and more precise and we belive addresses the reviewers concerns. 
+
+
+::: memo-excerpt
+What makes the widespread use of the VWP even more remarkable is the simplicity of the task. In a  typical VWP experiment, participants view a display containing several objects. As they listen to a spoken word or phrase, their eye movements are recorded in real time. A robust finding in VWP research is that listeners reliably direct their gaze to the picture representing the spoken word, often before the word has been fully articulated, revealing anticipatory or predictive processing.
+
+While eye movements are often time-locked to linguistic input, the relationship between gaze and lexical processing is not one-to-one. Lexical activation interacts with non-lexical factors such as selective attention, visual salience, task demands, working memory, and prior expectations—all of which can shape where and when participants look [@eberhard1995; @huettig2011; @kamide2003]. Nonetheless, the VWP remains a powerful and flexible tool for studying online language processing, offering fine-grained insights into how linguistic and cognitive processes unfold moment by moment.
+:::
+
+::: memo-reviewer
+***Reviewer 1***:
+Page 8, bottom paragraph, there is other work out there. For example, we have a new paper that uses written words and examines spoken Italian word recognition:
+:::
+
+We have added this excellent reference to our paper. 
+
+::: memo-excerpt
+More relevant to the current tutorial are findings from single-word VWP studies conducted online. A few studies have began to look at single-word speech perception online (Bramlett & Wiener, 2025; SLim et al., 2024). 
+:::
+
+::: memo-reviewer
+***Reviewer 1***:
+Page 9, this is good stuff here! This is where the field currently is. Zoom in on these issues (Of particular interest, time).
+:::
+
+
+We have rewritten this part of the paper adn expanded the time section a bit. 
+
+::: memo-excerpt
+Several factors have been proposed to explain the poor temporal performance in the VWP. These include reduced spatial precision, computational demands introduced by the WebGazer.js algorithm, slower internet connections, larger areas of interest (AOIs), and calibration quality [@degen2021; @slim2024; @vanboxtel2024]. It is important to note here that poor temporal performance is not always found. 
+
+Recent work has begun to address many of these challenges by leveraging updated versions of WebGazer.js and adopting new experimental platforms. For instance, @vos2022 reported a substantial reduction in temporal delays—approximately 50 ms—when using a newer version of WebGazer.js embedded within the jsPsych framework [@deleeuw2015]. Similarly, studies by @prystauka2024 and @bramlett2024, which utilized the Gorilla Experiment Builder in combination with the improved WebGazer algorithm, found timing and competition effects closely aligned with those observed in traditional lab-based VWP studies.
+
+While the eetent of temporal delays in the VWP online is still an open question, the general findings underscore the potential of the online version of the VWP, powered by webcam eye-tracking, to achieve results similar to those of traditional lab-based methods. Importantly, they demonstrate that this approach can effectively be used to study competition effects in single-word speech perception.
+:::
+
+::: memo-reviewer
+***Reviewer 1***:
+Page 11, this is also interesting, and a nice way to make science even more reproducible! Very cool!
+:::
+
+Thank you! 
+
+
+::: memo-reviewer
+***Reviewer 1***:
+Page 12, lines 232-235. We think of competitors and cohorts as different concepts. A competitor can compete for many reasons. Beaker and speaker are rhyme competitors; beaker and beetle are onset competitors. A cohort is a pool of candidates, all of which compete for lexical access. It is not always the 'initial phoneme' (see onset vs. rhyme; or your own examples of /wIs3ld/ and /wIz3rd/
+:::
+
+We have changed the wording of the paragraph to reflect a broader range of candidates. 
+
+::: memo-excerpt
+It is well established that lexical competition plays a central role in language processing [@magnuson2007]. In spoken word recognition, as the auditory signal unfolds over time, multiple lexical candidates—or competitors—can become partially activated. Successful word recognition depends on the ability to resolve this competition, typically by inhibiting or suppressing competitors that do not match the input. For example, upon hearing the initial segments of the word wizard, phonologically similar words such as whistle may also be briefly activated. For wizard to be accurately recognized, activation of whistle must ultimately be suppressed
+:::
+
+
+
+
+
