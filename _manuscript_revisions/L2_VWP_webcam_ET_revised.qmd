@@ -432,7 +432,7 @@ Visual stimuli were images from a commercial clipart database that were selected
 
 #### Headphone screener
 
-Headphones were required for all participants. **To screen for headphone use, we used a six-trial task taken from [@woods2017; but also see @milne2021].** On each trial, three tones of the same frequency and duration were presented sequentially. One tone had a lower amplitude than the other two tones. Tones were presented in stereo, but the tones in the left and right channels were 180 out of phase across stereo channels—in free field, these sounds should cancel out or create distortion, whereas they will be perfectly clear over headphones. The listener picked which of the three tones was the quietest. Performance is generally at the ceiling when wearing headphones but poor when listening in the free field (due to phase cancellation).
+**Headphones were required for all participants. To screen for headphone use, we used a six-trial task adapted from @milne2021.** On each trial, three tones of the same frequency and duration were presented sequentially. One tone had a lower amplitude than the other two tones. Tones were presented in stereo, but the tones in the left and right channels were 180 out of phase across stereo channels—in free field, these sounds should cancel out or create distortion, whereas they will be perfectly clear over headphones. The listener picked which of the three tones was the quietest. Performance is generally at the ceiling when wearing headphones but poor when listening in the free field (due to phase cancellation).
 
 #### Participant background and experiment conditions questionnaire
 
