@@ -1,16 +1,20 @@
+
 ---
 title: Responses to editor and reviewer concerns
 format:
   hikmah-response-typst: default
+bibliography: references.bib
 ---
 
-Thank you for giving us the opportunity to revise and resubmit our manuscript, "Language Without Borders: A Step-by-Step Guide to Analyzing Webcam Eye-Tracking Data for L2 Research" (Manuscript ID `RMAL-D-25-00055`). We found the Editor's and the Reviewers' comments to be very insightful and helpful and we have used these comments to rewrite and improve the manuscript in a number of ways. I would like to say that I really appreciate the time Reviewer 1 took to provide constructive comments and edits, including providing code. In this memo, we describe how we have revised the paper in response to these comments. The Editor's and Reviewers' comments are cited or summarized in [red italicized text]{.memo-reviewer-inline}, and our responses are in black Roman text. We include excerpts from our revised manuscript in [blue]{.memo-excerpt-inline}. 
+Thank you for giving us the opportunity to revise and resubmit our manuscript, "Language Without Borders: A Step-by-Step Guide to Analyzing Webcam Eye-Tracking Data for L2 Research" (Manuscript ID `RMAL-D-25-00055`). We found the Editor's and the Reviewers' comments to be very insightful and helpful and we have used these comments to rewrite and improve the manuscript in a number of ways. I would like to say that I really appreciate the time Reviewer 1 took to provide constructive comments and edits, including providing code. In this memo, we describe how we have revised the paper in response to these comments. The Editor's and Reviewers' comments are cited or summarized in [red italicized text]{.memo-reviewer-inline}, and our responses are in black Roman text. We include excerpts from our revised manuscript in [blue]{.memo-excerpt-inline}.
+
+We have made a few changes to the webgazeR package to make it robust and flexible to different types of data. It is not perfect and we hope users will post issues so we can make the package better. 
 
 # Reviewer 1
 
 ## Borader concerns
 
-The authors noted overlap in some of the methods dicussed in the paper. 
+The authors noted overlap in the wording of some of the methods discussed in the paper. 
 
 ::: memo-reviewer
 ***Reviewer 1***: There are some places of plagiarism. We do not think this was intentional, but it is a serious concern and one that the authors should be aware of and remedy.
@@ -65,7 +69,7 @@ Each item within a set appeared four times as the target word, resulting in a to
 In contrast, the Spanish–English pairs had an asymmetrical relationship: only one item in each pair functioned as a competitor (e.g., botas could activate frontera, but frontera did not have a corresponding competitor). As a result, there were 60 trials each for the Spanish–English and No Competitor conditions. Across all trials, target items were equally distributed among the four screen quadrants to ensure balanced visual presentation
 :::
 
-## Introduction
+## Specific concerns
 
 ::: memo-reviewer
  ***Reviewer 1***: Pages 2 to 6 start with strawman arguments. This paper probably works best if we get straight to where we are as of March 2025. We know web-based eye-tracking works. There are many published replications. Researchers (including us) have written guides. This manuscript is, in fact, a guide. What the field needs right now is guidance on how to make web-based eye tracking more accessible, transparent, and reliable.
@@ -94,10 +98,10 @@ However, this is not entirely true in terms of internet connection for webcam ey
 :::
 
 
-We appreciate and welcome Reviewer 1's opinion here. However, I am not aware of this actually being done (nor are the reviewers). I think Labvanced may allow for this, but I have not played around with their eye-tracking component. To hedge this a bit, we included the work generally instead of requires. 
+We appreciate and welcome Reviewer 1's opinion here. However, I am not aware of any platform allowing eye-tracking to be conducted off line. I think Labvanced may allow for this, but I have not played around with their eye-tracking component. To hedge this a bit, we included the work generally instead of requires. We also added the term "smartphone". I have done a study with Tobii sticky (referenced) where we used cell phone cameras and eye-tracking. 
 
 ::: memo-excerpt
-Webcam eye-tracking generally requires three things: 1. A personal computer. 2. An internet connection and 3. A purchased or pre-installed webcamera. 
+One online method growing in popularity—and that may help mitigate some of the aforementioned limitations by increasing the inclusivity and representativeness of participant samples—is automated webcam-based eye-tracking. Webcam eye-tracking typically requires three things : (1) a personal computer or smartphone [see @chen-sankey2023], (2) an internet connection, and (3) a built-in or external camera. Gaze data is collected directly through a web browser without requiring any additional software installation, making it highly accessible.
 :::
 
 
@@ -156,7 +160,7 @@ Page 9, this is good stuff here! This is where the field currently is. Zoom in o
 :::
 
 
-We have rewritten this part of the paper adn expanded the time section a bit. 
+We have rewritten this part of the paper and expanded the temporal delay part. 
 
 ::: memo-excerpt
 Several factors have been proposed to explain the poor temporal performance in the VWP. These include reduced spatial precision, computational demands introduced by the WebGazer.js algorithm, slower internet connections, larger areas of interest (AOIs), and calibration quality [@degen2021; @slim2024; @vanboxtel2024]. It is important to note here that poor temporal performance is not always found. 
@@ -182,10 +186,62 @@ Page 12, lines 232-235. We think of competitors and cohorts as different concept
 We have changed the wording of the paragraph to reflect a broader range of candidates. 
 
 ::: memo-excerpt
-It is well established that lexical competition plays a central role in language processing [@magnuson2007]. In spoken word recognition, as the auditory signal unfolds over time, multiple lexical candidates—or competitors—can become partially activated. Successful word recognition depends on the ability to resolve this competition, typically by inhibiting or suppressing competitors that do not match the input. For example, upon hearing the initial segments of the word wizard, phonologically similar words such as whistle may also be briefly activated. For wizard to be accurately recognized, activation of whistle must ultimately be suppressed
+It is well established that lexical competition plays a central role in language processing [@magnuson2007]. During spoken word recognition, as the auditory signal unfolds over time, multiple lexical candidates—or competitors—can become partially activated. Successful recognition depends on resolving this competition by inhibiting or suppressing mismatching candidates. For example, upon hearing the initial segments of the word wizard, phonologically similar words such as whistle may be briefly activated. As the word continues, additional competitors like blizzard might also become active. For wizard to be accurately recognized, activation of competitors such as whistle and blizzard must ultimately be suppressed.
 :::
 
 
+::: memo-reviewer
+***Reviewer 1***:
+Lines 454-490: The merge_webcam_files() function is unnecessary and reduces transparency by abstracting simple data processing steps—reading .xlsx files, merging them, renaming columns, and filtering—into a black-boxed process. While the function provides a convenience wrapper, it does not offer any substantial advantages over a straightforward dplyr and purrr approach, yet it introduces potential debugging difficulties. An example of this breaking already in a current structure is if you had multiple types of files in the upload folder. For instance, if you collected both eye-tracking and mouse tracking this would combine them, which is inappropriate.
+
+Additionally, this function is tied specifically to Gorilla's .xlsx format, meaning it will break if Gorilla modifies its data export structure again, as has already happened multiple times. Its reliance on fixed column names (spreadsheet_row, time_elapsed) without verification makes it fragile, and its automatic package installation step is unnecessary in a controlled analysis environment.
+
+A more transparent and flexible approach would simply use:
+
+vwp_files_L2 <- list.files(here::here("data", "L2", "raw"), full.names = TRUE, pattern = "\\.(csv|xlsx)$") %>%
+discard(~ grepl("calibration", .x))
+
+vwp_data_L2 <- map_dfr(vwp_files_L2, ~ if (grepl("\\.csv$", .x)) read_csv(.x) else read_excel(.x)) %>%
+rename(trial = spreadsheet_row, time = time_elapsed) %>%
+filter(type == "prediction", screen_index == 4) %>%
+mutate(trial = as.factor(trial), subject = as.factor(participant_id)) %>%
+select(-participant_id)
+:::
+
+Thank you for this thoughtful suggestion. We have substantially revised the merge_webcam_files() function to address the concerns raised. The updated function now allows users to flexibly specify how dataset columns should be mapped onto standardized names (subject, trial, time, x, y) via a col_map argument. This makes it compatible with a variety of datasets and not tied to any fixed export structure, including Gorilla. Additionally, the function can now read .csv, .tsv, and .xlsx files automatically using a transparent purrr::map_dfr() approach, rather than assuming only .xlsx inputs. A new kind argument has been introduced, allowing platform-specific preprocessing steps to be modularized, supporting future extensions to other experimental platforms such as Labvanced and PsychoPy. Platform-specific steps are isolated cleanly. We acknowledge the risk of mixing unrelated files, and while the function processes all provided file paths, users are expected to specify appropriate file lists. If desired, filename pattern filtering can be easily added.
+
+Additionally, we have introduced a make_webgazer() function that takes an already loaded dataframe and renames columns to conform to webgazerR conventions. This function standardizes column names to subject, trial, time, x, and y, which are the only columns necessary for WebGazerR to operate correctly. All other columns are preserved, ensuring maximum compatibility without unnecessary data loss.
+
+Lastly, in the finalized version, automatic package installation steps will be removed to ensure adherence to reproducibility standards in controlled environments. We believe these changes retain user convenience while substantially improving transparency, flexibility, and robustness.
 
 
+::: memo-reviewer
+***Reviewer 1***:
+Lines 625-635, The function analyze_sampling_rate() appears to be strongly derived from prior work in Bramlett & Wiener (2024), yet this is not explicitly acknowledged. The structure, core calculations, and approach are highly similar to existing work on participant frame rates, differing mainly in minor modifications such as the removal of frame rate categorization and time binning.
+
+Additionally, the function's structure suggests AI-assisted code generation, as it introduces unnecessary abstraction and overparameterization. Specifically: 1) The two-step structure (Step 1: Validate summary_stat, Step 2: Compute sampling rate) artificially separates operations that could be streamlined. 2) The overuse of parameterization (e.g., dynamically assigning summary_fn <- if (summary_stat == "median") median else mean) is unnecessary for a function that will almost always use one measure. 3) excessive spaces at the ends of lines before +
+
+While citing Bramlett & Wiener (2024) for sampling rate recommendations is appropriate, if the function was directly inspired by that work, it would be more transparent to acknowledge it explicitly. Otherwise, the function's structure and implementation appear too close to existing methods to be independently developed.
+:::
+
+
+We appreciate the reviewer’s comment. However, we are somewhat confused by this concern.
+Our analyze_sampling_rate() function substantially extends beyond the code reported in Bramlett & Wiener (2024).
+Specifically, our function calculates sampling rates both at the trial and participant levels, provides summary outputs, and generates visualization plots, whereas the referenced code in their paper focuses primarily on participant-level cleaning and time binning or per-trial summaries.
+
+While we recognize that the general idea of calculating a sampling rate (i.e., number of frames divided by total time) is necessarily similar, this is a standard method across many eye-tracking and behavioral timing studies. We are not aware of alternative methods for calculating basic sampling rates.
+
+Nevertheless, to appropriately acknowledge prior work, we have added a citation to Bramlett & Wiener (2024) in both the function documentation and the manuscript text.
+
+::: memo-excerpt
+Sampling rate calculations followed standard procedures, e.g., Bramlett & Wiener, 2024.”)
+:::
+
+::: memo-reviewer
+***Reviewer 1***:
+Lines 708-722: This is the same pattern again. This function is less transparent than readily usable code. Further, it isn't necessary. If you want to remove something then just filter it.
+
+filtered_data <- data %>%
+filter(med_SR >= threshold & SR >= threshold)
+:::
 
