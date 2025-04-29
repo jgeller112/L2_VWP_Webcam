@@ -379,7 +379,7 @@ If the remove argument is set to TRUE, the function applies an outer-edge filter
 Between 1203-1204 footnote- so do you have enough trials or not? Please clarify.
 :::
 
-In the original study, they had > 400 trials. Thebob usually uses a lot of trials for that approach. We only used 250 trials, half of what they used, and it is unclear if we can apply that approach. We have updated the footnote to make this clearer.
+In the original study, Sarrett et al. had > 400 trials. Thebob usually uses a lot of trials for their curve fitting approach. We only used 250 trials, half of what they used, and it is unclear if we can apply that approach. We have updated the footnote to make this clearer.
 
 ::: memo-excerpt
 The curve fitting approach employed by @sarrett2022 might necessitate more trials. The original study had over 400 trials. It is not clear if we can get good fits with the number of trials we have here. 
