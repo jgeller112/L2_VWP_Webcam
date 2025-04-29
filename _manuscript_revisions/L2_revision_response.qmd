@@ -7,7 +7,7 @@ bibliography: references.bib
 
 Thank you for giving us the opportunity to revise and resubmit our manuscript, "Language Without Borders: A Step-by-Step Guide to Analyzing Webcam Eye-Tracking Data for L2 Research" (Manuscript ID `RMAL-D-25-00055`). We found the Editor's and the Reviewers' comments to be very insightful and helpful and we have used these comments to rewrite and improve the manuscript in a number of ways. I would like to say that I really appreciate the time Reviewer 1 took to provide constructive comments and edits, including providing code. In this memo, we describe how we have revised the paper in response to these comments. The Editor's and Reviewers' comments are cited or summarized in [red italicized text]{.memo-reviewer-inline}, and our responses are in black Roman text. We include excerpts from our revised manuscript in [blue]{.memo-excerpt-inline}.
 
-We have made a few changes to the webgazeR package to make it robust and flexible to different types of data. It is not perfect and we hope users will post issues so we can make the package better.
+We have made a several changes to the webgazeR package to make it robust and flexible to different types of data. It is not perfect, but we hope users will post issues so we can make the package better. 
 
 # Reviewer 1
 
@@ -308,7 +308,7 @@ While we recognize that the general idea of calculating a sampling rate (i.e., n
 Nevertheless, to appropriately acknowledge prior work, we have added a citation to Bramlett & Wiener (2024) in both the function documentation and the manuscript text. We would like to make it known this manuscript has been in the works since 2020 and we have
 
 ::: memo-excerpt
-Sampling rate calculations followed standard procedures, [e.g., @bramlett2024; @prystauka2024]
+Sampling rate calculations followed standard procedures [e.g., @bramlett2024; @prystauka2024]
  :::
 
 ::: memo-reviewer
@@ -317,7 +317,8 @@ Sampling rate calculations followed standard procedures, [e.g., @bramlett2024; @
 filtered_data \<- data %\>% filter(med_SR \>= threshold & SR \>= threshold)
 :::
 
-Similar to the oob fucntion, we have decided to make this code more streamlined. 
+We disagree. Not everyone will want to remove the data. Further, decison has to be made at the trial and subject level. The filter function gives users those options and they don't have to write a lot of code to do it. 
+
 
 ::: memo-reviewer
 ***Reviewer 1***:
