@@ -385,4 +385,134 @@ In the original study, Sarrett et al. had > 400 trials. Thebob usually uses a lo
 The curve fitting approach employed by @sarrett2022 might necessitate more trials. The original study had over 400 trials. It is not clear if we can get good fits with the number of trials we have here. 
 :::
 
+# Reviewer 2
+::: memo-reviewer
+***Reviewer 2***:
+1. The introduction about the limitations of lab-based eye-tracking might sound a bit exaggerated. For example, "proper calibration, data collection, and analysis" is also required for using web-based eye-tracking. Cost may not be a big issue once the eye-tracker is purchased because it can be used repeatedly with very minimal cost, but web-based data collection requires continuous payment to the platform. The authors also mention that ~20% to 70% data may be wasted due to failures of calibration, etc. This may also lead to extra cost. Thus, I would suggest focusing on the benefits of using web-based eye-tracking instead of the limitations of lab-based eye-tracking in this section.
+:::
+
+We appreciate this feedback and agree the original framing may have overemphasized the limitations of lab-based systems. In response to this and related feedback from Reviewer 1, we have substantially revised the introduction. The new version focuses more clearly on the strengths, limitations, and unique opportunities of webcam-based eye-tracking, rather than framing it as a direct alternative to lab-based systems.
+
+::: memo-reviewer
+***Reviewer 2***:
+2. It would be good to clarify whether the observed ~100 ms delay in competition effects (compared to lab-based studies) is inherent to webcam tracking or a result of other factors (e.g., participant setup or loading of the audio, etc).
+:::
+
+Thank you for this suggestion. We now include a discussion of potential sources of this temporal delay, including reduced spatial precision, variability in calibration quality, and latency introduced by the WebGazer.js algorithm. We also reference recent work demonstrating that updated WebGazer versions and better experimental platforms can reduce these delays.
+
+
+::: memo-reviewer
+***Reviewer 2***:
+1. I would suggest the authors include a flowchart to summarize the processing pipeline.
+
+:::
+
+This is an excellent idea. We now include a flowchart that illustrates the preprocessing pipeline, including which webgazeR functions are used for each step.
+
+::: memo-reviewer
+***Reviewer 2***:
+2. Maybe Figure 1 can be revised so it's easier to interpret.
+:::
+
+Not sure. 
+
+::: memo-reviewer
+***Reviewer 2***:
+1. Perhaps the authors could provide references or sources for using alternative methods (e.g., GAMMs or growth curve analysis)
+:::
+
+We agree and have clarified this in the text. Several references to existing tutorials are already included, but we have now made these more explicit and consolidated them in a section summarizing available analytical approaches.
+
+::: memo-excerpt
+After you have preprocessed the data, the next step is analysis. When analyzing VWP data there are many analytic approaches to choose from (e.g., growth curve analysis (GCA), cluster permutation tests (CPA), generalized additive mixed models (GAMMS), logistic multilevel models, divergent point analysis (DPA), etc.), and a lot has already been written describing these methods and a lot of great tutorials exist showing how to apply these methods to visual world fixation data from the lab [e.g., see @ito2023 for a tutorial on using all these methods] and online [@bramlett2024]. 
+:::
+
+::: memo-reviewer
+***Reviewer 2***:
+6. Can effect sizes or confidence intervals be added to the CPA results?
+
+:::
+
+We appreciate the reviewer’s suggestion. Calculating effect size measures for cluster-based permutation analysis (CPA) is not straightforward, as traditional effect size metrics are not directly applicable. However, we now include a discussion of three commonly proposed approaches for estimating effect sizes in CPA: (1) averaging the effect within the predefined time window, (2) using the maximum effect size observed within the significant cluster, and (3) calculating the average effect across all time points within the cluster. These approaches are described in the revised manuscript to enhance interpretability and support the robustness of our findings.
+
+::: memo-excerpt
+Effect size
+
+It is important to address the issue of effect sizes in the context of CPA. Calculating effect sizes for CPA is not straightforward, as the technique is designed to evaluate temporal clusters rather than individual time points. @slim2024 [but also see @meyer2021] outline three possible approaches for estimating effect sizes in CPA: (1) computing the effect size within a predefined time window (often the same window used for identifying clusters), (2) calculating an average effect size across the entire cluster, and (3) reporting the maximum effect observed within the cluster. Each method has its trade-offs in terms of interpretability and comparability across studies, and the choice should be guided by theoretical considerations and the research question at hand.
+:::
+
+::: memo-reviewer
+***Reviewer 2***:
+1. The high attrition rate (~40% due to calibration failures or not having enough trials) raises concerns about the generalizability of web-based eye-tracking. These participants also cost a quota in Gorilla right? Are there any suggested strategies to improve the calibration rates?
+:::
+
+We agree this is an important consideration. While Gorilla does not charge per participant if one holds a subscription, researchers should still consider the time and resources required. We provide strategies for improving calibration success in the discussion, emphasizing webcam quality, environmental conditions, and clearer instructions.
+
+::: memo-reviewer
+***Reviewer 2***:
+2. Although the questionnaire (Table 9) is useful, would it make more sense for future studies to ask participants to fill in the questionnaire before the experiment (for example, to pre-screen webcam quality)?
+:::
+
+This is a valuable suggestion. We now mention this in the discussion, noting that asking participants about webcam type ahead of time could help screen for higher-quality setups and reduce calibration failures.
+
+::: memo-excerpt
+ Our questionnaire suggested that participants using external webcams had significantly better calibration success compared to those relying on built-in webcams. External webcams generally provide higher resolution and frame rates, which are critical for accurate eye-tracking. Researchers should encourage participants to use external webcams whenever possible. Researchers could even administer a questionnaire before the experiment and branch participants out of the experiment that do not report using an external webcam. 
+:::
+
+::: memo-reviewer
+***Reviewer 2***:
+3. Power analysis could have been provided to justify the sample size.
+:::
+
+We agree with the reviewer that a justification of the sample size is warranted.
+
+Given that we observed significant effects, we believe a post-hoc power analysis would not provide meaningful additional insight. Post-hoc power is generally uninformative when effects are already statistically significant, as it merely reflects the observed p-values and effect sizes.
+
+Our main goal here was a tutorial and not necessarily finding a significant effect. 
+
+::: memo-excerpt
+
+Participants
+
+Participants were recruited through Prolific, an online participant recruitment platform. Our goal was to approximately double the sample size of Sarrett et al. (2022) to enhance statistical power and ensure greater generalizability of the findings. However, due to practical constraints and the challenges associated with online webcam eye-tracking (e.g., calibration failures) and also the limited pool of binlingual Spanish speakers, we were unable to achieve the targeted usable sample size. Therefore, we report the final sample based on all participants who met our predefined inclusion criteria. Future work will be needed to replicate and extend these findings.
+:::
+
+::: memo-reviewer
+***Reviewer 2***:
+1. Define "WEIRD-A" (line 57) upon first use. Not all readers may be familiar with the acronym.
+:::
+
+We did define this term in the introduction.
+
+
+::: memo-excerpt
+Behavioral science research has long struggled with a lack of diversity, relying heavily on participants who are predominantly Western, Educated, Industrialized, Rich, and Democratic (WEIRD) [@henrich2010]. Additionally, we propose adding able-bodied to this acronym (WEIRD-A) [@peterson2021], to highlight the exclusion of individuals with disabilities who may face barriers to accessing research facilities. 
+:::
+
+::: memo-reviewer
+***Reviewer 2***:
+2. Specify why 300 ms was subtracted from the time alignment (lines 864-865). While justified in the repository, this should be briefly explained in the main text.
+:::
+
+This has been clarified in the manuscript. The 300 ms offset accounts for a 100 ms silence buffer at the start of audio playback and a 200 ms oculomotor delay [@viviani1990].
+
+
+::: memo-excerpt
+To achieve this, we subtract RT_audio from time for each trial. In addition, we subtract 300 ms from this to account for the 100 ms of silence at the beginning of each audio clip and 200 ms to account for the oculomotor delay when planning an eye movement [@viviani1990]. 
+:::
+
+::: memo-reviewer
+***Reviewer 2***:
+3. The quadrant vs. Gorilla-provided AOI comparison (Figures 5-9) is interesting but could be condensed. The key takeaway (similar patterns, noisier with smaller AOIs) could be summarized more succinctly.
+:::
+
+Thank you. We’ve revised this section to be more concise while still emphasizing the key takeaway: quadrant-based AOIs yielded similar patterns but with slightly less spatial precision than Gorilla-provided coordinates.
+
+::: memo-reviewer
+***Reviewer 2***:
+4. "Poor vs. Good Calibrators" seems to be overly detailed. Perhaps, it would be good to focus on strategies for getting good calibration.
+:::
+
+We appreciate the suggestion and have reduced the detail in this section, instead emphasizing practical recommendations for achieving successful calibration in remote studies.
+
 

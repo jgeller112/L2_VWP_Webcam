@@ -159,13 +159,13 @@ execute:
 
 [^1]: **It is important to note that WebGazer.js is not the only method available. Other methods have been implemented by companies like Tobii (www.tobii.com) and Labvanced [@kaduk2024] . However, because these methods are proprietary, they are less accessible and difficult to reproduce.**
 
-**WebGazer.js uses machine learning to estimate gaze position in real time by fitting a facial mesh to the participant and detecting the location of the eyes. At each sampling point—determined by the participant’s device and webcam capabilities—x and y gaze coordinates are recorded. To improve accuracy, participants complete calibration and validation routines in which they fixate on targets in specific locations on the screen (in some instances users can click on targets).**
+**WebGazer.js uses machine learning to estimate gaze position in real time by fitting a facial mesh to the participant and detecting the location of the eyes. At each sampling point—determined by the participant’s device and webcam capabilities—x and y gaze coordinates are recorded. To improve accuracy, participants complete calibration and validation routines in which they fixate on targets in specific locations on the screen (in some cases a manual appraoch is used where users click on targets).**
 
 ## **Eyetracking online compared to the lab**
 
 **Several studies in psychology and psycholinguistics have evaluated the viability of WebGazer.js for online research. Generally, lab-based effects can be successfully replicated in online environments using WebGazer.js [@bogdan2024; @bramlett2024; @bramlett2025; @özsoy2023; @slim2023; @slim2024; @prystauka2024; @vos2022; @vandercruyssen2024]. However, a critical finding across online replication studies is that effect sizes are often smaller and more variable than those observed in laboratory settings [@bogdan2024; @slim2023; @slim2024; @vandercruyssen2024].**
 
-**These attenuated effects likely stem from several technical limitations inherent to webcam-based eye-tracking. Unlike research-grade trackers that use infrared illumination and pupil–corneal reflection techniques—and can sample at rates up to 2,000 Hz with sub-degree spatial precision (0.1° to 0.35°) \[@hooge2024; @carter2020\]—WebGazer.js typically operates at lower frame rates, around 30 Hz [@bramlett2024; @prystauka2024]. Moreover, the performance of the algorithm is highly dependent on ambient lighting conditions, making it more susceptible to variability introduced by differences in head position, screen brightness, and background contrast.**
+**These attenuated effects likely stem from several technical limitations inherent to webcam-based eye-tracking. Unlike research-grade trackers that use infrared illumination and pupil–corneal reflection techniques—and can sample at rates up to 2,000 Hz with sub-degree spatial precision (0.1° to 0.35°) [@hooge2024; @carter2020]—WebGazer.js typically operates at lower frame rates, around 30 Hz [@bramlett2024; @prystauka2024]. Moreover, the performance of the algorithm is highly dependent on ambient lighting conditions, making it more susceptible to variability introduced by differences in head position, screen brightness, and background contrast.**
 
 **There are also notable issues with the spatial and temporal accuracy of webcam-based eye-tracking using WebGazer.js. Spatial precision is often lower, with average errors frequently exceeding 1° of visual angle [@papoutsaki2016]. Temporal delays are also substantially larger, ranging from 200 ms to over 1000 ms [@semmelmann2018; @slim2023; @slim2024]. Additionally, recent work by @bogdan2024 has documented a systematic bias in gaze estimates favoring centrally located stimuli.**
 
@@ -227,7 +227,7 @@ All tasks herein can be previewed here [(https://app.gorilla.sc/openmaterials/95
 
 ### Participants
 
-**Participants were recruited through Prolific, an online participant recruitment platform. Our goal was to approximately double the sample size of Sarrett et al. (2022) to enhance statistical power and ensure greater generalizability of the findings. However, due to practical constraints and the challenges associated with online webcam eye-tracking (e.g., calibration failures) and also the limited pool of binlingual Spanish speakers, we were unable to achieve the targeted usable sample size. Therefore, we report the final sample based on all participants who met our predefined inclusion criteria. Future work will be needed to replicate and extend these findings.**
+**Participants were recruited through Prolific, an online participant recruitment platform. Our goal was to approximately double the sample size of Sarrett et al. (2022) to enhance statistical power and ensure greater generalizability of the findings. However, due to practical constraints and the challenges associated with online webcam eye-tracking (e.g., calibration failures) and also the limited pool of binlingual Spanish speakers, we were unable to achieve the targeted usable sample size. Therefore, we report the final sample based on all participants who met our predefined inclusion criteria.**
 
 **Inclusion criteria required participants to: (1) be between 18 and 36 years old, (2) be native English speakers, (3) also be fluent in Spanish, and (4) reside in the United States. Criterion 1 was based on findings from @colby2022, which suggest that age-related changes in spoken word recognition begin to emerge in individuals in their 40s; thus, we limited our sample to participants younger than 36. Criteria 2 and 3 ensured that we were recruiting native English speakers and those fluent in Spanish to test L1 and L2 interactions. Criterion 4 matched the population of the original study, which was conducted with university students in Iowa, and therefore restricted recruitment to U.S. residents.**
 
@@ -471,9 +471,9 @@ After completing the main VWP task, participants proceeded to the final question
 
 ## Preprocessing data
 
-After the data is collected you can begin preprocessing your data. Below we highlight the steps needed to preprocess your webcam eye-tracking data and get it ready for analysis. For some of this preprocessing we will use the newly created `webgazeR` package (v. 0.4.1).
+After the data is collected you can begin preprocessing your data. Below we highlight the steps needed to preprocess your webcam eye-tracking data and get it ready for analysis. For some of this preprocessing we will use the newly created `webgazeR` package **(v. 0.4.1)**.
 
-For preprocessing visual world webcam eye data, we follow six general steps (see figure x):
+For preprocessing visual world webcam eye data, we follow seven general steps (see @fig-preprco):
 
 1.  Reading in data
 
@@ -490,6 +490,17 @@ For preprocessing visual world webcam eye data, we follow six general steps (see
     2.  Upsampling (optional)
 
 6.  Aggregating (optional)
+
+7.  Visualization (optional)
+
+```{r}
+#| label: fig-preprco
+#| fig-cap: Preprocessing steps for webcam eye-tracking data using webgazeR functions
+#| echo: false
+
+knitr::include_graphics(here::here("_manuscript", "Figures", "preprocess_webgazer.png"))
+
+```
 
 For each of these steps, we will display R code chunks demonstrating how to perform each step with helper functions (if applicable) from the `webgazeR` [@webgazeR] package in R.
 
@@ -591,7 +602,7 @@ Before using `merge_webcam_files()`, ensure your working directory is set to the
 
 In addition to merging and filtering, merge_webcam_files() requires the user to explicitly map critical columns—subject, trial, time, and x/y gaze coordinates. This makes the function highly flexible and robust across different experimental platforms. For instance, the function automatically renames the spreadsheet_row column to trial, and converts subject and trial into factors for compatibility with downstream analyses.
 
-Currently, the kind argument supports “gorilla” data, but future extensions will add support for other platforms like **Labvanced** \[\@kaduk2024\], **PsychoPy** \[@peirce2019\], and **PCIbex** [@zehr2018penncontroller]. By explicitly allowing platform specification and flexible column mapping, merge_webcam_files() ensures a consistent and streamlined pipeline for preparing webcam eye-tracking data for analysis.
+Currently, the kind argument supports “gorilla” data, but future extensions will add support for other platforms like **Labvanced** \[\@kaduk2024\], **PsychoPy** [@peirce2019], and **PCIbex** [@zehr2018penncontroller]. By explicitly allowing platform specification and flexible column mapping, merge_webcam_files() ensures a consistent and streamlined pipeline for preparing webcam eye-tracking data for analysis.
 
 As a general note, all steps should be followed in order due to the renaming of column names. If you encounter an error it might be because column names have not been changed.
 
@@ -1432,7 +1443,9 @@ ggsave(here::here("_manuscript", "Figures", "Figure8.png"), width=8, height=12, 
 
 ## Modeling data
 
-After you have preprocessed the data, the next step is analysis. When analyzing VWP data there are many analytic approaches to choose from (e.g., growth curve analysis (GCA), cluster permutation tests (CPT), generalized additive mixed models (GAMMS), logistic multilevel models, divergent point analysis, etc.), **and a lot has already been written describing these methods and a lot of great tutorial exist showing how to applying them to visual world fixation data from the lab [see @ito2023 for a tutorial; @mcmurray; @stone2021] and online [@bramlett2024].** This tutorial's goal, however, is to not evaluate different analytic approaches and tell readers what they should use. All methods have their strengths and weaknesses [see @ito2023]. Nevertheless, statistical modeling should be guided by the questions researchers have and thus serious thought needs to be given to the proper analysis. In the VWP, there are two general questions one might be interested in: (1) Are there any overall difference in fixations between conditions and (2) Are there any time course differences in fixations between conditions (and/or groups).
+After you have preprocessed the data, the next step is analysis. When analyzing VWP data there are many analytic approaches to choose from (e.g., growth curve analysis (GCA), cluster permutation analysis (CPA), generalized additive mixed models (GAMMS), logistic multilevel models, divergent point analysis (DPA), etc.), and a lot has already been written describing these methods and a lot of great tutorials exist showing how to apply these methods to visual world fixation data from the lab [see @ito2023 for a tutorial on using all these methods] and online [@bramlett2024].
+
+This paper's goal, however, is to not evaluate different analytic approaches and tell readers what they should use. All methods have their strengths and weaknesses [see @ito2023]. Nevertheless, statistical modeling should be guided by the questions researchers have and thus serious thought needs to be given to the proper analysis. In the VWP, there are two general questions one might be interested in: (1) Are there any overall difference in fixations between conditions and (2) Are there any time course differences in fixations between conditions (and/or groups).
 
 With our data, one question we might want to answer is if there are any fixation differences between the cohort and unrelated conditions across the time course. One statistical approach we chose to highlight to answer this question is a cluster permutation analysis (CPA). The CPA is suitable for testing differences between two conditions or groups over an interest period while controlling for multiple comparisons and autocorrelation. **Given the time latency issues common in webcam-basted studies, @slim2024 recommended using an approach like CPA.**
 
@@ -1671,7 +1684,7 @@ In the analysis for the Spanish-Spanish condition, one significant cluster was o
 
 #### **Effect size**
 
-**It is important to address the issue of effect sizes in the context of CPA. Calculating effect sizes for CPA is not straightforward, as the technique is designed to evaluate temporal clusters rather than individual time points. @slim2024 outline three possible approaches for estimating effect sizes in CPA: (1) computing the effect size within a predefined time window (often the same window used for identifying clusters), (2) calculating an average effect size across the entire cluster, and (3) reporting the maximum effect observed within the cluster. Each method has its trade-offs in terms of interpretability and comparability across studies, and the choice should be guided by theoretical considerations and the research question at hand.**
+**It is important to address the issue of effect sizes in the context of CPA. Calculating effect sizes for CPA is not straightforward, as the technique is designed to evaluate temporal clusters rather than individual time points. [@slim2024; but also see @meyer2021] outline three possible approaches for estimating effect sizes in CPA: (1) computing the effect size within a predefined time window (often the same window used for identifying clusters), (2) calculating an average effect size across the entire cluster, and (3) reporting the maximum effect observed within the cluster. Each method has its trade-offs in terms of interpretability and comparability across studies, and the choice should be guided by theoretical considerations and the research question at hand.**
 
 ```{r}
 #| label: fig-clustermass
@@ -1701,6 +1714,8 @@ Webcam eye-tracking is a relatively nascent technology, and as such, there is li
 
 In this tutorial, we covered the basic steps of running a visual world webcam-based eye-tracking experiment. We highlighted these steps by using data from a cross-linguistic VWP looking at competitive processes in L2 speakers of Spanish. Specifically, we attempted to replicate the experiment by @sarrett2022 where they observed within- and between L2/L1 competition using carefully crafted materials.
 
+## Replication of @sarrett2022
+
 While the main purpose of this tutorial was to highlight the steps needed to analyze webcam eye-tracking data, replicating @sarrett2022 allowed us to not only assess whether within and between L2/L1 competition can be found in a spoken word recognition VWP experiment online, but also provide insight in how to run VWP studies online and the issues associated with it.
 
 Our conceptual replication findings are highly encouraging, demonstrating competition effects both within (the Spanish-Spanish condition) and across languages (the Spanish-English condition), closely paralleling the results reported by Sarrett et al. However, several important methodological and sample differences war
@@ -1720,16 +1735,6 @@ Another notable difference is the recruitment strategy and participant screening
 **There were several motivations for these design choices. Online studies introduce greater variability across participants’ setups (e.g., internet connection, device variability), and thus we opted for a longer preview period to maximize out chances of competetion effects. Prior work has shown that longer preview times can enhance competition effects in the VWP [@apfelbaum2021]. We also introduced a mandatory start button click at the center of the screen to ensure participants began each trial from a centralized gaze position, minimizing quadrant-based biases. Finally, we incorporated a timeout feature to address potential inattentiveness common in unsupervised, online testing environments.**
 
 Overall, while the methodological and sample differences between the two studies are notable, the similarities in the competition effects observed within and across languages reinforce the robustness of these findings across different research settings and design characteristics. While we do not wish to downplay our findings, a more systematic study is needed to ensure generalizability.
-
-## Limitations
-
-While the above suggests that webcam eye-tracking is a promising avenue for language research, there are some issues that we ran into that need to be addressed. One issue is data loss due to poor calibration. In our study, we had to throw out ~40%\ of\ our\ data\ due\ to\ poor\ calibration\ (~75% if we count how many consented vs. completed). Other studies have shown numbers much higher (e.g., 73%) [@slim2023] and lower (e.g., 20%) [@prystauka2024]. Given this, it is still an open question as to what contributes to better vs. poor data quality in webcam eye-tracking. To this end, we included an assessment after the VWP that included questions on the participants’ experimental set-ups and overall experiences with the eye-tracking experiment. All questions are included @tbl-question.
-
-In our experimental design, participants were branched based on whether they successfully completed the experiment or failed calibration at any point. @tbl-goodbad highlights the comparisons between good and poor calibrators. For the sake of brevity, we do not include responses to all questions. You can look at all the responses at our repo. However, two key differences emerge that may provide insight into factors influencing successful calibration.
-
-One notable difference is the type of webcam used. Participants who failed calibration predominantly reported using built-in webcams, whereas those who successfully calibrated reported using a variety of external webcams. This suggests that built-in webcams may not provide adequate resolution for effective calibration in the experiment. In fact, @slim2023 examined the relationship between calibration scores and frame rate, finding that higher frame rates were associated with improved calibration performance. Participants using higher-quality webcams may have an easier time calibrating thereby leading to more reliable gaze data.
-
-Another difference lies in the participants' environmental setup. Individuals who failed calibration were more likely to be in environments with natural light. Since natural light is known to interfere with eye-tracking, it may have contributed to their inability to calibrate successfully.
 
 We did not notice any other differences between those that successfully calibrated vs. those who did not. For researchers wanting to use webcam eye-tracking, they should try to make sure participants are in rooms without natural light, and use good web cameras. While we tried to emphasize this in our instructional videos, more explicit instruction may be needed. An avenue for research would be to compare lab based webcam eye-tracking to online based webcam eye tracking to see if control of the environment can produce better results.
 
@@ -1877,9 +1882,17 @@ final_table %>%
   tt(width=.9)
 ```
 
+## Limitations 
+
+### Recruitment of L2 Speakers
+
+**In this study, we used the Prolific platform to recruit L2 Spanish speakers. We specified criteria requiring participants to be native English speakers who were also proficient in Spanish, reside in the United States, and be between the ages of 18 and 36. These criteria yielded a potential recruitment pool of approximately 1,000 participants. While this number is larger than what is typically available for in-lab studies, it is still relatively limited given the overall size of the platform. Ultimately, 181 participants signed up for the study, and recruitment proved to be more challenging than expected. Researchers considering similar studies should be aware of these limitations when targeting niche populations, even on large online platforms. Despite these challenges, the final sample was sufficient for our planned analyses and open up the possibility to target populations you would be unable to capture otherwise (see CI study).**
+
 ### **Generalizability to other platforms**
 
-We demonstrated how to analyze webcam eye-tracking data from a Gorilla experiment using WebGazer.js. While we were unable to validate this pipeline on other experimental platforms using WebGazer.js, such as PCIbex [@zehr2018penncontroller] or jsPsych [@deleeuw2015], we believe that this basic pipeline will generalize to those platforms, as WebGazer.js underlies them all and provides consistent output. We encourage researchers to test this pipeline in their own studies and report any issues on our GitHub repository. We are committed to continuing improvements to `webgazeR`, ensuring that users can effectively analyze webcam eye-tracking data with our package.
+We demonstrated how to analyze webcam eye-tracking data collected via the Gorilla platform using WebGazer.js. Although we did not validate this pipeline on other platforms that support WebGazer.js—such as PCIbex [@zehr2018penncontroller], jsPsych [@deleeuw2015], or PsychoPy [@peirce2019]—we believe the pipeline is generalizable to these and to platforms that use other gaze estimation logarithms, such as Labvanced \[\@kaduk2024\]. To support broader compatibility, the functions in the webgazeR package are designed to work with a variety of file types—including .csv, .tsv, and .xlsx – and work with any dataset that includes five essential columns: subject, trial, x, y, and time. We also provide a helper function, `make_webgazer()`, to assist in renaming columns so your dataset can be adapted to the expected format.
+
+We encourage researchers to test this pipeline in their own studies and report any issues or suggestions on our GitHub repository. We are committed to improving `webgazeR` and welcome feedback that will make the package more flexible, user-friendly, and adaptable to a wider range of experimental platforms.
 
 ### **Power**
 
@@ -1887,27 +1900,34 @@ While we successfully demonstrated competition effects similar to Sarrett’s st
 
 We strongly urge researchers to perform power analyses and justify their sample sizes [@lakens2022]. While tools like G\*Power [@faul2007] are available for this purpose, we recommend power simulations using Monte Carlo or resampling methods on pilot or sample data [see @prystauka2024; @slim2023]. Several excellent R packages, such as `mixedpower` [@kumle2021] and `SIMR` [@green2016] make such simulations straightforward and accessible.
 
-## Recommendations
+## Recommendations for future webcam studies
 
-Based on our findings and limitations, we propose the following recommendations for researchers conducting visual world webcam eye-tracking experiments.
+While our findings support the promise of webcam eye-tracking for language research, several challenges remain that researchers should consider. One of the most significant issues is data loss due to poor calibration. In our study, we excluded approximately 40% of participants due to calibration failure—a number that rises to 75% when accounting for all who consented versus those who completed the experiment. These attrition rates are in line with some previous reports [e.g., @slim2023], though others have found substantially lower rates [@prystauka2024; @bramlett2025]. With this valuation, it is imporatnt to understand the factors that lead to better quality data.
 
-1.  **Prioritize external webcams\
-    **Our questionnaire suggested that participants using external webcams had significantly better calibration success compared to those relying on built-in webcams. External webcams generally provide higher resolution and frame rates, which are critical for accurate eye-tracking. Researchers should encourage participants to use external webcams whenever possible.
+To address this, we included a post-task questionnaire assessing participants’ setups and their experiences with the experiment. These questions, included in @tbl-question, provide insights that informed the following recommendations, which we also base on our experimental design and personal experience.
 
-2.  **Optimize environmental conditions\
-    **Natural light was a common factor in environments where calibration failed. Researchers should advise participants to conduct experiments in rooms with controlled lighting—ideally, artificial lighting with minimal glare or shadows—to reduce interference with eye-tracking accuracy.
+In our experimental design, participants were branched based on whether they successfully completed the experiment or failed calibration at any point. @tbl-goodbad highlights the comparisons between good and poor calibrators. For the sake of brevity, we will discuss some recommendations based off questionnaire responses and personal experience that will hopefully improve research using webcam eye-tracking.
 
-3.  **Conduct a priori power analysis\
+-   **Prioritize external webcams**
+
+    Our data suggest that participants using external webcams were significantly more likely to complete the calibration successfully than those using built-in laptop cameras. External webcams typically offer higher resolution and frame rates—both critical for accurate gaze estimation [@slim2023] Researchers should, whenever possible, encourage participants to use external webcams and may consider administering a brief pre-experiment questionnaire to screen for webcam type and exclude low-quality setups.
+
+-   **Optimize environmental conditions**
+
+    Poor calibration was often reported in environments with natural light. Ambient lighting introduces variability that can degrade tracking performance. We recommend that researchers instruct participants to complete studies in rooms with consistent artificial lighting and minimal glare or shadows.
+
+-   **Conduct a priori power analysis\
     **To ensure adequate statistical power, researchers should conduct a priori power analyses either via GUI like GPower or perform Monte Carlo simulations/resampling on pilot data. This step is particularly important for online studies, where sample variability can be higher than in controlled lab environments. To this point, you will have to over-enroll your study due to high attrition rate to reach your target goal, so please plan accordingly.
 
-4.  **Collect detailed post-experiment feedback\
-    **Including post-experiment questionnaires about participants' setups (e.g., webcam type, browser, lighting conditions) can provide valuable insights into calibration success factors. These data can help refine participant instructions and inclusion criteria for future studies.
+-   **Collect detailed post-experiment feedback**
 
-By adhering to these recommendations, researchers can enhance the reliability and generalizability of their webcam eye-tracking studies, ensuring the potential of this technology is fully realized.
+    Gathering detailed feedback about participants’ setups—such as webcam type, browser, lighting conditions, and perceived ease of use—can provide valuable information about what contributes to successful calibration. These insights can inform more effective participant instructions and refined inclusion criteria for future studies.
+
+    By implementing these strategies, researchers can improve the quality and consistency of data collected through webcam-based eye-tracking. These recommendations aim to maximize the utility and reproducibility of remote eye-tracking research, particularly in language processing contexts.
 
 ## Conclusions
 
-This work highlighted the steps required to process webcam eye-tracking data collected via Gorilla, showcasing the potential of webcam-based eye-tracking for robust psycholinguistic experimentation. With a standardized pipeline for processing eye-tracking data we hope we have given researchers a clear path forward when collecting and analyzing visual word webcam eye-tracking data.
+This work highlighted the steps required to process webcam eye-tracking data, showcasing the potential of webcam-based eye-tracking for robust psycholinguistic experimentation. With a standardized pipeline for processing eye-tracking data we hope we have given researchers a clear path forward when collecting and analyzing visual word webcam eye-tracking data.
 
 Moreover, our findings demonstrate the feasibility of conducting high-quality online experiments, paving the way for future research to address more nuanced questions about L2 processing and language comprehension more broadly. Additionally, further refinement of webcam eye-tracking methodologies could enhance data precision and extend their applicability to more complex experimental designs. This is an exciting time for eye-tracking research, with its boundaries continuously expanding. We eagerly anticipate the advancements and possibilities that the future of webcam eye-tracking will bring.
 
