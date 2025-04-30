@@ -155,11 +155,11 @@ execute:
 
 **Another method, which is the focus of this paper, is automated eye-tracking or webcam eye-tracking. Webcam eye-tracking typically requires three things : (1) a personal computer or smartphone [see @chen-sankey2023], (2) an internet connection, and (3) a built-in or external camera. Gaze data is collected directly through a web browser without requiring any additional software installation, making it highly accessible.**
 
-**A widely-used tool for enabling webcam-based eye-tracking is WebGazer.js \[\@papoutsaki2016\]**[^1], an open-source, freely available, and actively maintained JavaScript library. WebGazer.js has already been integrated into several popular experimental platforms, including Gorilla, jsPsych, PsychoPy, Labvanced, and PCIbex \[\@anwyl-irvine2020; \@peirce2019; \@deleeuw2015; \@zehr2018penncontroller; \@kaduk2024\]. Because WebGazer.js runs locally on the participant’s machine, it does not store webcam video recordings, helping alleviate ethical and privacy concerns associated with online eye-tracking
+**A popular tool for enabling webcam-based eye-tracking is WebGazer.js \[\@papoutsaki2016\]**[^1], an open-source, freely available, and actively maintained JavaScript library. WebGazer.js has already been integrated into several popular experimental platforms, including Gorilla, jsPsych, PsychoPy, Labvanced, and PCIbex \[\@anwyl-irvine2020; \@peirce2019; \@deleeuw2015; \@zehr2018penncontroller; \@kaduk2024\]. Because WebGazer.js runs locally on the participant’s machine, it does not store webcam video recordings, helping alleviate ethical and privacy concerns associated with online eye-tracking
 
 [^1]: **It is important to note that WebGazer.js is not the only method available. Other methods have been implemented by companies like Tobii (www.tobii.com) and Labvanced [@kaduk2024] . However, because these methods are proprietary, they are less accessible and difficult to reproduce.**
 
-**WebGazer.js uses machine learning to estimate gaze position in real time by fitting a facial mesh to the participant and detecting the location of the eyes. At each sampling point—determined by the participant’s device and webcam capabilities—x and y gaze coordinates are recorded. To improve accuracy, participants complete calibration and validation routines in which they fixate on targets in specific locations on the screen (in some cases a manual appraoch is used where users click on targets).**
+**Under the hood, WebGazer.js uses machine learning to estimate gaze position in real time by fitting a facial mesh to the participant and detecting the location of the eyes. At each sampling point—determined by the participant’s device and webcam capabilities—x and y gaze coordinates are recorded. To improve accuracy, participants complete calibration and validation routines in which they fixate on targets in specific locations on the screen (in some cases a manual appraoch is used where users click on targets).**
 
 ## **Eyetracking online compared to the lab**
 
@@ -1890,9 +1890,9 @@ final_table %>%
 
 ### **Generalizability to other platforms**
 
-We demonstrated how to analyze webcam eye-tracking data collected via the Gorilla platform using WebGazer.js. Although we did not validate this pipeline on other platforms that support WebGazer.js—such as PCIbex [@zehr2018penncontroller], jsPsych [@deleeuw2015], or PsychoPy [@peirce2019]—we believe the pipeline is generalizable to these and to platforms that use other gaze estimation logarithms, such as Labvanced \[\@kaduk2024\]. To support broader compatibility, the functions in the webgazeR package are designed to work with a variety of file types—including .csv, .tsv, and .xlsx – and work with any dataset that includes five essential columns: subject, trial, x, y, and time. We also provide a helper function, `make_webgazer()`, to assist in renaming columns so your dataset can be adapted to the expected format.
+We demonstrated how to analyze webcam eye-tracking data collected via the Gorilla platform using WebGazer.js. Although we did not validate this pipeline on other platforms that support WebGazer.js—such as PCIbex [@zehr2018penncontroller], jsPsych [@deleeuw2015], or **PsychoPy [@peirce2019]—we believe the pipeline is generalizable to these and to platforms that use other gaze estimation logarithms, such as Labvanced \[\@kaduk2024\].** T**o support broader compatibility, the functions in the webgazeR package are designed to work with a variety of file types—including .csv, .tsv, and .xlsx – and work with any dataset that includes five essential columns: subject, trial, x, y, and time. We also provide a helper function, `make_webgazer()`, to assist in renaming columns so your dataset can be adapted to the expected format.**
 
-We encourage researchers to test this pipeline in their own studies and report any issues or suggestions on our GitHub repository. We are committed to improving `webgazeR` and welcome feedback that will make the package more flexible, user-friendly, and adaptable to a wider range of experimental platforms.
+**We encourage researchers to test this pipeline in their own studies and report any issues or suggestions on our GitHub repository. We are committed to improving `webgazeR` and welcome feedback that will make the package more flexible, user-friendly, and adaptable to a wider range of experimental platforms.**
 
 ### **Power**
 
@@ -1900,7 +1900,7 @@ While we successfully demonstrated competition effects similar to Sarrett’s st
 
 We strongly urge researchers to perform power analyses and justify their sample sizes [@lakens2022]. While tools like G\*Power [@faul2007] are available for this purpose, we recommend power simulations using Monte Carlo or resampling methods on pilot or sample data [see @prystauka2024; @slim2023]. Several excellent R packages, such as `mixedpower` [@kumle2021] and `SIMR` [@green2016] make such simulations straightforward and accessible.
 
-## Recommendations for future webcam studies
+## **Recommendations for future webcam studies**
 
 While our findings support the promise of webcam eye-tracking for language research, several challenges remain that researchers should consider. One of the most significant issues is data loss due to poor calibration. In our study, we excluded approximately 40% of participants due to calibration failure—a number that rises to 75% when accounting for all who consented versus those who completed the experiment. These attrition rates are in line with some previous reports [e.g., @slim2023], though others have found substantially lower rates [@prystauka2024; @bramlett2025]. With this valuation, it is imporatnt to understand the factors that lead to better quality data.
 
@@ -1909,12 +1909,13 @@ To address this, we included a post-task questionnaire assessing participants’
 In our experimental design, participants were branched based on whether they successfully completed the experiment or failed calibration at any point. @tbl-goodbad highlights the comparisons between good and poor calibrators. For the sake of brevity, we will discuss some recommendations based off questionnaire responses and personal experience that will hopefully improve research using webcam eye-tracking.
 
 -   **Prioritize external webcams**
-
     Our data suggest that participants using external webcams were significantly more likely to complete the calibration successfully than those using built-in laptop cameras. External webcams typically offer higher resolution and frame rates—both critical for accurate gaze estimation [@slim2023] Researchers should, whenever possible, encourage participants to use external webcams and may consider administering a brief pre-experiment questionnaire to screen for webcam type and exclude low-quality setups.
 
 -   **Optimize environmental conditions**
 
     Poor calibration was often reported in environments with natural light. Ambient lighting introduces variability that can degrade tracking performance. We recommend that researchers instruct participants to complete studies in rooms with consistent artificial lighting and minimal glare or shadows.
+
+    In addition to lighting, **head movement and distance from the screen** are critical for achieving reliable eye-tracking. Excessive movement or leaning in and out of the camera’s view can disrupt the face mesh tracking used by WebGazer.js. Participants should be advised to remain still and maintain a consistent, moderate distance from the screen—approximately 50–70 cm, depending on their camera setup. We asked individuals to provide an approximate distance from their screens, (arms length) but it is not clear how accurate this is. Providing clear guidance (e.g., via an instructional video) may help mitigate these issues and improve overall tracking fidelity). One platform, labvanced, implements something like this.
 
 -   **Conduct a priori power analysis\
     **To ensure adequate statistical power, researchers should conduct a priori power analyses either via GUI like GPower or perform Monte Carlo simulations/resampling on pilot data. This step is particularly important for online studies, where sample variability can be higher than in controlled lab environments. To this point, you will have to over-enroll your study due to high attrition rate to reach your target goal, so please plan accordingly.
