@@ -205,7 +205,7 @@ execute:
 
 **There two several key differences between our dataset and the original study by @sarrett2022 worth noting. First, @sarrett2022 focused on adult unbalanced L2 Spanish speakers and posed more fine-grained questions about the time course of competition and resolution and its relationship with L2 language acquisition. Second, unlike @sarrett2022 , who measured Spanish proficiency objectively using LexTALE-esp [@izura2014]), we relied on Prolific’s (www.prolific.co) filters to recruit L2 Spanish speakers.**
 
-**To conduct our online webcam replication, we used the experimental platform Gorilla \[\@anwyl-irvine2020\], which integrates WebGazer.js for gaze tracking. We selected Gorilla because it offers robust WebGazer.js integration and addresses several temporal accuracy concerns identified in other platforms \[\@slim2023; \@slim2024\].**
+**To conduct our online webcam replication, we used the experimental platform Gorilla \[@anwyl-irvine2020\], which integrates WebGazer.js for gaze tracking. We selected Gorilla because it offers robust WebGazer.js integration and addresses several temporal accuracy concerns identified in other platforms [@slim2023; @slim2024].**
 
 ### **Tutorial Overview**
 
@@ -1167,6 +1167,34 @@ The above will not include the subject variable. If you want to keep participant
 
 # add subject-level data
 gaze_sub_L2_id <- webgazeR::downsample_gaze(gaze_sub_L2_long, bin.length=100, timevar="time", aggvars=c("subject", "condition", "condition1", "time_bin"))
+```
+
+### Upsampling
+
+**Users may wish to upsample their data rather than downsample it. This is standard in some preprocessing pipelines in pupilometry [@kret2018] and has recently been applied to webcam-based eye-tracking data [@madsen2021]. Like downsampling, upsampling standardizes the time intervals between samples; however, it also increases the sampling rate, which can produce smoother, less noisy data. This is useful if you want to align webcam eye-tracking with other measures (e.g., EEG).**
+
+**Our webgazeR package provides several functions to assist with this process. The `upsample_gaze()` function allows users to upsample their gaze data to a higher sampling rate (e.g., 250 Hz or even 1000 Hz). After upsampling, users can apply the `smooth_gaze()` function to reduce noise (`webgazeR` uses a n-point moving average) followed by the `interpolate_gaze()` function to fill in missing values using linear interpolation.**
+
+```{r}
+#| eval: false 
+AOI_upsample <- AOI %>%
+  group_by(subject, trial) %>%
+  upsample_gaze(
+    gaze_cols = c("x", "y"),
+    upsample_pupil = FALSE, 
+    target_hz = 250)
+```
+
+```{r}
+#| eval: false
+AOI_smooth=smooth_gaze(AOI_upsample, n = 5, x_col = "x", y_col = "y",
+                        trial_col = "trial", subject_col = "subject")
+```
+
+```{r}
+#|eval: false
+aoi_interp <- interpolate_gaze(deduplicated_data,x_col = "x_pred_normalised", y_col = "y_pred_normalised",
+                        trial_col = "trial", subject_col = "subject", time_col="time" )
 ```
 
 ## Aggregation
