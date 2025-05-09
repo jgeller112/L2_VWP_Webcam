@@ -28,6 +28,12 @@ L2_VWP_Webcam/
 │   │       └── apaquarto/
 │   ├── manuscript.qmd
 │   └── references.bib
+├── _manuscript_revisions/
+│   ├── _extensions/
+│   │   └── wjschne/
+│   │       └── apaquarto/
+│   ├── manuscript_revised.qmd
+│   └── references.bib
 ├── data/
 └── result
 
@@ -47,6 +53,8 @@ L2_VWP_Webcam/
 
 - **`_manuscript/`**: Manuscript-related files.
 - **`data/`**: Directory for data files.
+
+- **`_manuscript_revisions/`**: revised manuscript-related files.
 
 
 ## Data
