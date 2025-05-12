@@ -70,7 +70,7 @@ jobs:
     - name: Quarto Render paper
       if: env.changed == 'true'
       run: |
-        nix-shell --run "quarto render _manuscript/L2_VWP_webcam_ET.qmd"
+        nix-shell --run "quarto render _manuscript/L2_VWP_webcam_ET_revised.qmd"
 
     - name: Upload rendered paper
       if: env.changed == 'true'
