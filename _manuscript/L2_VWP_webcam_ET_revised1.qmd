@@ -515,7 +515,7 @@ The `webgazeR` package is installed from the Github repository using the `remote
 
 ```{r}
 #| label: webgazer
-#| eval: true
+#| eval: false
 library(remotes) # install github repo
 
 remotes::install_github("jgeller112/webgazeR")
