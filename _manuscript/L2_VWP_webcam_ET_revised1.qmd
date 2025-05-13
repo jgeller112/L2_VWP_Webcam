@@ -1781,9 +1781,12 @@ eye_quests %>%
   filter(Key == "value") %>%
   select(-Key) %>%
   distinct() %>%
-    flextable() |> 
-autofit() |>
-theme_apa()
+    flextable() |>
+    fontsize(size = 12) %>%  # Reduce font size
+  padding(padding = 0) %>%
+  font(fontname = "Times New Roman", part = "all") |>
+  set_table_properties(layout="autofit") |> # Reduce padding inside cells
+  theme_apa()
 ```
 
 ```{r}
@@ -1895,9 +1898,12 @@ final_table <- percentage_responses_filtered %>%
 
 final_table |>
   mutate(across(where(is.numeric), ~ round(.x, 2))) |>
-  flextable() |> 
-autofit() |>
-theme_apa()
+flextable() |>
+    fontsize(size = 12) %>%  # Reduce font size
+  padding(padding = 0) %>%
+  font(fontname = "Times New Roman", part = "all") |>
+  set_table_properties(layout="autofit") |> # Reduce padding inside cells
+  theme_apa()
 ```
 
 ## Limitations
