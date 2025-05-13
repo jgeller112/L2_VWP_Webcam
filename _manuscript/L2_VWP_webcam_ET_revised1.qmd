@@ -1781,8 +1781,10 @@ eye_quests %>%
   filter(Key == "value") %>%
   select(-Key) %>%
   distinct() %>%
-    as_tibble() %>%
-tt(width=.9)
+    flextable() |> 
+autofit() |>
+theme_apa()
+```
 ```
 
 ```{r}
@@ -1893,8 +1895,10 @@ final_table <- percentage_responses_filtered %>%
 # View the final cleaned table
 
 final_table %>%
-  mutate(across(where(is.numeric), ~ round(.x, 2))) %>%
-  tt(width=.9)
+  mutate(across(where(is.numeric), ~ round(.x, 2))) |>
+  flextable() |> 
+autofit() |>
+theme_apa()
 ```
 
 ## Limitations
