@@ -1785,7 +1785,6 @@ eye_quests %>%
 autofit() |>
 theme_apa()
 ```
-```
 
 ```{r}
 #| echo: false
@@ -1894,7 +1893,7 @@ final_table <- percentage_responses_filtered %>%
   select(-percentage_good,-percentage_bad)
 # View the final cleaned table
 
-final_table %>%
+final_table |>
   mutate(across(where(is.numeric), ~ round(.x, 2))) |>
   flextable() |> 
 autofit() |>
