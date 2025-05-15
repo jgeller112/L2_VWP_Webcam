@@ -32,7 +32,7 @@ rix(
     list(
       package_name = "webgazer",
       repo_url = "https://github.com/jgeller112/webgazeR/",
-      commit = "03eede0418cd26957b357ab1e2ba1f74a7825feb"
+      commit = "Head"
     )
   ),
 tex_pkgs = c("amsmath", "ninecolors", "apa7", "scalerel", "threeparttable", "threeparttablex", "endfloat", "environ", "multirow", "tcolorbox", "pdfcol", "tikzfill", "fontawesome5", "framed", "newtx", "fontaxes", "xstring", "wrapfig", "tabularray", "siunitx", 

@@ -277,6 +277,7 @@ Finally, it’s also possible to forget {rix} and instead run everything using R
   - R 4.4.1 (or later) and RStudio.
 
   - Quarto 1.6.1 (or later)
+ 
 
 ```
 # these are the packages nix uses to build the manuscript 
@@ -307,10 +308,34 @@ r_pkgs = c(
   ),
 ```
 
+
 ```
 remotes::install_github("jgeller112/webgazeR")
 library(webgazeR)
 ```
+
+| Package     | Version     | Citation                                                                 |
+|-------------|-------------|--------------------------------------------------------------------------|
+| base        | 4.4.3       | R Core Team (2025)                                                       |
+| cowplot     | 1.1.3       | Wilke (2024)                                                             |
+| flextable   | 0.9.6       | Gohel and Skintzos (2024)                                                |
+| foreach     | 1.5.2       | Microsoft and Weston (2022)                                              |
+| gazer       | 0.1         | Geller et al. (2018)                                                     |
+| ggokabeito  | 0.1.0       | Barrett (2021)                                                           |
+| gt          | 0.11.1      | Iannone et al. (2024)                                                    |
+| gtsummary   | 2.0.3       | Sjoberg et al. (2021)                                                    |
+| here        | 1.0.1       | Müller (2020)                                                            |
+| janitor     | 2.2.1       | Firke (2024)                                                             |
+| knitr       | 1.50        | Xie (2014); Xie (2015); Xie (2025)                                       |
+| optimx      | 2023.10.21  | Nash and Varadhan (2011); John C. Nash (2014)                           |
+| permuco     | 1.1.3       | Frossard and Renaud (2021)                                               |
+| permutes    | 2.8         | Voeten (2023)                                                            |
+| remotes     | 2.5.0       | Csárdi et al. (2024)                                                     |
+| rix         | 0.15.6      | Rodrigues and Baumann (2025)                                             |
+| rmarkdown   | 2.29        | Xie, Allaire, and Grolemund (2018); Xie, Dervieux, and Riederer (2020); Allaire et al. (2024) |
+| tidyverse   | 2.0.0       | Wickham et al. (2019)                                                    |
+| tinytable   | 0.8.0       | Arel-Bundock (2025)                                                      |
+| webgazeR    | 0.7.2       | Geller (2025)                                                            |
 
 1. Download the repository from Github
    <img width="961" alt="Screenshot 2025-01-04 at 5 00 54 PM" src="https://github.com/user-attachments/assets/09523d6c-1a7a-435f-9dce-bb099df7adcd" />
