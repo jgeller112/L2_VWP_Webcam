@@ -31,7 +31,7 @@
 #  > "typst"),
 #  > git_pkgs = list(list(package_name = "webgazer",
 #  > repo_url = "https://github.com/jgeller112/webgazeR/",
-#  > commit = "03eede0418cd26957b357ab1e2ba1f74a7825feb")),
+#  > commit = "023ebdcb8be6eaac103dcdad4c9b29305cd31e36")),
 #  >      tex_pkgs = c("amsmath",
 #  > "ninecolors",
 #  > "apa7",
@@ -101,8 +101,8 @@ let
       name = "webgazer";
       src = pkgs.fetchgit {
         url = "https://github.com/jgeller112/webgazeR/";
-        rev = "03eede0418cd26957b357ab1e2ba1f74a7825feb";
-        sha256 = "sha256-TvEPiWABu8gbSG2Jba4Qy5ZuX654vn9adUrgUKLHJ7w=";
+        rev = "023ebdcb8be6eaac103dcdad4c9b29305cd31e36";
+        sha256 = "sha256-C6SRlZH0EFC+/hz22cV3Q8pKXBOzheJfBy+/WVbdODo=";
       };
       propagatedBuildInputs = builtins.attrValues {
         inherit (pkgs.rPackages) 
