@@ -173,7 +173,7 @@ There are also notable issues with the spatial and temporal accuracy of webcam-b
 
 Despite these technical challenges, webcam-based eye-tracking has proven particularly well-suited for adapting the visual world paradigm (VWP) [@tanenhaus1995; cf. @cooper1974] to online environments.
 
-In the field of language research, few methods have had as enduring an impact as the VWP. Over the past 25 years, the VWP has enabled researchers to address a broad range of topics, including sentence processing [@altmann1999; @huettig2011; @kamide2003], spoken word recognition [@allopenna1998; @dahan2001; @huettig2007; @mcmurray2002], bilingual language processing [@hopp2013; @ito2018; @rossi2019], the effects of brain damage on language [@mirman2012; @yee2008], and the impact of hearing loss on lexical access \[@mcmurray2017\].
+In the field of language research, few methods have had as enduring an impact as the VWP. Over the past 25 years, the VWP has enabled researchers to address a broad range of topics, including sentence processing [@altmann1999; @huettig2011; @kamide2003], spoken word recognition [@allopenna1998; @dahan2001; @huettig2007; @mcmurray2002], bilingual language processing [@hopp2013; @ito2018; @rossi2019], the effects of brain damage on language [@mirman2012; @yee2008], and the impact of hearing loss on lexical access [@mcmurray2017].
 
 What makes the widespread use of the VWP particularly remarkable is the simplicity of the task. In a typical VWP experiment, participants view a display of several objects, each represented by a picture, while their eye movements are recorded in real time as they listen to a spoken word or phrase. Although variations of the task exist—and implementations may differ depending on specific research goals or design choices—the core finding remains consistent: listeners reliably shift their gaze to the image corresponding to the spoken word, often before the word is fully articulated. This robust effect provides compelling evidence for anticipatory or predictive processing during language comprehension.
 
@@ -764,7 +764,7 @@ While most commercial eye-trackers sample at a constant rate, data captured by w
 #| fig-width: 12
 #| fig-height: 8
 
-samp_rate_L2 <- analyze_sampling_rate(edat_L2, summary_stat="median")
+samp_rate_L2 <- analyze_sampling_rate(edat_L2, summary_stat="Median")
 
 ```
 
@@ -1915,7 +1915,7 @@ Poor calibration was often reported in environments with natural light. Ambient 
 
 In addition to lighting, head movement and distance from the screen are critical for achieving reliable eye-tracking. Excessive movement or leaning in and out of the camera’s view can disrupt the face mesh tracking used by WebGazer.js. Participants should be advised to remain still and maintain a consistent, moderate distance from the screen—approximately 50–70 cm, depending on their camera setup. We asked individuals to provide an approximate distance from their screens, (arms length) but it is not clear how accurate this is. Providing clear guidance (e.g., via an instructional video) may help mitigate these issues and improve overall tracking fidelity). 
 
-A different platform, Labvanced \[@kaduk2024\], for example, offers additional eye-tracking functionality including a virtual chinrest to ensure head movement is restricted to an acceptable range and warns users if they deviate from this range. Together this might make for a better eye-tracking experience with less data thrown out. This should be investigated further.
+A different platform, Labvanced [@kaduk2024], for example, offers additional eye-tracking functionality including a virtual chinrest to ensure head movement is restricted to an acceptable range and warns users if they deviate from this range. Together this might make for a better eye-tracking experience with less data thrown out. This should be investigated further.
 
 ### Conduct a priori power analysis 
 
