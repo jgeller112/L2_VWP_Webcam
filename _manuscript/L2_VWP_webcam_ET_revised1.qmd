@@ -233,7 +233,7 @@ After agreeing to participate, individuals were redirected to the Gorilla experi
 
 ```{r}
 #| label: fig-sankey
-#| fig-cap: This sankey plot illustrates the flow of participants from initial consent (N = 187) through each stage of the study to the final analyzed sample (N = 28). The width of each stream is proportional to the number of participants. Detours indicate points of attrition, including failures in the headphone screener (N = 66) and calibration (N = 76). Only participants who passed all screening and calibration stages, and completed the Visual World Paradigm (VWP), were included in the final sample.
+#| fig-cap: This sankey plot illustrates the flow of participants from initial consent (*N* = 187) through each stage of the study to the final analyzed sample (N = 28). The width of each stream is proportional to the number of participants. Detours indicate points of attrition, including failures in the headphone screener (*N* = 66) and calibration (*N* = 76). Only participants who passed all screening and calibration stages, and completed the Visual World Paradigm (VWP), were included in the final sample.
 
 #| echo: false
 
