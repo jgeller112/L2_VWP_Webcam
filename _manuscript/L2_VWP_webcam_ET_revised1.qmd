@@ -56,7 +56,7 @@ author:
     orcid: 0000-0003-0798-3268
     roles: 
       - methodology
-      - conceptualziation
+      - conceptualization
       - editing
       - funding acquisition
     affiliations:
@@ -175,7 +175,7 @@ Eye-tracking technology, which has a history spanning over a century, has seen r
 
 **In the field of language research, few methods have had as enduring an impact as the VWP. Over the past 25 years, the VWP has enabled researchers to address a broad range of topics, including sentence processing [@altmann1999; @huettig2011; @kamide2003], spoken word recognition [@allopenna1998; @dahan2001; @huettig2007; @mcmurray2002], bilingual language processing [@hopp2013; @ito2018; @rossi2019], the effects of brain damage on language [@mirman2012; @yee2008], and the impact of hearing loss on lexical access \[McMurray et al., 2017\].**
 
-**What makes the widespread use of the VWP even more remarkable is the simplicity of the task. In a typical VWP experiment, participants view a display of several objects represented by a picture. As they listen to a spoken word or phrase, their eye movements are recorded in real time. Please note that different versions of this task exist, and implementations may vary slightly across studies, depending on specific research goals and design choices. Despite this, a robust finding in VWP research is that listeners reliably direct their gaze to the picture representing the spoken word, often before the word has been fully articulated, revealing anticipatory or predictive processing.**
+**What makes the widespread use of the VWP particularly remarkable is the simplicity of the task. In a typical VWP experiment, participants view a display of several objects, each represented by a picture, while their eye movements are recorded in real time as they listen to a spoken word or phrase. Although variations of the task exist—and implementations may differ depending on specific research goals or design choices—the core finding remains consistent: listeners reliably shift their gaze to the image corresponding to the spoken word, often before the word is fully articulated. This robust effect provides compelling evidence for anticipatory or predictive processing during language comprehension.**
 
 **While eye movements are often time-locked to linguistic input, the relationship between eye movements and lexical processing is not one-to-one. Lexical activation interacts with non-lexical factors such as selective attention, visual salience, task demands, working memory, and prior expectations—all of which can shape where and when participants look [@eberhard1995; @huettig2011; @kamide2003; @bramlett2025]. Nonetheless, the VWP remains a powerful and flexible tool for studying online language processing, offering fine-grained insights into how linguistic and cognitive processes unfold moment by moment.**
 
@@ -233,7 +233,7 @@ All tasks herein can be previewed here [(https://app.gorilla.sc/openmaterials/95
 
 ```{r}
 #| label: fig-sankey
-#| fig-cap: “This sankey plot illustrates the flow of participants from initial consent (N = 187) through each stage of the study to the final analyzed sample (N = 28). The width of each stream is proportional to the number of participants. Detours indicate points of attrition, including failures in the headphone screener (N = 66) and calibration (N = 76). Only participants who passed all screening and calibration stages, and completed the Visual World Paradigm (VWP), were included in the final sample.”
+#| fig-cap: This sankey plot illustrates the flow of participants from initial consent (N = 187) through each stage of the study to the final analyzed sample (N = 28). The width of each stream is proportional to the number of participants. Detours indicate points of attrition, including failures in the headphone screener (N = 66) and calibration (N = 76). Only participants who passed all screening and calibration stages, and completed the Visual World Paradigm (VWP), were included in the final sample.
 
 #| echo: false
 
@@ -446,7 +446,7 @@ Additional questions assessed the clarity of calibration instructions, allowing 
 
 ### Procedure
 
-All tasks and questionnaires were developed using the Gorilla Experiment Builder’s graphical user interface (GUI) and integrated coding tools [@anwyl-irvine2020]. Each participant completed the study in a single session lasting approximately 45 minutes. Tasks were presented in a fixed order: informed consent, headphone screening, the spoken word Visual World Paradigm (VWP) task, and a set of questionnaire items. These are available to view here:\*\* <https://app.gorilla.sc/openmaterials/953693>.\*\*
+**All tasks and questionnaires were developed using the Gorilla Experiment Builder’s graphical user interface (GUI) and integrated coding tools [@anwyl-irvine2020]. Each participant completed the study in a single session lasting approximately 45 minutes. Tasks were presented in a fixed order: informed consent, headphone screening, the spoken word Visual World Paradigm (VWP) task, and a set of questionnaire items. These are available to view here: <https://app.gorilla.sc/openmaterials/953693>.**
 
 **Only personal computers were permitted for participation. Upon entering the study from Prolific, participants were presented with a consent form. Once consent was given, participants completed a headphone screening test. They had three attempts to pass this test. If unsuccessful by the third attempt, participants were directed to an early exit screen, followed by the questionnaire. They had three attempts to pass this test. If unsuccessful by the third attempt, participants were directed to an early exit screen, followed by the questionnaire.**
 
@@ -1474,7 +1474,7 @@ With our data, one question we might want to answer is if there are any fixation
 
 CPA is a technique that has become increasingly popular, particularly in the field of cognitive neuropsychology, for analyzing MEG and EEG data [@maris2007]. While its adoption in VWP studies has been relatively slow, it is now beginning to appear more frequently [see @huang2020; @ito2023]. Notably, its use is growing in online eye-tracking studies [see @slim2024; @slim2023; @vos2022].
 
-Before I show you how to apply this method to the current dataset, I want to briefly explain what CPA is. The CPA is a data-driven approach that increases statistical power while controlling for Type I errors across multiple comparisons—exactly what we need when analyzing fixations across the time course.
+Before we show you how to apply this method to the current dataset, we want to briefly explain what CPA is. The CPA is a data-driven approach that increases statistical power while controlling for Type I errors across multiple comparisons—exactly what we need when analyzing fixations across the time course.
 
 The clustering procedure involves three main steps:
 
