@@ -121,7 +121,6 @@ format:
     documentmode: doc
     include-in-header:
       - text: |
-          \AtBeginEnvironment{verbatim}{\singlespacing}
           \usepackage{fvextra} % Advanced verbatim environment for better wrapping
           \DefineVerbatimEnvironment{Highlighting}{Verbatim}{breaklines,commandchars=\\\{\}}
           \renewcommand{\baselinestretch}{1.2} % Adjust line spacing for readability
@@ -130,7 +129,7 @@ format:
           \geometry{margin=1in} % Ensure text does not overflow page
           \usepackage{setspace} % Allows flexible line spacing
           \setstretch{1.2} % Slightly stretch lines for better
-        \AtBeginEnvironment{verbatim}{\singlespacing}
+          \AtBeginEnvironment{verbatim}{\singlespacing}
 execute: 
   echo: true
   warning: false
@@ -1252,7 +1251,7 @@ vwp_paths_filtered_L2 <- vwp_files_L2[!grepl("calibration", vwp_files_L2)]
 
 ```
 
-We will use the function `extract_aois()` to get the standardized coordinates for each quadrant on screen. You can use the `zone_names` argument to get the zones you want to use. In our example, we want the `TL`, `BR`, `BL` `TR` coordinates. We input the object from above `vwp_paths_filtered_L2` that contains all our eye-tracking files and extract the coordinates we want. These are labeled in @tbl-gorgaze. In @fig-gor-L2 we can see that the AOIs are a bit smaller than then when using the quadrant approach. We can take these coordinates and use them in our analysis.Looking at @fig-L2comp-gor, we see the data is a bit nosier than the quadrant approach, but the curves are reasonable.
+We will use the function `extract_aois()` to get the standardized coordinates for each quadrant on screen. You can use the `zone_names` argument to get the zones you want to use. In our example, we want the `TL`, `BR`, `BL` `TR` coordinates. We input the object from above `vwp_paths_filtered_L2` that contains all our eye-tracking files and extract the coordinates we want. These are labeled in @tbl-gorgaze. In @fig-gor-L2 we can see that the AOIs are a bit smaller than then when using the quadrant approach. We can take these coordinates and use them in our analysis.Looking at @fig-L2comp-gor, we see the data is a bit noisier than the quadrant approach, but the curves are reasonable.
 
 ```{r}
 #| label: gor-coordinates
@@ -1448,7 +1447,7 @@ ggsave(here::here("_manuscript", "Figures", "Figure8.png"), width=8, height=12, 
 
 ## Modeling data
 
-After you have preprocessed the data, the next step is analysis. When analyzing VWP data there are many analytic approaches to choose from (e.g., growth curve analysis (GCA), cluster permutation analysis (CPA), generalized additive mixed models (GAMMS), logistic multilevel models, divergent point analysis (DPA), etc.), and a lot has already been written describing these methods and a lot of great tutorials exist showing how to apply these methods to visual world fixation data from the lab [see @ito2023; @stone2021; @coretta2024] and online [@bramlett2024].
+Once the data have been preprocessed, the next step is analysis. A variety of analytic approaches are available for VWP data, including growth curve analysis (GCA), cluster permutation analysis (CPA), generalized additive mixed models (GAMMs), logistic multilevel models, and divergent point analysis (DPA). Fortunately, there is a wealth of excellent resources and tutorials demonstrating how to apply these methods to both lab-based [see @ito2023; @stone2021; @coretta2024; @mirmanGrowthCurveAnalysis; @seedorff2018] and online [see @bramlett2024] visual world eye-tracking data.
 
 This paper's goal, however, is to not evaluate different analytic approaches and tell readers what they should use. All methods have their strengths and weaknesses [see @ito2023]. Nevertheless, statistical modeling should be guided by the questions researchers have and thus serious thought needs to be given to the proper analysis. In the VWP, there are two general questions one might be interested in: (1) Are there any overall difference in fixations between conditions and (2) Are there any time course differences in fixations between conditions (and/or groups).
 
