@@ -121,6 +121,7 @@ format:
     documentmode: doc
     include-in-header:
       - text: |
+          \AtBeginEnvironment{verbatim}{\singlespacing}
           \usepackage{fvextra} % Advanced verbatim environment for better wrapping
           \DefineVerbatimEnvironment{Highlighting}{Verbatim}{breaklines,commandchars=\\\{\}}
           \renewcommand{\baselinestretch}{1.2} % Adjust line spacing for readability
@@ -128,7 +129,8 @@ format:
           \usepackage{geometry} % Control margins
           \geometry{margin=1in} % Ensure text does not overflow page
           \usepackage{setspace} % Allows flexible line spacing
-          \setstretch{1.2} % Slightly stretch lines for better readability
+          \setstretch{1.2} % Slightly stretch lines for better
+        \AtBeginEnvironment{verbatim}{\singlespacing}
 execute: 
   echo: true
   warning: false
@@ -143,7 +145,7 @@ execute:
 
 Eye-tracking technology, which has a history spanning over a century, has seen remarkable advancements. In the early days, eye-tracking often required the use of contact lenses fitted with search coils—sometimes necessitating anesthesia—or the attachment of suction cups to the sclera of the eyes [@pluzyczka2018]. These methods were not only cumbersome for researchers, but also uncomfortable and invasive for participants. Over time, such approaches have been replaced by non-invasive, lightweight, and user-friendly systems. Today, modern eye-tracking technology is widely accessible in laboratories worldwide, enabling researchers to tackle critical questions about cognitive processes. This evolution has had a profound impact on fields such as psycholinguistics and bilingualism, opening up new possibilities for understanding how language is processed in real time [@godfroid].
 
-In the last decade, there has been a gradual shift towards conducting more behavioral experiments online [@anderson2019; @rodd2024]. This "onlineification" of behavioral research has driven the development of remote eye-tracking methods that do not rely on traditional laboratory settings. Allowing participants to use their own equipment from anywhere in the world opens the door to recruiting more diverse and historically underrepresented populations \[\@gosling2010\]. Behavioral research has long struggled with a lack of diverse and representative samples, relying heavily on participants who are predominantly Western, Educated, Industrialized, Rich, and Democratic (WEIRD) [@henrich2010]. Additionally, we propose adding able-bodied to this acronym (WEIRD-A) [@peterson2021], to highlight the exclusion of individuals with disabilities who may face barriers to accessing research facilities. In language research, this issue is especially pronounced, as studies often focus on "modal" listeners and speakers—typically young, monolingual, and neurotypical [@blasi2022; @bylund2024; @mcmurray2010].
+In the last decade, there has been a gradual shift towards conducting more behavioral experiments online [@anderson2019; @rodd2024]. This "onlineification" of behavioral research has driven the development of remote eye-tracking methods that do not rely on traditional laboratory settings. Allowing participants to use their own equipment from anywhere in the world opens the door to recruiting more diverse and historically underrepresented populations \[@gosling2010\]. Behavioral research has long struggled with a lack of diverse and representative samples, relying heavily on participants who are predominantly Western, Educated, Industrialized, Rich, and Democratic (WEIRD) [@henrich2010]. Additionally, we propose adding able-bodied to this acronym (WEIRD-A) [@peterson2021], to highlight the exclusion of individuals with disabilities who may face barriers to accessing research facilities. In language research, this issue is especially pronounced, as studies often focus on "modal" listeners and speakers—typically young, monolingual, and neurotypical [@blasi2022; @bylund2024; @mcmurray2010].
 
 In this paper, we contribute to the growing body of research suggesting that webcam-based eye-tracking, which is administered remotely and requires access to only a computer webcam, can increase inclusivity and representation of the participant samples we include in research studies. Namely, by minimizing the requirements for participants to travel to a lab, use specialized equipment, or meet strict scheduling demands, webcam-based approaches can facilitate participation from individuals in rural or geographically isolated areas and people with disabilities that make getting to a lab difficult. This approach also promotes inclusion of broader sociodemographic groups that have been historically underrepresented in cognitive and developmental research. We illustrate this by replicating a visual world eye-tracking study with bilingual English-Spanish speaking participants [@sarrett2022] using online methods (i.e., recruitment via Prolific.co and webcam-based eye-tracking). To facilitate broader adoption of this approach, we also introduce our R package, webgazeR, and present a step-by-step tutorial for analyzing webcam-based VWP data.
 
@@ -1216,9 +1218,9 @@ tcru <- plot_IA_proportions(
         ~ condition,             
         labeller = labeller(
             condition = c(
-                "TCUU-ENGSP" = "a) No Competitor",
-                "TCUU-SPENG" = "b) Spanish-English",
-                "TCUU-SPSP" = "c) Spanish-Spanish"
+                "TCUU-ENGSP" = "A) No Competitor",
+                "TCUU-SPENG" = "B) Spanish-English",
+                "TCUU-SPSP" = "C) Spanish-Spanish"
             )
         ),
         ncol = 3
@@ -1231,7 +1233,7 @@ tcru <- plot_IA_proportions(
 # Print the plot
 tcru
 
-ggsave(here::here("_manuscript", "Figures", "Figure6.png"), width=12, height=18, dpi=400)
+ggsave(here::here("_manuscript", "Figures", "Figure6.png"), width=12, height=18, dpi=500)
 
 ```
 
@@ -1929,7 +1931,7 @@ By implementing these strategies, researchers can improve the quality and consis
 
 ## Conclusions
 
-This work highlights the steps required to process webcam eye-tracking data, demonstrating the potential of webcam-based eye-tracking for robust psycholinguistic experimentation. By providing a standardized pipeline for processing eye-tracking data, we aim to give researchers a clear and practical path for collecting and analyzing visual world webcam eye-tracking data. An interactive demo of the preprocessing pipeline—using data from a monolingual visual world paradigm (VWP)—is available at the webgazeR website (https://jgeller112.github.io/webgazeR/vignettes/webgazeR_vignette.html), where users can explore the code and workflow firsthand.
+This work highlights the steps required to process webcam eye-tracking data, demonstrating the potential of webcam-based eye-tracking for robust psycholinguistic experimentation. By providing a standardized pipeline for processing eye-tracking data, we aim to give researchers a clear and practical path for collecting and analyzing visual world webcam eye-tracking data. An interactive demo of the preprocessing pipeline—using data from a monolingual VWP—is available at the webgazeR website (https://jgeller112.github.io/webgazeR/vignettes/webgazeR_vignette.html), where users can explore the code and workflow firsthand.
 
 Moreover, our findings demonstrate the feasibility of conducting high-quality online experiments, paving the way for future research to address more nuanced questions about L2 processing and language comprehension more broadly. Additionally, further refinement of webcam eye-tracking methodologies could enhance data precision and extend their applicability to more complex experimental designs. This is an exciting time for eye-tracking research, with its boundaries continuously expanding. We eagerly anticipate the advancements and possibilities that the future of webcam eye-tracking will bring.
 
