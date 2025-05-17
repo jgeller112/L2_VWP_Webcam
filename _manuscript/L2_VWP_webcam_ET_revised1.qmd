@@ -139,8 +139,8 @@ execute:
   tbl-align: center
   keep-with-next: true
   code-overflow: wrap
-  out-width: 50%
-  out-height: 50%
+  out-width: 40%
+  out-height: 40%
 ---
 
 Eye-tracking technology, which has a history spanning over a century, has seen remarkable advancements. In the early days, eye-tracking often required the use of contact lenses fitted with search coils—sometimes necessitating anesthesia—or the attachment of suction cups to the sclera of the eyes [@pluzyczka2018]. These methods were not only cumbersome for researchers, but also uncomfortable and invasive for participants. Over time, such approaches have been replaced by non-invasive, lightweight, and user-friendly systems. Today, modern eye-tracking technology is widely accessible in laboratories worldwide, enabling researchers to tackle critical questions about cognitive processes. This evolution has had a profound impact on fields such as psycholinguistics and bilingualism, opening up new possibilities for understanding how language is processed in real time [@godfroid].
