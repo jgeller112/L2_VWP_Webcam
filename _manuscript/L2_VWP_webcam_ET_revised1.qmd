@@ -117,6 +117,7 @@ language:
   title-block-role-introduction: "Author roles were classified using the Contributor Role Taxonomy (CRediT; https://credit.niso.org/) as follows:"
 format: 
   apaquarto-docx: default
+  apaquarto-html: default
   apaquarto-pdf:
     documentmode: doc
     include-in-header:
