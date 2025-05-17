@@ -3,9 +3,9 @@
 
 ### Main Manuscript Files
 
-- **`L2_VWP_webcam_ET.qmd`**: The main Quarto source file for the manuscript. Use this to generate updated versions of the manuscript.
-- **`L2_VWP_webcam_ET.pdf`**: PDF version of the manuscript, formatted for publication.
-- **`L2_VWP_webcam_ET.docx`**: Word document version of the manuscript for editing and collaboration.
+- **`L2_VWP_webcam_ET_revised1.qmd`**: The main Quarto source file for the manuscript. Use this to generate updated versions of the manuscript.
+- **`L2_VWP_webcam_ET_revised1.pdf`**: PDF version of the manuscript, formatted for publication.
+- **`L2_VWP_webcam_ET_revised1.docx`**: Word document version of the manuscript for editing and collaboration.
 
 ### Supporting Files
 
@@ -36,7 +36,7 @@
 
 ## Instructions for Use
 
-1. Edit the Quarto source file `L2_VWP_webcam_ET.qmd` for manuscript updates.
+1. Edit the Quarto source file `L2_VWP_webcam_ET_revised1.qmd` for manuscript updates.
 2. Use Quarto to compile the `.qmd` file into PDF or Word formats.
 3. Ensure all figures and images are placed in the appropriate folders (`Figures/` or `images/`).
 4. Keep survey response data organized in the `survey_responses/` directory.
