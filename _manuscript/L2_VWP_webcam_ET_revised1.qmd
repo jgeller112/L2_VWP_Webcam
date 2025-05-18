@@ -139,7 +139,6 @@ execute:
   tbl-align: center
   keep-with-next: true
   code-overflow: wrap
-  code-fold: true
   out-width: 50%
   out-height: 50%
 ---
@@ -148,7 +147,7 @@ Eye-tracking technology, which has a history spanning over a century, has seen r
 
 In the last decade, there has been a gradual shift towards conducting more behavioral experiments online [@anderson2019; @rodd2024]. This "onlineification" of behavioral research has driven the development of remote eye-tracking methods that do not rely on traditional laboratory settings. Allowing participants to use their own equipment from anywhere in the world opens the door to recruiting more diverse and historically underrepresented populations [@gosling2010]. Behavioral research has long struggled with a lack of diverse and representative samples, relying heavily on participants who are predominantly Western, Educated, Industrialized, Rich, and Democratic (WEIRD) [@henrich2010]. Additionally, we propose adding able-bodied to this acronym (WEIRD-A) [@peterson2021], to highlight the exclusion of individuals with disabilities who may face barriers to accessing research facilities. In language research, this issue is especially pronounced, as studies often focus on "modal" listeners and speakers—typically young, monolingual, and neurotypical [@blasi2022; @bylund2024; @mcmurray2010].
 
-In this paper, we contribute to the growing body of research suggesting that webcam-based eye-tracking, which is administered remotely and requires access to only a computer webcam, can increase inclusivity and representation of the participant samples we include in research studies. Namely, by minimizing the requirements for participants to travel to a lab, use specialized equipment, or meet strict scheduling demands, webcam-based approaches can facilitate participation from individuals in rural or geographically isolated areas and people with disabilities that make getting to a lab difficult. This approach also promotes inclusion of broader sociodemographic groups that have been historically underrepresented in cognitive and developmental research. We illustrate this by replicating a visual world eye-tracking study with bilingual English-Spanish speaking participants [@sarrett2022] using online methods (i.e., recruitment via Prolific.co and webcam-based eye-tracking). To facilitate broader adoption of this approach, we also introduce our R package, webgazeR, and present a step-by-step tutorial for analyzing webcam-based VWP data.
+In this paper, we contribute to the growing body of research suggesting that webcam-based eye-tracking, which is administered remotely and requires access to only a computer webcam, can increase inclusivity and representation of the participant samples we include in research studies. Namely, by minimizing the requirements for participants to travel to a lab, use specialized equipment, or meet strict scheduling demands, webcam-based approaches can facilitate participation from individuals in rural or geographically isolated areas and people with disabilities that make getting to a lab difficult. This approach also promotes inclusion of broader sociodemographic groups that have been historically underrepresented in cognitive and developmental research. We illustrate this by replicating a visual world eye-tracking study with bilingual English-Spanish speaking participants [@sarrett2022] using online methods (i.e., recruitment via Prolific.co and webcam-based eye-tracking). To facilitate broader adoption of this approach, we also introduce our R package, webgazeR [@webgazeR], and present a step-by-step tutorial for analyzing webcam-based VWP data.
 
 This paper is divided into three parts. First, we introduce automated webcam-based eye-tracking. Second, we review the viability of conducting VWP studies using online eye-tracking methods. Third, we present a detailed tutorial for analyzing webcam-based VWP data with the webgazeR package, using our replication experiment to highlight the steps needed for preprocessing.
 
@@ -236,9 +235,8 @@ After agreeing to participate, individuals were redirected to the Gorilla experi
 
 ```{r}
 #| label: fig-sankey
-#| fig-cap: This sankey plot illustrates the flow of participants from initial consent (*N* = 187) through each stage of the study to the final analyzed sample (N = 28). The width of each stream is proportional to the number of participants. Detours indicate points of attrition, including failures in the headphone screener (*N* = 66) and calibration (*N* = 76). Only participants who passed all screening and calibration stages, and completed the Visual World Paradigm (VWP), were included in the final sample.
-
 #| echo: false
+#| fig-cap: This sankey plot illustrates the flow of participants from initial consent (*N* = 187) through each stage of the study to the final analyzed sample (N = 28). The width of each stream is proportional to the number of participants. Detours indicate points of attrition, including failures in the headphone screener (*N* = 66) and calibration (*N* = 76). Only participants who passed all screening and calibration stages, and completed the Visual World Paradigm (VWP), were included in the final sample.
 
 knitr::include_graphics(here::here("_manuscript", "Figures", "snakey_experiment.png"))
 ```
