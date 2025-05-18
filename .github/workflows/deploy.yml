@@ -1,10 +1,10 @@
 name: Deploy
 
 on:
-  workflow_dispatch:
-  push:
-    branches:
-      - main
+  workflow_run:
+    workflows: ["Render paper with Nix and Quarto"]
+    types:
+      - completed
 
 permissions:
   contents: read
@@ -28,12 +28,12 @@ jobs:
 
       - name: Prepare HTML for deployment
         run: |
-          
           mkdir public
           cp _manuscript/L2_VWP_webcam_ET_revised1.html public/index.html
           cp -r _manuscript/L2_VWP_webcam_ET_revised1_files public/
           cp -r _manuscript/_extensions/ public/
           cp -r _manuscript/Figures/ public/
+
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v5
 
