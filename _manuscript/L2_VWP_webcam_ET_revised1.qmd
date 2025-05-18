@@ -491,7 +491,7 @@ For preprocessing visual world webcam eye data, we follow seven general steps (s
 
 6.  Aggregating (optional)
 
-7.  Visualization (optional)
+7.  Visualization
 
 ```{r}
 #| label: fig-preprco
