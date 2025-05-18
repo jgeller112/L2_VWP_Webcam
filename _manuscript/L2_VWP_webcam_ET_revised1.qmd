@@ -221,11 +221,11 @@ We first begin by outlining the general methods used to conduct our webcam-based
 
 To promote transparency and reproducibility, all analyses were conducted in R [@R] using Quarto [@Allaire_Quarto_2024], an open-source publishing system that enables dynamic and reproducible documents. Figures, tables, and text are generated programmatically and embedded directly in the manuscript, ensuring seamless integration of results. To further enhance computational reproducibility, we employed the `rix` package [@rix], which leverages the Nix ecosystem [@nix]. This approach captures not only the R package versions but also system dependencies at runtime. Researchers can reproduce the exact computational environment by installing the Nix package manager and using the provided `default.nix` file. Detailed setup instructions are included in the README file of the accompanying GitHub repository. A video tutorial is also provided.
 
-## Method
+# Method
 
 All tasks herein can be previewed here [(https://app.gorilla.sc/openmaterials/953693](https://app.gorilla.sc/openmaterials/953693)). The manuscript, data, and R code can be found on Github (<https://github.com/jgeller112/webcam_gazeR_VWP>).
 
-### Participants
+## Participants
 
 Participants were recruited through Prolific (www.prolific.co, 2024), an online participant recruitment platform. Our goal was to approximately double the sample size of Sarrett et al. (2022) to enhance statistical power and ensure greater generalizability of the findings. However, due to practical constraints and the challenges associated with online webcam eye-tracking (e.g., calibration failures) and also the limited pool of bilingual Spanish speakers, we were unable to achieve the targeted usable sample size. Therefore, we report the final sample based on all participants who met our predefined inclusion criteria.
 
@@ -412,11 +412,11 @@ quest <- quest  %>%
   as_gt()
 ```
 
-### Materials
+## Materials
 
-#### VWP
+### VWP
 
-##### Items
+#### Items
 
 We adapted materials from @sarrett2022. In their cross-linguistic VWP, participants were presented with four pictures and a spoken Spanish word and had to select the image that matched the spoken word by clicking on it. The word stimuli for the experiment were chosen from textbooks used by students in their first and second year college Spanish courses.
 
@@ -426,17 +426,17 @@ Each item within a set appeared four times as the target word, resulting in a to
 
 In contrast, the Spanish–English pairs had an asymmetrical relationship: only one item in each pair functioned as a competitor (e.g., *botas* could activate *frontera*, but *frontera* did not have a corresponding competitor). As a result, there were 60 trials each for the Spanish–English and No Competitor conditions. Across all trials, target items were equally distributed among the four screen quadrants to ensure balanced visual presentation
 
-##### Stimuli
+#### Stimuli
 
 In @sarrett2022 all auditory stimuli were recorded by a female bilingual speaker whose native language was Mexican Spanish and also spoke English. Stimuli were recorded in a sound-attenuated room sampled at 44.1 kHz. Auditory tokens were edited to reduce noise and remove clicks. The auditory tokens were then amplitude normalized to 70 dB SPL. For each target word, there were four separate recordings so each instance was unique.
 
 Visual stimuli were images from a commercial clipart database that were selected by a consensus method involving a small group of students. All .wav files were converted to .mp3 for online data collection. All stimuli can be found here: <https://osf.io/mgkd2/>.
 
-#### Headphone screener
+### Headphone screener
 
 Headphones were required for all participants. To ensure compliance, we administered a six-trial headphone screening task adapted from @milne2021, which is available for implementation on the Gorilla platform. On each trial, three tones of the same frequency and duration were presented sequentially. One tone had a lower amplitude than the other two tones. Tones were presented in stereo, but the tones in the left and right channels were 180 out of phase across stereo channels—in free field, these sounds should cancel out or create distortion, whereas they will be perfectly clear over headphones. The listener picked which of the three tones was the quietest. Performance is generally at the ceiling when wearing headphones but poor when listening in the free field (due to phase cancellation).
 
-#### Participant background and experiment conditions questionnaire
+### Participant background and experiment conditions questionnaire
 
 We had participants complete a demographic questionnaire as part of the study. The questions covered basic demographic information, including age, gender, spoken dialect, ethnicity, and race. To gauge L2 experience, we asked participants when they started speaking Spanish, how many years of Spanish speaking experience they had, and to provide, on a scale between 0-100, how often they use Spanish in their daily lives.
 
@@ -468,7 +468,7 @@ knitr::include_graphics(here::here("_manuscript/Figures/Figure1.png"))
 
 After completing the main VWP task, participants proceeded to the final questionnaire, which included questions about the eye-tracking task and basic demographic information. Participants were then thanked for their participation.
 
-## Preprocessing data
+# Preprocessing data
 
 After the data is collected you can begin preprocessing your data. Below we highlight the steps needed to preprocess your webcam eye-tracking data and get it ready for analysis. For some of this preprocessing we will use the newly created `webgazeR` package (v. 0.7.2).
 
@@ -503,13 +503,13 @@ knitr::include_graphics(here::here("_manuscript", "Figures", "preprocessing_fig.
 
 For each of these steps, we will display R code chunks demonstrating how to perform each step with helper functions (if applicable) from the `webgazeR` [@webgazeR] package in R.
 
-### Load packages
+## Load packages
 
-##### Package Installation and Setup
+### Package Installation and Setup
 
 Before proceeding, make sure to load the required packages by running the code below. If you already have these packages installed and loaded, feel free to skip this step. The code in this tutorial will not run correctly if any of the necessary packages are missing or not properly loaded.
 
-##### webgazeR installation
+#### webgazeR installation
 
 The `webgazeR` package is installed from the Github repository using the `remotes` [@remotes] package.
 
@@ -562,9 +562,9 @@ for (pkg in required_packages) {
 
 Once `webgazeR` and other helper packages have been installed and loaded the user is ready to start cleaning your data.
 
-### Reading in data
+## Reading in data
 
-#### Behavioral, trial-level, data
+### Behavioral, trial-level, data
 
 To process eye-tracking data you will need to make sure you have both the behavioral data and the eye-tracking data files. We have all the data needed in the repository by navigating to the L2 subfolder from the main project directory (\~/data/L2). For the behavioral data, Gorilla produces a `.csv` file that includes trial-level information (here contained in the object `L2_data)`. The files needed are called `data_exp_196386-v5_task-scf6.csv`. and `data_exp_196386-v6_task-scf6.csv`. We have two files because we ran a modified version of the experiment.
 
@@ -579,7 +579,7 @@ L2_2 <- read_csv(here("data", "L2", "data_exp_196386-v6_task-scf6.csv"))
 L2_data <- rbind(L2_1, L2_2) # bind the two objects together 
 ```
 
-#### Eye-tracking data
+### Eye-tracking data
 
 Gorilla currently saves each participant's eye-tracking data on a per-trial basis. The `raw` subfolder in the project repository contains the eye-tracking files by participant for each trial individually (\~/data/L2/raw). Contained in those files, we have information pertaining to each trial such as participant id, time since trial started, x and y coordinates of looks, convergence (the model’s confidence in finding a face (and accurately predicting eye movements), face confidence (represents the support vector machine (SVM) classifier score for the face model fit), and information pertaining to the the AOI screen coordinates (standardized and user-specific). The `vwp_files_L2` object below contains a list of all the files contained in the folder. Because `vwp_files_L2` contains trial data as well as calibration data, we remove the calibration trials and save the non-calibration to to `vwp_paths_filtered_L2`.
 
@@ -654,7 +654,7 @@ eye_behav_L2 <- L2_data %>%
 
 ```
 
-#### Audio onset
+### Audio onset
 
 Because we are playing audio on each trial and running this experiment from the browser, audio onset is never going to be consistent across participants. In Gorilla there is an option to collect advanced audio features (you must make sure you select this when designing the study) such as when the audio play was requested, played, and ended. We will want to incorporate this timing information into our analysis pipeline. Gorilla records the onset of the audio which varies by participant. We are extracting that in the `audio_rt_L2` object by filtering `zone_type` to `content_web_audio` and a response equal to "AUDIO PLAY EVENT FIRED". This will tell us when the audio was triggered in the experiment. We are creating a column called (`RT_audio`) which we will use later on to correct for audio delays. Please note that on some trials the audio may not play. This is a function of the browser a participant is using and the experimenter has no control over this (see <https://support.gorilla.sc/support/troubleshooting-and-technical/technical-checklist#autoplayingsoundandvideo>). When running your experiment on a different platform, make sure you try and request this information, or at the very least acknowledge audio delay.
 
@@ -687,7 +687,7 @@ trial_data_rt_L2 <- merge(eye_behav_L2, audio_rt_L2, by=c("subject", "trial"))
 
 ```
 
-#### Trial removal
+### Trial removal
 
 As stated above, participants who did not successfully calibrate 3 times or less were rejected from the experiment. Deciding to remove trials is ultimately up to the researcher. In our case, we removed participants with less than 100 trials. Let's take a look at how many participants meet this criterion by probing the `trial_data_rt_L2` object.In @tbl-partL2 we can see several participants failed some of the calibration attempts and do not have an adequate number of trials. Again we make no strong recommendations here. If you decide to use a criterion such as this, we recommend pre-registering your choice.
 
@@ -731,7 +731,7 @@ trial_data_rt_L2 <- trial_data_rt_L2 %>%
 
 ```
 
-#### Low accuracy
+### Low accuracy
 
 In our experiment, we want to make sure accuracy is high (\> 80%). Again, we want participants that are fully attentive in the experiment. In the below code, we keep participants with accuracy equal to or above 80% and only include correct trials and assign it to `trial_data_acc_clean_L2`.
 
@@ -751,11 +751,11 @@ trial_data_acc_clean_L2 <- trial_data_rt_L2 %>%
 
 ```
 
-#### RTs
+### RTs
 
 There is much debate on how to handle reaction time (RT) data [see @miller2023]. Because of this. we leave it up to the reader and researcher to decide what to do with RTs. In this tutorial we leave RTs untouched.
 
-#### Sampling rate
+### Sampling rate
 
 While most commercial eye-trackers sample at a constant rate, data captured by webcams are widely inconsistent. Below is some code to calculate the sampling rate of each participant. Ideally, you should not have a sampling rate less than 5 Hz. It has been recommended you drop those values [@bramlett2024] The below function `analyze_sample_rate()` calculates the sampling rate for each subject and each trial in our eye-tracking dataset (`edat_L2`). The `analyze_sample_rate()` function provides overall statistics, including the option to report mean or median [@bramlett2024] sampling rate and standard deviation of sampling rates in your experiment. Sampling rate calculations followed standard procedures [e.g., @bramlett2024; @prystauka2024]. The function also generates a histogram of sampling rates by-subject. Looking at @fig-samprate-L2, the sampling rate ranges from 5 to 35 Hz with a median sampling rate of 21.56. This corresponds to previous webcam eye-tracking work [e.g., @bramlett2024; @prystauka2024]
 
@@ -794,7 +794,7 @@ filter_edat_L2 <- filter_sampling_rate(trial_data_L2,threshold = 5,
                                          by = "both")
 ```
 
-#### Out-of-bounds (outside of screen)
+### Out-of-bounds (outside of screen)
 
 It is essential to exclude gaze points that fall outside the screen, as these indicate unreliable estimates of gaze location. The `gaze_oob()`function quantifies how many data points fall outside these bounds, using the eye-tracking dataset (e.g., edat_L2) and the standardized screen dimensions—here set to (1, 1) because Gorilla recommends using standardized coordinates. If the `remove` argument is set to TRUE, the function applies an outer-edge filtering method to eliminate these out-of-bounds points [see @bramlett2024]. The outer-edge approach appears to be a less biased approach based on demonstrations from @bramlett2024, where they showed minimal data loss compared to other approaches (e.g., inner-edge approach).
 
@@ -878,9 +878,9 @@ We can use the `data_clean` tibble returned by the `gaze_oob`() function to filt
 
 ```
 
-### Eye-tracking data
+## Eye-tracking data
 
-#### Convergence and confidence
+### Convergence and confidence
 
 To ensure data quality, we removed rows with poor convergence and low face confidence from our eye-tracking dataset. As described in @prystauka2024, the Gorilla eye-tracking output includes two key columns for this purpose: `convergence` and `face_conf` (similar variables may be available in other platforms as well). The `convergence` column contains values between 0 and 1, with lower values indicating better convergence—that is, greater model confidence in predicting gaze location and finding a face. Values below 0.5 typically reflect adequate convergence. The `face_conf` column reflects how confidently the algorithm detected a face in the frame, also ranging from 0 to 1. Here, values above 0.5 indicate a good model fit.
 
@@ -892,7 +892,7 @@ edat_1_L2 <- filter_oob %>%
 
 ```
 
-#### Combining eye and trial-level data
+### Combining eye and trial-level data
 
 Next, we will combine the eye-tracking data and behavioral data. In this case, we’ll use merge to add the behavioral data to the eye-tracking data. This ensures that all rows from the eye-tracking data are preserved, even if there isn’t a matching entry in the behavioral data (missing values will be filled with NA). The resulting object is called dat_L2.
 
