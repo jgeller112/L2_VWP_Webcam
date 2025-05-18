@@ -28,9 +28,11 @@ jobs:
 
       - name: Prepare HTML for deployment
         run: |
+          
           mkdir public
           cp _manuscript/L2_VWP_webcam_ET_revised1.html public/index.html
-
+          cp -r _manuscript/L2_VWP_webcam_ET_revised1_files public/
+        
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v5
 
