@@ -32,8 +32,8 @@ jobs:
           mkdir public
           cp _manuscript/L2_VWP_webcam_ET_revised1.html public/index.html
           cp -r _manuscript/L2_VWP_webcam_ET_revised1_files public/
-          cp -r _extensions/ public/
-          cp -r Figures/ public/
+          cp -r _manuscript/_extensions/ public/
+          cp -r _manuscript/Figures/ public/
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v5
 
