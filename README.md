@@ -15,6 +15,7 @@ Authors:
 
 ```
 L2_VWP_Webcam/
+ ├── .github
 ├── .Rprofile
 ├── .gitignore
 ├── L2_VWP_Webcam.Rproj
@@ -32,6 +33,7 @@ L2_VWP_Webcam/
 └── result
 
 ```
+- **`.github`**: yml files for creating the document and webpage
 - **`.Rprofile`**: Configuration file for R sessions.
 - **`.gitignore`**: Specifies files and directories for Git to ignore.
 - **`L2_VWP_Webcam.Rproj`**: RStudio project file.
