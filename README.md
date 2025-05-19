@@ -15,7 +15,7 @@ Authors:
 
 ```
 L2_VWP_Webcam/
- ├── .github
+├── .github
 ├── .Rprofile
 ├── .gitignore
 ├── L2_VWP_Webcam.Rproj
