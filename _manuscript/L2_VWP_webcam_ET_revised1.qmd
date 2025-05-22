@@ -467,7 +467,7 @@ knitr::include_graphics(here::here("_manuscript/Figures/Figure1.png"))
 
 After completing the main VWP task, participants proceeded to the final questionnaire, which included questions about the eye-tracking task and basic demographic information. Participants were then thanked for their participation.
 
-# Preprocessing data
+# Preprocessing Data
 
 After the data is collected you can begin preprocessing your data. Below we highlight the steps needed to preprocess your webcam eye-tracking data and get it ready for analysis. For some of this preprocessing we will use the newly created `webgazeR` package (v. 0.7.2).
 
