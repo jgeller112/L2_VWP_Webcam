@@ -496,7 +496,7 @@ For preprocessing visual world webcam eye data, we follow seven general steps (s
 #| fig-cap: Preprocessing steps for webcam eye-tracking data using webgazeR functions
 #| echo: false
 
-knitr::include_graphics(here::here("_manuscript", "Figures", "preprocessing_fig.png"))
+knitr::include_graphics(here::here("_manuscript", "Figures", "preprocessing_fig1.png"))
 
 ```
 
