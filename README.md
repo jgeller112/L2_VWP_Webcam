@@ -14,25 +14,22 @@ Authors:
 ## Overview
 
 ```
-L2_VWP_Webcam/
-├── .github
-├── .Rprofile
-├── .gitignore
-├── L2_VWP_Webcam.Rproj
-├── README.md
-├── create_dev_env.R
-├── default.nix
-├── .project
-├── _manuscript/
-│   ├── _extensions/
-│   │   └── wjschne/
-│   │       └── apaquarto/
-│   ├── manuscript.qmd
-│   └── references.bib
-├── data/
-├── sankey_figure_code
-└── result
-
+📦 L2_VWP_Webcam
+├── 📁 .github
+│   └── 📁 workflows
+├── 📁 .project
+├── 📁 _manuscript
+├── 📁 data
+├── 📄 .Rprofile
+├── 📄 .gitignore
+├── 📄 L2_VWP_Webcam.Rproj
+├── 📄 README.md
+├── 📄 Sankey_figure_code
+├── 📄 create_dev_env.R
+├── 📄 default.nix
+├── 📄 grateful-refs.bib
+├── 📄 grateful-report.html
+├── 🔗 result 
 ```
 - **`.github`**: yml files for creating the document and webpage
 - **`.Rprofile`**: Configuration file for R sessions.
@@ -42,7 +39,10 @@ L2_VWP_Webcam/
 - **`create_dev_env.R`**: Script to set up the nix environment
 - **`default.nix`**: Configuration file for the Nix package manager.
 - **`.project`**: Project configuration file.
-- sankey_figure_code (code to generate sankey figure from paper)
+- **sankey_figure_code** (code to generate sankey figure from paper)
+- **grateful-refs.bib** references for software used in paper
+- **grateful-report.html** write-up for software used in paper
+
 
 ## Directories
 
