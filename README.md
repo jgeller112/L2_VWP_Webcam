@@ -30,6 +30,7 @@ L2_VWP_Webcam/
 │   ├── manuscript.qmd
 │   └── references.bib
 ├── data/
+├── sankey_figure_code
 └── result
 
 ```
@@ -41,6 +42,7 @@ L2_VWP_Webcam/
 - **`create_dev_env.R`**: Script to set up the nix environment
 - **`default.nix`**: Configuration file for the Nix package manager.
 - **`.project`**: Project configuration file.
+- sankey_figure_code (code to generate sankey figure from paper)
 
 ## Directories
 
