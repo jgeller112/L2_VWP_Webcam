@@ -213,7 +213,7 @@ To conduct our online webcam replication, we used the experimental platform Gori
 
 This paper has two aims. First, we aim to provide evidence for lexical competition within and across languages in L2 Spanish speakers, using webcam-based eye-tracking with WebGazer.js. While there is growing interest in using VWP using webcam-based methods, lexical competition in single-word L2 processing has not yet been investigated using the online version of the VWP, making this a novel application. We hope that this work encourages researchers to explore more detailed questions about L2 processing using webcam-based eye-tracking.
 
-Second, we offer a tutorial that outlines key preprocessing steps for analyzing webcam-based eye-tracking data. Building on recommendations proposed by [@bramlett2024], our contribution focuses on data preprocessing— transforming raw gaze data into a format suitable for visualization and analysis. Here we introduce a new R package—`webgazeR`[@webgazeR]—designed to streamline and standardize preprocessing for webcam-based eye-tracking studies. We believe that offering multiple, complementary resources enhances methodological transparency and supports broader adoption of webcam-based eye-tracking methods. For in-depth guidance on experimental design considerations, we refer readers to @bramlett2024.
+Second, we offer a tutorial that outlines key preprocessing steps for analyzing webcam-based eye-tracking data. Building on recommendations proposed by @bramlett2024, our contribution focuses on data preprocessing— transforming raw gaze data into a format suitable for visualization and analysis. Here we introduce a new R package—`webgazeR`[@webgazeR]—designed to streamline and standardize preprocessing for webcam-based eye-tracking studies. We believe that offering multiple, complementary resources enhances methodological transparency and supports broader adoption of webcam-based eye-tracking methods. For in-depth guidance on experimental design considerations, we refer readers to @bramlett2024.
 
 Although @bramlett2024's tutorial provides a lot of useful code, the experiment-specific nature of the code may pose challenges for newcomers. In contrast, the `webgazeR` package offers a modular, generalizable approach. It includes functions for importing raw data, filtering and visualizing sampling rates, extracting and assigning areas of interest (AOIs), downsampling and upsampling gaze data, interpolating and smoothing time series, and performing non-AOI-based analyses such as intersubject correlation (ISC), a method increasingly used to explore gaze synchrony in naturalistic paradigms (i.e., online learning) with webcam-based eye-tracking [@madsen2021].
 
@@ -1178,7 +1178,7 @@ aoi_interp <- interpolate_gaze(deduplicated_data,x_col = "x_pred_normalised", y_
 
 ## Aggregation
 
-Aggregation is an optional step. If you do not plan to analyze proportion data, and instead what time binned data with binary outcomes preserved please set the `aggvars` argument to "none." This will return a time binned column, but will not aggregate over other variables.
+Aggregation is an optional step. If you do not plan to analyze proportion data, and instead want time binned data with binary outcomes preserved please set the `aggvars` argument to "none." This will return a time binned column, but will not aggregate over other variables.
 
 ```{r}
 # get back trial level data with no aggregation
