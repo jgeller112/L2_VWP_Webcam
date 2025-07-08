@@ -133,6 +133,7 @@ format:
           \AtBeginEnvironment{verbatim}{\singlespacing}
 execute: 
   echo: true
+  code-fold: true
   warning: false
   message: false
   fig-align: center
