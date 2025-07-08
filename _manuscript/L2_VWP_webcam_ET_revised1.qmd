@@ -117,23 +117,24 @@ language:
   title-block-role-introduction: "Author roles were classified using the Contributor Role Taxonomy (CRediT; https://credit.niso.org/) as follows:"
 format: 
   apaquarto-docx: default
-  apaquarto-html: default
+  apaquarto-html:
+    code-fold: true
+    code-summary: "Show code"
   apaquarto-pdf:
     documentmode: doc
     include-in-header:
       - text: |
-          \usepackage{fvextra} % Advanced verbatim environment for better wrapping
+          \usepackage{fvextra}
           \DefineVerbatimEnvironment{Highlighting}{Verbatim}{breaklines,commandchars=\\\{\}}
-          \renewcommand{\baselinestretch}{1.2} % Adjust line spacing for readability
-          \setlength{\parskip}{0.5em} % Paragraph spacing for better readability
-          \usepackage{geometry} % Control margins
-          \geometry{margin=1in} % Ensure text does not overflow page
-          \usepackage{setspace} % Allows flexible line spacing
-          \setstretch{1.2} % Slightly stretch lines for better
+          \renewcommand{\baselinestretch}{1.2}
+          \setlength{\parskip}{0.5em}
+          \usepackage{geometry}
+          \geometry{margin=1in}
+          \usepackage{setspace}
+          \setstretch{1.2}
           \AtBeginEnvironment{verbatim}{\singlespacing}
 execute: 
   echo: true
-  code-fold: true
   warning: false
   message: false
   fig-align: center
