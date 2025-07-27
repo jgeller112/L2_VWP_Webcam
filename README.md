@@ -1,8 +1,21 @@
 # L2 Webcam Eye-tracking
 
-This repository contains the data, materials, and code for our manuscript "Language Without Borders: A Step-by-Step Guide to Analyzing Webcam Eye-Tracking Data for L2 Research".
+This repository contains the data, materials, and code for our manuscript "Language Without Borders: A Step-by-Step Guide to Analyzing Webcam Eye-Tracking Data for L2 Research". 
 
-This repository contains the data and code described in our manuscript.
+This paper is now published. Please cite: 
+
+Geller, J., Prystauka, Y., Colby, S. E., & Drouin, J. R. (in press). Language without borders: A step-by-step guide to analyzing webcam eye-tracking data for L2 research. Research Methods in Applied Lingustics.
+
+```
+@article{geller2025language,
+  author  = {Geller, Jason and Prystauka, Yevhen and Colby, Sarah E. and Drouin, Jonathan R.},
+  title   = {Language without borders: A step-by-step guide to analyzing webcam eye-tracking data for L2 research},
+  journal = {Research Methods in Applied Linguistics},
+  year    = {in press}
+}
+
+```
+
 
 Authors:
 
