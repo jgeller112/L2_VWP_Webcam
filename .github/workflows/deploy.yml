@@ -30,6 +30,8 @@ jobs:
         run: |
           mkdir public
           cp _manuscript/L2_VWP_webcam_ET_revised1.html public/index.html
+          cp _manuscript/L2_VWP_webcam_ET_revised1.pdf public/
+          cp _manuscript/L2_VWP_webcam_ET_revised1.docx public/
           cp -r _manuscript/L2_VWP_webcam_ET_revised1_files public/
           cp -r _manuscript/_extensions/ public/
           cp -r _manuscript/Figures/ public/
