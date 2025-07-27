@@ -273,13 +273,13 @@ Finally, it’s also possible to forget {rix} and instead run everything using R
 
   - R 4.4.1 (or later) and RStudio.
 
-  - Quarto 1.6.1 (or later)
+  - Quarto 1.5 (if you want typst document) if not 1.5 > 
  
-
 ```
 # these are the packages nix uses to build the manuscript 
 r_pkgs = c(
     "svglite",
+    "tinytex", 
     "tidyverse",
     "formatR", 
     "flextable", 
@@ -305,10 +305,14 @@ r_pkgs = c(
   ),
 ```
 
-
 ```
 remotes::install_github("jgeller112/webgazeR")
 library(webgazeR)
+```
+
+```
+# install tinytex if generating latex pdf
+tinytex::install_tinytex()
 ```
 
 | Package     | Version     | Citation                                                                 |
