@@ -1191,8 +1191,13 @@ We need to make sure we only have one unrelated value.
 
 ```{r}
 # make only one unrelated condition
-gaze_sub_id <- gaze_sub_id %>% 
-  mutate(condition1 = ifelse(condition1=="unrelated2", "unrelated", condition1))
+gaze_sub_id <- gaze_sub_L2_long_cp %>%
+  mutate(condition1 = case_when(
+    condition1 %in% c("unrelated", "unrelated2") ~ "unrelated",
+    TRUE ~ condition1
+  )) %>%
+  group_by(subject, trial, time, condition, condition1) %>%
+  summarise(Looks = as.integer(any(Looks == 1)), .groups = "drop")
 ```
 
 ## Visualizing Time Course Data
@@ -1469,7 +1474,7 @@ The clustering procedure involves three main steps:
 
 3.  Significance Testing: The cluster-level statistics from the observed (real) comparison is compared to the null distribution we created above Clusters with statistics falling in the highest or lowest 2.5% of the null distribution are considered significant (e.g., *p* \< 0.05).
 
-To perform CPA, we will load in the `permutes` [@permutes], `permuco` [@permuco], `foreach` [@foreach], and `Parallel` [@doParallel] packages in R. Loading these packages allow us to use the `cluster.glmer()`function to run a cluster permutation (10,000 rimes) across multiple system cores to speed up the process. We run a CPA on the `gaze_sub_id` object where each row in `Looks` denotes whether the AOI was fixated, with values of zero (not fixated) or one (fixated).
+To perform CPA, we will load in the `permutes` [@permutes] and `permuco` [@permuco] packages in R. Loading these packages allow us to use the `cluster.glmer()`function to run a cluster permutation (10,000 is ideal) across multiple system cores to speed up the process. We run a CPA on the `gaze_sub_id` object where each row in `Looks` denotes whether the AOI was fixated, with values of zero (not fixated) or one (fixated).
 
 Below you find sample code to perform multilevel CPA in R (please see the Github repository for elaborated code needed to perform CPA.
 
@@ -1499,8 +1504,13 @@ gaze_sub_L2_long_cp <- downsample_gaze(gaze_sub_L2_long, bin.length=100, timevar
 ```{r}
 #| echo: false
 
-gaze_sub_id <- gaze_sub_L2_long_cp %>% 
-  mutate(condition1 = ifelse(condition1=="unrelated2", "unrelated", condition1))
+gaze_sub_id <- gaze_sub_L2_long_cp %>%
+  mutate(condition1 = case_when(
+    condition1 %in% c("unrelated", "unrelated2") ~ "unrelated",
+    TRUE ~ condition1
+  )) %>%
+  group_by(subject, trial, time, condition, condition1) %>%
+  summarise(Looks = as.integer(any(Looks == 1)), .groups = "drop")
 
 
 ```
@@ -1508,7 +1518,7 @@ gaze_sub_id <- gaze_sub_L2_long_cp %>%
 ```{r}
 #| echo: false
 #| 
-gaze_sub_L2_cp1 <- gaze_sub_L2_long_cp %>%
+gaze_sub_L2_cp1 <- gaze_sub_id %>%
   filter(condition=="TCUU-SPSP", condition1=="cohort" | condition1=="unrelated") %>%
   mutate(condition1_code=ifelse(condition1=="cohort", 0.5, -0.5))
 
