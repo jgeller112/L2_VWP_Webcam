@@ -1474,7 +1474,7 @@ The clustering procedure involves three main steps:
 
 3.  Significance Testing: The cluster-level statistics from the observed (real) comparison is compared to the null distribution we created above Clusters with statistics falling in the highest or lowest 2.5% of the null distribution are considered significant (e.g., *p* \< 0.05).
 
-To perform CPA, we will load in the `permutes` [@permutes] and `permuco` [@permuco] packages in R. Loading these packages allow us to use the `cluster.glmer()`function to run a cluster permutation (10,000 is ideal) across multiple system cores to speed up the process. We run a CPA on the `gaze_sub_id` object where each row in `Looks` denotes whether the AOI was fixated, with values of zero (not fixated) or one (fixated).
+To perform CPA, we will load in the `permutes` [@permutes] and `permuco` [@permuco] packages in R. Loading these packages allow us to use the `cluster.glmer()`function to run a cluster permutation (10,000 or more) across multiple system cores to speed up the process. We run a CPA on the `gaze_sub_id` object where each row in `Looks` denotes whether the AOI was fixated, with values of zero (not fixated) or one (fixated).
 
 Below you find sample code to perform multilevel CPA in R (please see the Github repository for elaborated code needed to perform CPA.
 
@@ -1533,7 +1533,7 @@ library(permuco) # cpa
 
 total_perms <- 1000
 
-cpa.lme <-  permutes::clusterperm.glmer(Looks~ condition1_code + (1|subject) + (1|trial), data=gaze_sub_L2_cp1, series.var=~time_bin, nperm = total_perms)
+cpa.lme <-  permutes::clusterperm.glmer(Looks~ condition1_code + (1|subject), data=gaze_sub_L2_cp1, series.var=~time_bin, nperm = total_perms)
 ```
 
 ```{r}
