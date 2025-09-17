@@ -1195,9 +1195,7 @@ gaze_sub_id <- gaze_sub_id %>%
   mutate(condition1 = case_when(
     condition1 %in% c("unrelated", "unrelated2") ~ "unrelated",
     TRUE ~ condition1
-  )) %>%
-  group_by(subject, trial, time_bin, condition, condition1) %>%
-  summarise(Looks = as.integer(any(Looks == 1)), .groups = "drop")
+  ))
 ```
 
 ## Visualizing Time Course Data
@@ -1508,11 +1506,7 @@ gaze_sub_id <- gaze_sub_L2_long_cp %>%
   mutate(condition1 = case_when(
     condition1 %in% c("unrelated", "unrelated2") ~ "unrelated",
     TRUE ~ condition1
-  )) %>%
-  group_by(subject, trial, time_bin, condition, condition1) %>%
-  summarise(Looks = as.integer(any(Looks == 1)), .groups = "drop")
-
-
+  ))
 ```
 
 ```{r}
