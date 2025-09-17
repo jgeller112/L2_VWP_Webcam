@@ -1525,7 +1525,7 @@ gaze_sub_L2_cp1 <- gaze_sub_id %>%
 library(permutes) # cpa
 library(permuco) # cpa
 
-total_perms <- 1000
+total_perms <- 5000
 
 cpa.lme <-  permutes::clusterperm.glmer(Looks~ condition1_code + (1|subject), data=gaze_sub_L2_cp1, series.var=~time_bin, nperm = total_perms)
 ```
