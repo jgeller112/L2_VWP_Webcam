@@ -1191,7 +1191,7 @@ We need to make sure we only have one unrelated value.
 
 ```{r}
 # make only one unrelated condition
-gaze_sub_id <- gaze_sub_L2_long_cp %>%
+gaze_sub_id <- gaze_sub_id %>%
   mutate(condition1 = case_when(
     condition1 %in% c("unrelated", "unrelated2") ~ "unrelated",
     TRUE ~ condition1
