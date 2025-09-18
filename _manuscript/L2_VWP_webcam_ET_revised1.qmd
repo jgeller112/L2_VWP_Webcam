@@ -240,12 +240,16 @@ After agreeing to participate, individuals were redirected to the Gorilla experi
 #| echo: false
 #| fig-cap: This sankey plot illustrates the flow of participants from initial consent (*N* = 187) through each stage of the study to the final analyzed sample (N = 28). The width of each stream is proportional to the number of participants. Detours indicate points of attrition, including failures in the headphone screener (*N* = 66) and calibration (*N* = 76). Only participants who passed all screening and calibration stages, and completed the Visual World Paradigm (VWP), were included in the final sample.
 
-knitr::include_graphics(here::here("_manuscript", "Figures", "snakey_experiment.png"))
+knitr::include_graphics(here::here(
+  "_manuscript",
+  "Figures",
+  "snakey_experiment.png"
+))
 ```
 
 ```{r}
 #| label: tbl-demo2
-#| tbl-cap: Participant demographic variables 
+#| tbl-cap: Participant demographic variables
 #| echo: false
 #| out-width: 50%
 
@@ -255,57 +259,97 @@ library(gtsummary)
 library(gt)
 library(flextable)
 
-quest1 <- read_csv(here::here("data", "L2", "data_exp_196386-v5_questionnaire-3956.csv"))
-quest2 <- read_csv(here::here("data", "L2", "data_exp_196386-v6_questionnaire-3956.csv"))
-quest3 <- read_csv(here::here("data", "L2", "data_exp_196386-v5_questionnaire-w1i9.csv"))
-quest4 <- read_csv(here::here("data", "L2", "data_exp_196386-v6_questionnaire-w1i9.csv"))
+quest1 <- read_csv(here::here(
+  "data",
+  "L2",
+  "data_exp_196386-v5_questionnaire-3956.csv"
+))
+quest2 <- read_csv(here::here(
+  "data",
+  "L2",
+  "data_exp_196386-v6_questionnaire-3956.csv"
+))
+quest3 <- read_csv(here::here(
+  "data",
+  "L2",
+  "data_exp_196386-v5_questionnaire-w1i9.csv"
+))
+quest4 <- read_csv(here::here(
+  "data",
+  "L2",
+  "data_exp_196386-v6_questionnaire-w1i9.csv"
+))
 
 quest <- rbind(quest1, quest2, quest3, quest4)
 
-quest  %>%
-    select(`Participant Private ID`, `Question Key`, Response, `Participant Browser`) %>%
-    drop_na() %>%
-    filter(
-        !`Question Key` %in% c("END QUESTIONNAIRE", "BEGIN QUESTIONNAIRE") &
-            !str_detect(`Question Key`, "quantised")
-    ) %>%
-    pivot_wider(names_from = `Question Key`, values_from = Response) %>%
-    rename(
-        Age = `response-1`,
-        Gender = `response-2`,
-     `Spoken dialect` = `response-3`,
-        Ethnicity = `response-4`,
-     Browser=`Participant Browser`, 
-     `Years Speaking Spanish` =`response-7`, 
-     `Age Learned` = `response-6`, 
-     `% Experience Using Spanish Daily Life` = `response-8`
-    ) %>%
-    mutate(Race = coalesce(!!!select(., starts_with("response-5")))) %>% 
-  mutate(Age = as.numeric(Age),
-    `% Experience Using Spanish Daily Life` = as.numeric(gsub("%", "", `% Experience Using Spanish Daily Life`)), 
-      Browser = gsub("[0-9]", "", Browser), 
-      Browser= gsub("\\.+$", "", Browser), 
+quest %>%
+  select(
+    `Participant Private ID`,
+    `Question Key`,
+    Response,
+    `Participant Browser`
+  ) %>%
+  drop_na() %>%
+  filter(
+    !`Question Key` %in% c("END QUESTIONNAIRE", "BEGIN QUESTIONNAIRE") &
+      !str_detect(`Question Key`, "quantised")
+  ) %>%
+  pivot_wider(names_from = `Question Key`, values_from = Response) %>%
+  rename(
+    Age = `response-1`,
+    Gender = `response-2`,
+    `Spoken dialect` = `response-3`,
+    Ethnicity = `response-4`,
+    Browser = `Participant Browser`,
+    `Years Speaking Spanish` = `response-7`,
+    `Age Learned` = `response-6`,
+    `% Experience Using Spanish Daily Life` = `response-8`
+  ) %>%
+  mutate(Race = coalesce(!!!select(., starts_with("response-5")))) %>%
+  mutate(
+    Age = as.numeric(Age),
+    `% Experience Using Spanish Daily Life` = as.numeric(gsub(
+      "%",
+      "",
+      `% Experience Using Spanish Daily Life`
+    )),
+    Browser = gsub("[0-9]", "", Browser),
+    Browser = gsub("\\.+$", "", Browser),
     `Years Speaking Spanish` = gsub(" .*", "", `Years Speaking Spanish`), # Extract numeric part before any spaces
-    `Years Speaking Spanish` = gsub("[^0-9.]", "",`Years Speaking Spanish`),     # Remove non-numeric characters
-    `Years Speaking Spanish` = case_when(                             # Map special cases to 0
-      `Years Speaking Spanish` %in% c("", "N/A", "Zero", "I do not use spanish") ~ "0",
+    `Years Speaking Spanish` = gsub("[^0-9.]", "", `Years Speaking Spanish`), # Remove non-numeric characters
+    `Years Speaking Spanish` = case_when(
+      # Map special cases to 0
+      `Years Speaking Spanish` %in%
+        c("", "N/A", "Zero", "I do not use spanish") ~
+        "0",
       TRUE ~ `Years Speaking Spanish`
     ),
-    `Years Speaking Spanish` = as.numeric(`Years Speaking Spanish`)              # Convert to numeric
-  ) %>%  
-    select(Age, Gender, `Spoken dialect`, Ethnicity, Race, Browser, `Years Speaking Spanish`, `% Experience Using Spanish Daily Life`) %>%
-  tbl_summary(statistic = list(
-      Age ~ "({min}, {max}), {mean}({sd})", 
-      `% Experience Using Spanish Daily Life` ~ "{mean}({sd})", 
-      `Years Speaking Spanish` ~ "({min}, {max}), {mean}({sd})", 
+    `Years Speaking Spanish` = as.numeric(`Years Speaking Spanish`) # Convert to numeric
+  ) %>%
+  select(
+    Age,
+    Gender,
+    `Spoken dialect`,
+    Ethnicity,
+    Race,
+    Browser,
+    `Years Speaking Spanish`,
+    `% Experience Using Spanish Daily Life`
+  ) %>%
+  tbl_summary(
+    statistic = list(
+      Age ~ "({min}, {max}), {mean}({sd})",
+      `% Experience Using Spanish Daily Life` ~ "{mean}({sd})",
+      `Years Speaking Spanish` ~ "({min}, {max}), {mean}({sd})",
       all_categorical() ~ "{n} / {N} ({p}%)"
-    ),) %>%
-   bold_labels() %>%
-  as_flex_table() %>%   
-  fontsize(size = 12) %>%  # Reduce font size
+    ),
+  ) %>%
+  bold_labels() %>%
+  as_flex_table() %>%
+  fontsize(size = 12) %>% # Reduce font size
   padding(padding = 2) %>%
   font(fontname = "Times New Roman", part = "all") %>%
-  set_table_properties(layout="autofit") %>% # Reduce padding inside cells
+  set_table_properties(layout = "autofit") %>% # Reduce padding inside cells
   autofit()
 ```
 
@@ -313,51 +357,82 @@ quest  %>%
 #| eval: false
 #| echo: false
 
-
-quest3 <- read_csv(here::here("data", "L2", "data_exp_196386-v5_questionnaire-w1i9.csv"))
-quest4 <- read_csv(here::here("data", "L2", "data_exp_196386-v6_questionnaire-w1i9.csv"))
+quest3 <- read_csv(here::here(
+  "data",
+  "L2",
+  "data_exp_196386-v5_questionnaire-w1i9.csv"
+))
+quest4 <- read_csv(here::here(
+  "data",
+  "L2",
+  "data_exp_196386-v6_questionnaire-w1i9.csv"
+))
 
 quest <- rbind(quest3, quest4)
 
-quest <- quest  %>%
-    select(`Participant Private ID`, `Question Key`, Response, `Participant Browser`) %>%
-    drop_na() %>%
-    filter(
-        !`Question Key` %in% c("END QUESTIONNAIRE", "BEGIN QUESTIONNAIRE") &
-            !str_detect(`Question Key`, "quantised")
-    ) %>%
-    pivot_wider(names_from = `Question Key`, values_from = Response) %>%
-    rename(
-        Age = `response-1`,
-        Gender = `response-2`,
-     `Spoken dialect` = `response-3`,
-        Ethnicity = `response-4`,
-     Browser=`Participant Browser`, 
-     `Years Speaking Spanish` =`response-7`, 
-     `Age Learned` = `response-6`, 
-     `Percentage Time Speaking Spanish` = `response-8`
-    ) %>%
-    mutate(Race = coalesce(!!!select(., starts_with("response-5")))) %>% 
-  mutate(Age = as.numeric(Age),
-    `Percentage Time Speaking Spanish` = as.numeric(gsub("%", "", `Percentage Time Speaking Spanish`)), 
-      Browser = gsub("[0-9]", "", Browser), 
-      Browser= gsub("\\.+$", "", Browser), 
+quest <- quest %>%
+  select(
+    `Participant Private ID`,
+    `Question Key`,
+    Response,
+    `Participant Browser`
+  ) %>%
+  drop_na() %>%
+  filter(
+    !`Question Key` %in% c("END QUESTIONNAIRE", "BEGIN QUESTIONNAIRE") &
+      !str_detect(`Question Key`, "quantised")
+  ) %>%
+  pivot_wider(names_from = `Question Key`, values_from = Response) %>%
+  rename(
+    Age = `response-1`,
+    Gender = `response-2`,
+    `Spoken dialect` = `response-3`,
+    Ethnicity = `response-4`,
+    Browser = `Participant Browser`,
+    `Years Speaking Spanish` = `response-7`,
+    `Age Learned` = `response-6`,
+    `Percentage Time Speaking Spanish` = `response-8`
+  ) %>%
+  mutate(Race = coalesce(!!!select(., starts_with("response-5")))) %>%
+  mutate(
+    Age = as.numeric(Age),
+    `Percentage Time Speaking Spanish` = as.numeric(gsub(
+      "%",
+      "",
+      `Percentage Time Speaking Spanish`
+    )),
+    Browser = gsub("[0-9]", "", Browser),
+    Browser = gsub("\\.+$", "", Browser),
     `Years Speaking Spanish` = gsub(" .*", "", `Years Speaking Spanish`), # Extract numeric part before any spaces
-    `Years Speaking Spanish` = gsub("[^0-9.]", "",`Years Speaking Spanish`),     # Remove non-numeric characters
-    `Years Speaking Spanish` = case_when(                             # Map special cases to 0
-      `Years Speaking Spanish` %in% c("", "N/A", "Zero", "I do not use spanish") ~ "0",
+    `Years Speaking Spanish` = gsub("[^0-9.]", "", `Years Speaking Spanish`), # Remove non-numeric characters
+    `Years Speaking Spanish` = case_when(
+      # Map special cases to 0
+      `Years Speaking Spanish` %in%
+        c("", "N/A", "Zero", "I do not use spanish") ~
+        "0",
       TRUE ~ `Years Speaking Spanish`
     ),
-    `Years Speaking Spanish` = as.numeric(`Years Speaking Spanish`)              # Convert to numeric
-  ) %>%  
-    select(Age, Gender, `Spoken dialect`, Ethnicity, Race, Browser, `Years Speaking Spanish`, `Percentage Time Speaking Spanish`) %>%
-  tbl_summary(statistic = list(
-      Age ~ "({min}, {max}), {mean}({sd})", 
-      `Percentage Time Speaking Spanish` ~ "{mean}({sd})", 
-      `Years Speaking Spanish` ~ "({min}, {max}), {mean}({sd})", 
+    `Years Speaking Spanish` = as.numeric(`Years Speaking Spanish`) # Convert to numeric
+  ) %>%
+  select(
+    Age,
+    Gender,
+    `Spoken dialect`,
+    Ethnicity,
+    Race,
+    Browser,
+    `Years Speaking Spanish`,
+    `Percentage Time Speaking Spanish`
+  ) %>%
+  tbl_summary(
+    statistic = list(
+      Age ~ "({min}, {max}), {mean}({sd})",
+      `Percentage Time Speaking Spanish` ~ "{mean}({sd})",
+      `Years Speaking Spanish` ~ "({min}, {max}), {mean}({sd})",
       all_categorical() ~ "{n} / {N} ({p}%)"
-    ),) %>%
-   bold_labels() %>%
+    ),
+  ) %>%
+  bold_labels() %>%
   as_gt()
 ```
 
@@ -365,51 +440,83 @@ quest <- quest  %>%
 #| eval: false
 #| echo: false
 
-quest1 <- read_csv(here::here("data", "L2", "data_exp_196386-v5_questionnaire-3956.csv"))
-quest2 <- read_csv(here::here("data", "L2", "data_exp_196386-v6_questionnaire-3956.csv"))
+quest1 <- read_csv(here::here(
+  "data",
+  "L2",
+  "data_exp_196386-v5_questionnaire-3956.csv"
+))
+quest2 <- read_csv(here::here(
+  "data",
+  "L2",
+  "data_exp_196386-v6_questionnaire-3956.csv"
+))
 
 quest <- rbind(quest1, quest2)
 
 
-quest <- quest  %>%
-    select(`Participant Private ID`, `Question Key`, Response, `Participant Browser`) %>%
-    drop_na() %>%
-    filter(
-        !`Question Key` %in% c("END QUESTIONNAIRE", "BEGIN QUESTIONNAIRE") &
-            !str_detect(`Question Key`, "quantised")
-    ) %>%
-    pivot_wider(names_from = `Question Key`, values_from = Response) %>%
-    rename(
-        Age = `response-1`,
-        Gender = `response-2`,
-     `Spoken dialect` = `response-3`,
-        Ethnicity = `response-4`,
-     Browser=`Participant Browser`, 
-     `Years Speaking Spanish` =`response-7`, 
-     `Age Learned` = `response-6`, 
-     `Percentage Time Speaking Spanish` = `response-8`
-    ) %>%
-    mutate(Race = coalesce(!!!select(., starts_with("response-5")))) %>% 
-  mutate(Age = as.numeric(Age),
-    `Percentage Time Speaking Spanish` = as.numeric(gsub("%", "", `Percentage Time Speaking Spanish`)), 
-      Browser = gsub("[0-9]", "", Browser), 
-      Browser= gsub("\\.+$", "", Browser), 
+quest <- quest %>%
+  select(
+    `Participant Private ID`,
+    `Question Key`,
+    Response,
+    `Participant Browser`
+  ) %>%
+  drop_na() %>%
+  filter(
+    !`Question Key` %in% c("END QUESTIONNAIRE", "BEGIN QUESTIONNAIRE") &
+      !str_detect(`Question Key`, "quantised")
+  ) %>%
+  pivot_wider(names_from = `Question Key`, values_from = Response) %>%
+  rename(
+    Age = `response-1`,
+    Gender = `response-2`,
+    `Spoken dialect` = `response-3`,
+    Ethnicity = `response-4`,
+    Browser = `Participant Browser`,
+    `Years Speaking Spanish` = `response-7`,
+    `Age Learned` = `response-6`,
+    `Percentage Time Speaking Spanish` = `response-8`
+  ) %>%
+  mutate(Race = coalesce(!!!select(., starts_with("response-5")))) %>%
+  mutate(
+    Age = as.numeric(Age),
+    `Percentage Time Speaking Spanish` = as.numeric(gsub(
+      "%",
+      "",
+      `Percentage Time Speaking Spanish`
+    )),
+    Browser = gsub("[0-9]", "", Browser),
+    Browser = gsub("\\.+$", "", Browser),
     `Years Speaking Spanish` = gsub(" .*", "", `Years Speaking Spanish`), # Extract numeric part before any spaces
-    `Years Speaking Spanish` = gsub("[^0-9.]", "",`Years Speaking Spanish`),     # Remove non-numeric characters
-    `Years Speaking Spanish` = case_when(                             # Map special cases to 0
-      `Years Speaking Spanish` %in% c("", "N/A", "Zero", "I do not use spanish") ~ "0",
+    `Years Speaking Spanish` = gsub("[^0-9.]", "", `Years Speaking Spanish`), # Remove non-numeric characters
+    `Years Speaking Spanish` = case_when(
+      # Map special cases to 0
+      `Years Speaking Spanish` %in%
+        c("", "N/A", "Zero", "I do not use spanish") ~
+        "0",
       TRUE ~ `Years Speaking Spanish`
     ),
-    `Years Speaking Spanish` = as.numeric(`Years Speaking Spanish`)              # Convert to numeric
-  ) %>%  
-    select(Age, Gender, `Spoken dialect`, Ethnicity, Race, Browser, `Years Speaking Spanish`, `Percentage Time Speaking Spanish`) %>%
-  tbl_summary(statistic = list(
-      Age ~ "({min}, {max}), {mean}({sd})", 
-      `Percentage Time Speaking Spanish` ~ "{mean}({sd})", 
-      `Years Speaking Spanish` ~ "({min}, {max}), {mean}({sd})", 
+    `Years Speaking Spanish` = as.numeric(`Years Speaking Spanish`) # Convert to numeric
+  ) %>%
+  select(
+    Age,
+    Gender,
+    `Spoken dialect`,
+    Ethnicity,
+    Race,
+    Browser,
+    `Years Speaking Spanish`,
+    `Percentage Time Speaking Spanish`
+  ) %>%
+  tbl_summary(
+    statistic = list(
+      Age ~ "({min}, {max}), {mean}({sd})",
+      `Percentage Time Speaking Spanish` ~ "{mean}({sd})",
+      `Years Speaking Spanish` ~ "({min}, {max}), {mean}({sd})",
       all_categorical() ~ "{n} / {N} ({p}%)"
-    ),) %>%
-   bold_labels() %>%
+    ),
+  ) %>%
+  bold_labels() %>%
   as_gt()
 ```
 
@@ -458,7 +565,7 @@ If the headphone screener was passed, participants were next introduced to the V
 In the main VWP task, each trial began with a 500 ms fixation cross at the center of the screen. This was followed by a preview screen displaying four images, each positioned in a corner of the screen. After 1500 ms, a start button appeared in the center. Participants clicked the button to confirm they were focused on the center before the audio played. Once clicked, the audio was played, and the images remained visible. Participants were instructed to click the image that best matched the spoken target word, while their eye movements were recorded. Eye movements were only recorded on that screen. @fig-vwptrial displays the VWP trial sequence.
 
 ```{r}
-#| label: fig-vwptrial 
+#| label: fig-vwptrial
 #| fig-cap: VWP trial schematic
 #| out-width: 100%
 #| echo: false
@@ -498,7 +605,11 @@ For preprocessing visual world webcam eye data, we follow seven general steps (s
 #| fig-cap: Preprocessing steps for webcam eye-tracking data using webgazeR functions
 #| echo: false
 
-knitr::include_graphics(here::here("_manuscript", "Figures", "preprocessing_fig1.png"))
+knitr::include_graphics(here::here(
+  "_manuscript",
+  "Figures",
+  "preprocessing_fig1.png"
+))
 
 ```
 
@@ -529,25 +640,25 @@ Once this is installed, `webgazeR` can be loaded along with additional useful pa
 
 # List of required packages
 required_packages <- c(
-  "tidyverse",      # data wrangling
-  "here",           # relative paths instead of absolute aids in reproducibility
-  "tinytable",      # nice tables
-  "janitor",        # functions for cleaning up your column names
-  "webgazeR",       # has webcam functions
-  "readxl",         # read in Excel files
-  "ggokabeito",     # color-blind friendly palettes
-  "flextable",      # Word tables
-  "permuco",        # permutation analysis
-  "foreach",        # permutation analysis
-  "geomtextpath",   # for plotting labels on lines of ggplot figures
-  "cowplot"         # combine ggplot figures
+  "tidyverse", # data wrangling
+  "here", # relative paths instead of absolute aids in reproducibility
+  "tinytable", # nice tables
+  "janitor", # functions for cleaning up your column names
+  "webgazeR", # has webcam functions
+  "readxl", # read in Excel files
+  "ggokabeito", # color-blind friendly palettes
+  "flextable", # Word tables
+  "permuco", # permutation analysis
+  "foreach", # permutation analysis
+  "geomtextpath", # for plotting labels on lines of ggplot figures
+  "cowplot" # combine ggplot figures
 )
 
 ```
 
 ```{r}
 #| echo: false
-#| 
+#|
 # Install and load each package
 
 options(stringsAsFactors = FALSE) # no automatic data transformation
@@ -572,12 +683,12 @@ To process eye-tracking data you will need to make sure you have both the behavi
 The .csv files contain meta-data for each each trial, such as what picture were presented on each trial, which object was the target, reaction times, audio presentation times, what object was clicked on, etc. To load our data files into our R environment, we use the `here` [@here] package to set a relative rather than an absolute path to our files. We read in the data files from the repository for both versions of the task and merge the files together. `L2_data` merges both `data_exp_196386-v5_task-scf6.csv` and `data_exp_196386-v6_task-scf6.csv` into one object.
 
 ```{r}
-# load in trial level data 
+# load in trial level data
 # combine data from version 5 and 6 of the task
 L2_1 <- read_csv(here("data", "L2", "data_exp_196386-v5_task-scf6.csv"))
 L2_2 <- read_csv(here("data", "L2", "data_exp_196386-v6_task-scf6.csv"))
 
-L2_data <- rbind(L2_1, L2_2) # bind the two objects together 
+L2_data <- rbind(L2_1, L2_2) # bind the two objects together
 ```
 
 ### Eye-Tracking Data
@@ -589,9 +700,13 @@ Gorilla currently saves each participant's eye-tracking data on a per-trial basi
 # Get the list of all files in the folder
 
 # thank you to Reviewer 1 for suggesting this code
-vwp_files_L2 <- list.files(here::here("data", "L2", "raw"), full.names = TRUE, pattern = "\\.(csv|xlsx)$") %>%
-# remove calibration trials 
-discard(~ grepl("calibration", .x)) 
+vwp_files_L2 <- list.files(
+  here::here("data", "L2", "raw"),
+  full.names = TRUE,
+  pattern = "\\.(csv|xlsx)$"
+) %>%
+  # remove calibration trials
+  discard(~ grepl("calibration", .x))
 ```
 
 When data is generated from Gorilla, each trial in your experiment is saved as a separate file. To analyze the data, these individual files need to be combined into a single dataset. The `merge_webcam_files()` function from webgazeR is designed for this purpose. It reads all trial-level files from a specified folder—regardless of file format (.csv, .tsv, or .xlsx)—and merges them into one cohesive tibble or data frame.
@@ -609,7 +724,18 @@ As a general note, all steps should be followed in order due to the renaming of 
 #| cache: true
 setwd(here::here("data", "L2", "raw")) # set working directory to raw data folder
 
-edat_L2 <- merge_webcam_files(vwp_files_L2, screen_index=4, col_map = list(subject = "participant_id", trial="spreadsheet_row", time="time_elapsed", x="x_pred_normalised", y="y_pred_normalised"), kind="gorilla")
+edat_L2 <- merge_webcam_files(
+  vwp_files_L2,
+  screen_index = 4,
+  col_map = list(
+    subject = "participant_id",
+    trial = "spreadsheet_row",
+    time = "time_elapsed",
+    x = "x_pred_normalised",
+    y = "y_pred_normalised"
+  ),
+  kind = "gorilla"
+)
 ```
 
 To ensure high-quality data, we applied a set of behavioral and eye-tracking exclusion criteria prior to merging datasets. Participants were excluded if they met any of the following conditions: (1) failure to successfully calibrate throughout the experiment (fewer than 100 completed trials), (2) low behavioral accuracy (below 80%), (3) low sampling rate (below 5 Hz), or (4) a high proportion of gaze samples falling outside the display area (greater than 30%).
@@ -622,35 +748,55 @@ It is important to note here that what the behavioral spreadsheet denotes as tri
 
 ```{r}
 eye_behav_L2 <- L2_data %>%
- 
+
   janitor::clean_names() %>%
- 
+
   # Select specific columns to keep in the dataset
-  dplyr::select(participant_private_id, correct, tlpic, trpic, blpic, brpic, condition, 
-                eng_targetword, targetword, typetl, typetr, typebl, typebr, zone_name, 
-                zone_type, reaction_time, spreadsheet_row, response, screen_name) %>%
- 
+  dplyr::select(
+    participant_private_id,
+    correct,
+    tlpic,
+    trpic,
+    blpic,
+    brpic,
+    condition,
+    eng_targetword,
+    targetword,
+    typetl,
+    typetr,
+    typebl,
+    typebr,
+    zone_name,
+    zone_type,
+    reaction_time,
+    spreadsheet_row,
+    response,
+    screen_name
+  ) %>%
+
   # Filter the rows where 'Zone.Type' equals "response_button_image"
-  # participants clicked on preview screen so now need to filter based on screen. 
+  # participants clicked on preview screen so now need to filter based on screen.
   dplyr::filter(screen_name == "VWP", zone_type == "response_button_image") %>%
- 
+
   # Rename columns for easier use and readability
   dplyr::rename(
-    TL = tlpic,             # Rename 'tlpic' to 'TL'
-    TR = trpic,             # Rename 'trpic' to 'TR'
-    BL = blpic,             # Rename 'blpic' to 'BL'
-    BR = brpic,             # Rename 'brpic' to 'BR'
-    targ_loc = zone_name,   # Rename 'zone_name' to 'targ_loc'
-    subject = participant_private_id,  # Rename 'participant_private_id' to 'subject'
-    trial = spreadsheet_row,  # Rename 'spreadsheet_row' to 'trial'
-    acc = correct,          # Rename 'correct' to 'acc' (accuracy)
-    RT = reaction_time      # Rename 'reaction_time' to 'RT'
+    TL = tlpic, # Rename 'tlpic' to 'TL'
+    TR = trpic, # Rename 'trpic' to 'TR'
+    BL = blpic, # Rename 'blpic' to 'BL'
+    BR = brpic, # Rename 'brpic' to 'BR'
+    targ_loc = zone_name, # Rename 'zone_name' to 'targ_loc'
+    subject = participant_private_id, # Rename 'participant_private_id' to 'subject'
+    trial = spreadsheet_row, # Rename 'spreadsheet_row' to 'trial'
+    acc = correct, # Rename 'correct' to 'acc' (accuracy)
+    RT = reaction_time # Rename 'reaction_time' to 'RT'
   ) %>%
- 
+
   # Convert the 'RT' (Reaction Time) column to numeric type
-  dplyr::mutate(RT = as.numeric(RT),
-                subject = as.factor(subject),
-                trial = as.factor(trial))
+  dplyr::mutate(
+    RT = as.numeric(RT),
+    subject = as.factor(subject),
+    trial = as.factor(trial)
+  )
 
 
 ```
@@ -662,19 +808,30 @@ Because we are playing audio on each trial and running this experiment from the 
 ```{r}
 #| label: audio onset L2
 audio_rt_L2 <- L2_data %>%
- 
-  janitor::clean_names()%>%
 
-select(participant_private_id,zone_type, spreadsheet_row, reaction_time, response) %>%
+  janitor::clean_names() %>%
 
-  filter(zone_type=="content_web_audio", response=="AUDIO PLAY EVENT FIRED")%>%
+  select(
+    participant_private_id,
+    zone_type,
+    spreadsheet_row,
+    reaction_time,
+    response
+  ) %>%
+
+  filter(
+    zone_type == "content_web_audio",
+    response == "AUDIO PLAY EVENT FIRED"
+  ) %>%
   distinct() %>%
-dplyr::rename("subject" = "participant_private_id",
-       "trial" ="spreadsheet_row",  
-       "RT_audio" = "reaction_time", 
-       "Fired" = "response") %>%
-select(-zone_type) %>%
-mutate(RT_audio=as.numeric(RT_audio)) 
+  dplyr::rename(
+    "subject" = "participant_private_id",
+    "trial" = "spreadsheet_row",
+    "RT_audio" = "reaction_time",
+    "Fired" = "response"
+  ) %>%
+  select(-zone_type) %>%
+  mutate(RT_audio = as.numeric(RT_audio))
 
 ```
 
@@ -683,8 +840,13 @@ We then merge this information with `eye_behav_L2`.
 ```{r}
 #| label: L2-merge-audio
 
-# merge the audio Rt data to the trial level object
-trial_data_rt_L2 <- merge(eye_behav_L2, audio_rt_L2, by=c("subject", "trial"))
+eye_behav_L2 <- eye_behav_L2 %>%
+  mutate(across(c(subject, trial), as.character))
+
+audio_rt_L2 <- audio_rt_L2 %>%
+  mutate(across(c(subject, trial), as.character))
+
+trial_data_rt_L2 <- merge(eye_behav_L2, audio_rt_L2, by = c("subject", "trial"))
 
 ```
 
@@ -694,9 +856,9 @@ As stated above, participants who did not successfully calibrate 3 times or less
 
 ```{r}
 # find out how many trials each participant had
-edatntrials_L2 <-trial_data_rt_L2 %>%
- dplyr::group_by(subject)%>%
- dplyr::summarise(ntrials=length(unique(trial)))
+edatntrials_L2 <- trial_data_rt_L2 %>%
+  dplyr::group_by(subject) %>%
+  dplyr::summarise(ntrials = length(unique(trial)))
 ```
 
 ```{r}
@@ -706,8 +868,8 @@ edatntrials_L2 <-trial_data_rt_L2 %>%
 #| echo: false
 
 edatntrials_L2 %>%
-  filter(ntrials<100) %>%
-    tt(width=.9)
+  filter(ntrials < 100) %>%
+  tt(width = .9)
 ```
 
 ```{r}
@@ -715,11 +877,11 @@ edatntrials_L2 %>%
 #| echo: false
 # get bad subs and remove them the analysis
 
-edatntrials_bad_L2 <-trial_data_rt_L2 %>%
- dplyr::group_by(subject)%>%
- dplyr::summarise(ntrials=length(unique(trial))) %>%
+edatntrials_bad_L2 <- trial_data_rt_L2 %>%
+  dplyr::group_by(subject) %>%
+  dplyr::summarise(ntrials = length(unique(trial))) %>%
   dplyr::filter(ntrials >= 100)
-  
+
 ```
 
 Let's remove participants with less than 100 trials from the analysis using the below code.
@@ -748,7 +910,7 @@ subject_mean_acc_L2 <- trial_data_rt_L2 %>%
 # Step 2: Join the mean accuracy back to the main dataset and exclude trials with accuracy < 0.8
 trial_data_acc_clean_L2 <- trial_data_rt_L2 %>%
   inner_join(subject_mean_acc_L2, by = "subject") %>%
-  filter(acc==1) # only use accurate responses for fixation analysis
+  filter(acc == 1) # only use accurate responses for fixation analysis
 
 ```
 
@@ -767,7 +929,7 @@ While most commercial eye-trackers sample at a constant rate, data captured by w
 #| fig-width: 12
 #| fig-height: 8
 
-samp_rate_L2 <- analyze_sampling_rate(edat_L2, summary_stat="Median")
+samp_rate_L2 <- analyze_sampling_rate(edat_L2, summary_stat = "Median")
 
 ```
 
@@ -775,24 +937,36 @@ samp_rate_L2 <- analyze_sampling_rate(edat_L2, summary_stat="Median")
 #| label: save figure3
 #| echo: false
 
-#save the figure 
+#save the figure
 
-ggsave(here::here("_manuscript", "Figures", "Figure4.png"), width=8, height=12, dpi=400)
+ggsave(
+  here::here("_manuscript", "Figures", "Figure4.png"),
+  width = 8,
+  height = 12,
+  dpi = 400
+)
 ```
 
 When using the above function, separate data frames are produced by-participants and by-trial. These can be added to the behavioral data frame using the below code.
 
 ```{r}
-trial_data_L2 <- merge(trial_data_acc_clean_L2, samp_rate_L2, by=c("subject", "trial"))
+trial_data_L2 <- merge(
+  trial_data_acc_clean_L2,
+  samp_rate_L2,
+  by = c("subject", "trial")
+)
 
 ```
 
 Now we can use this information to filter out data with poor sampling rates. Users can use the `filter_sampling_rate()` function. The `filter_sampling_rate()` function is designed to process a dataset containing participant-level and trial-level sampling rates. It allows the user to either filter out data that falls below a certain sampling rate threshold or simply label it as “bad”. The function gives flexibility by allowing the threshold to be applied at the participant-level, trial-level, or both. It also lets the user decide whether to remove the data or flag it as below the threshold without removing it. If `action` = remove, the function will output how many subjects and trials were removed using the threshold. We leave it up to the user to decide what to do with low sampling rates and make no specific recommendations. Here we use the `filter_sampling_rate()` function to remove trials and participants from the`trial_data_L2` object.
 
 ```{r}
-filter_edat_L2 <- filter_sampling_rate(trial_data_L2,threshold = 5,
-                                         action = "remove",
-                                         by = "both")
+filter_edat_L2 <- filter_sampling_rate(
+  trial_data_L2,
+  threshold = 5,
+  action = "remove",
+  by = "both"
+)
 ```
 
 ### Out-of-Bounds (Outside of Screen)
@@ -805,12 +979,15 @@ The function returns a summary table showing the total number and percentage of 
 #| echo: true
 #| results: hide
 
-oob_data_L2 <- gaze_oob(data=edat_L2, subject_col = "subject",
-                      trial_col = "trial",
-                      x_col = "x",
-                      y_col = "y",
-                     screen_size = c(1, 1), # standardized coordinates have screen size 1,1
-                      remove = TRUE)
+oob_data_L2 <- gaze_oob(
+  data = edat_L2,
+  subject_col = "subject",
+  trial_col = "trial",
+  x_col = "x",
+  y_col = "y",
+  screen_size = c(1, 1), # standardized coordinates have screen size 1,1
+  remove = TRUE
+)
 ```
 
 ```{r}
@@ -820,18 +997,18 @@ oob_data_L2 <- gaze_oob(data=edat_L2, subject_col = "subject",
 #| echo: false
 
 oob_data_L2$subject_results %>%
-  mutate(across(where(is.numeric), ~round(.x, 2))) %>%
-  rename_with(~ gsub("_", "\n", .x)) %>%         # Replace underscores with line breaks
-  rename_with(~ gsub("percentage", "%", .x, ignore.case = TRUE)) %>%  # Replace 'percent' with '%'
+  mutate(across(where(is.numeric), ~ round(.x, 2))) %>%
+  rename_with(~ gsub("_", "\n", .x)) %>% # Replace underscores with line breaks
+  rename_with(~ gsub("percentage", "%", .x, ignore.case = TRUE)) %>% # Replace 'percent' with '%'
   head() %>%
-        flextable() %>% 
-    fontsize(size = 12) %>%  # Reduce font size
+  flextable() %>%
+  fontsize(size = 12) %>% # Reduce font size
   padding(padding = 1) %>%
   font(fontname = "Times New Roman", part = "all") %>%
-  set_table_properties(layout="autofit") %>% # Reduce padding inside cells
+  set_table_properties(layout = "autofit") %>% # Reduce padding inside cells
   autofit() %>%
   theme_apa()
-  
+
 ```
 
 ```{r}
@@ -842,30 +1019,68 @@ oob_data_L2$subject_results %>%
 dat_colnames_temp <- oob_data_L2$data_clean
 
 
-sp <- ggplot(dat_colnames_temp, aes(x=x, y=y)) +
- 
-    geom_point(alpha=0.5) +
-     # Annotate rectangles for the four quadrants with different colors
-    annotate("rect", xmin=0, ymin=0,
-             xmax=0.5, ymax=0.5, color="red", fill="lightblue", alpha=0.3) +
-    annotate("rect", xmin=0.5, ymin=0,
-             xmax=1, ymax=0.5, color="red", fill="lightgreen", alpha=0.3) +
-    annotate("rect", xmin=0, ymin=0.5,
-             xmax=0.5, ymax=1, color="red", fill="lightyellow", alpha=0.3) +
-    annotate("rect", xmin=0.5, ymin=0.5,
-             xmax=1, ymax=1, color="red", fill="lightpink", alpha=0.3) +
-     
-   
-    theme_minimal(base_size = 14) +
-    theme(axis.title.y=element_text(size = 14, face="bold"),
-          axis.title.x = element_text(size=14, face="bold"),
-          axis.text.x=element_text(size = 12, face="bold"),
-          axis.text.y=element_text(size=12, face="bold"),
-          legend.position = "bottom")
-   
+sp <- ggplot(dat_colnames_temp, aes(x = x, y = y)) +
+
+  geom_point(alpha = 0.5) +
+  # Annotate rectangles for the four quadrants with different colors
+  annotate(
+    "rect",
+    xmin = 0,
+    ymin = 0,
+    xmax = 0.5,
+    ymax = 0.5,
+    color = "red",
+    fill = "lightblue",
+    alpha = 0.3
+  ) +
+  annotate(
+    "rect",
+    xmin = 0.5,
+    ymin = 0,
+    xmax = 1,
+    ymax = 0.5,
+    color = "red",
+    fill = "lightgreen",
+    alpha = 0.3
+  ) +
+  annotate(
+    "rect",
+    xmin = 0,
+    ymin = 0.5,
+    xmax = 0.5,
+    ymax = 1,
+    color = "red",
+    fill = "lightyellow",
+    alpha = 0.3
+  ) +
+  annotate(
+    "rect",
+    xmin = 0.5,
+    ymin = 0.5,
+    xmax = 1,
+    ymax = 1,
+    color = "red",
+    fill = "lightpink",
+    alpha = 0.3
+  ) +
+
+  theme_minimal(base_size = 14) +
+  theme(
+    axis.title.y = element_text(size = 14, face = "bold"),
+    axis.title.x = element_text(size = 14, face = "bold"),
+    axis.text.x = element_text(size = 12, face = "bold"),
+    axis.text.y = element_text(size = 12, face = "bold"),
+    legend.position = "bottom"
+  )
+
 sp
 
-ggsave(here::here("_manuscript", "Figures", "Figure5.png"), width=8, height=12, dpi=400)
+ggsave(
+  here::here("_manuscript", "Figures", "Figure5.png"),
+  width = 8,
+  height = 12,
+  dpi = 400
+)
 
 ```
 
@@ -874,8 +1089,8 @@ We can use the `data_clean` tibble returned by the `gaze_oob`() function to filt
 ```{r}
 
 # remove participants with more than 30% missing data and trials with more than 30% missing data
- filter_oob <- oob_data_L2$data_clean %>%
-   filter(trial_missing_percentage <= 30 | subject_missing_percentage <= 30)
+filter_oob <- oob_data_L2$data_clean %>%
+  filter(trial_missing_percentage <= 30 | subject_missing_percentage <= 30)
 
 ```
 
@@ -889,13 +1104,13 @@ Accordingly, we filtered the `edat_L2`dataset to include only rows where converg
 
 ```{r}
 edat_1_L2 <- filter_oob %>%
- dplyr::filter(convergence <= .5, face_conf >= .5) # remove poor convergnce and face confidence
+  dplyr::filter(convergence <= .5, face_conf >= .5) # remove poor convergnce and face confidence
 
 ```
 
 ### Combining Eye and Trial-Level Data
 
-Next, we will combine the eye-tracking data and behavioral data. In this case, we’ll use merge to add the behavioral data to the eye-tracking data. This ensures that all rows from the eye-tracking data are preserved, even if there isn’t a matching entry in the behavioral data (missing values will be filled with NA). The resulting object is called dat_L2.
+Next, we combine the eye-tracking data with the behavioral data using `merge()`. By default, `merge()` performs an inner join, which means only rows with matching subject and trial values in both datasets are retained. Since rows with missing values would be dropped later, this approach ensures that the resulting dataset (`dat_L2`) contains only complete matches.
 
 ```{r}
 dat_L2 <- merge(edat_1_L2, filter_edat_L2)
@@ -918,23 +1133,27 @@ One way is to make the AOIs as big as possible, dividing the screen into four qu
 
 # Create a data frame for the quadrants with an added column for the quadrant labels
 aoi_loc <- data.frame(
-  loc = c('TL', 'TR', 'BL', 'BR'), 
+  loc = c('TL', 'TR', 'BL', 'BR'),
   x_normalized = c(0, 0.5, 0, 0.5),
-   y_normalized = c(0.5, 0.5, 0, 0),
+  y_normalized = c(0.5, 0.5, 0, 0),
   width_normalized = c(0.5, 0.5, 0.5, 0.5),
-  height_normalized = c(0.5, 0.5, 0.5, 0.5)) %>% 
-  
-  mutate(xmin = x_normalized, ymin = y_normalized,
-         xmax = x_normalized+width_normalized,
-         ymax = y_normalized+height_normalized)
+  height_normalized = c(0.5, 0.5, 0.5, 0.5)
+) %>%
+
+  mutate(
+    xmin = x_normalized,
+    ymin = y_normalized,
+    xmax = x_normalized + width_normalized,
+    ymax = y_normalized + height_normalized
+  )
 
 
-aoi_loc %>% 
-     flextable() %>%
-   fontsize(size = 12) %>%  # Reduce font size
+aoi_loc %>%
+  flextable() %>%
+  fontsize(size = 12) %>% # Reduce font size
   padding(padding = 0) %>%
   font(fontname = "Times New Roman", part = "all") %>%
-  set_table_properties(layout="autofit") %>% # Reduce padding inside cells
+  set_table_properties(layout = "autofit") %>% # Reduce padding inside cells
   autofit() %>%
   theme_apa()
 
@@ -954,20 +1173,43 @@ quadrants <- data.frame(
   width = c(0.5, 0.5, 0.5, 0.5),
   height = c(0.5, 0.5, 0.5, 0.5),
   color = c('red', 'blue', 'green', 'orange'),
-  label = c('TL Width = 0.5', 'TR Width = 0.5', 'BL Width = 0.5', 'BR Width = 0.5')
+  label = c(
+    'TL Width = 0.5',
+    'TR Width = 0.5',
+    'BL Width = 0.5',
+    'BR Width = 0.5'
+  )
 )
 
 # Create the plot
 ggplot() +
-  geom_rect(data = quadrants, aes(xmin = x, xmax = x + width, ymin = y, ymax = y + height, fill = color),
-            color = 'black', alpha = 0) +
-  geom_text(data = quadrants, aes(x = x + width/2, y = y + height/2, label = label), color = 'black', size = 5) +
+  geom_rect(
+    data = quadrants,
+    aes(xmin = x, xmax = x + width, ymin = y, ymax = y + height, fill = color),
+    color = 'black',
+    alpha = 0
+  ) +
+  geom_text(
+    data = quadrants,
+    aes(x = x + width / 2, y = y + height / 2, label = label),
+    color = 'black',
+    size = 5
+  ) +
   scale_fill_identity() +
   coord_fixed() +
-  labs(x = 'Normalized X', y = 'Normalized Y', title = 'Quadrants with Width Annotations') +
+  labs(
+    x = 'Normalized X',
+    y = 'Normalized Y',
+    title = 'Quadrants with Width Annotations'
+  ) +
   theme_minimal(base_size = 14)
 
-ggsave(here::here("_manuscript", "Figures", "Figure5.png"), width=8, height=12, dpi=400)
+ggsave(
+  here::here("_manuscript", "Figures", "Figure5.png"),
+  width = 8,
+  height = 12,
+  dpi = 400
+)
 
 ```
 
@@ -987,7 +1229,7 @@ dat_L2 <- dat_L2 %>%
       typetr == "target" ~ TR,
       typebl == "target" ~ BL,
       typebr == "target" ~ BR,
-      TRUE ~ NA_character_  # Default to NA if no match
+      TRUE ~ NA_character_ # Default to NA if no match
     ),
     Unrelated = case_when(
       typetl == "unrelated1" ~ TL,
@@ -1023,12 +1265,18 @@ In addition to tracking the condition of each image during randomized trials, a 
 
 dat_colnames_L2 <- dat_L2 %>%
   rowwise() %>%
-  mutate( 
+  mutate(
     targ_loc = find_location(c(TL = TL, TR = TR, BL = BL, BR = BR), Target),
     cohort_loc = find_location(c(TL = TL, TR = TR, BL = BL, BR = BR), Cohort),
-    unrelated_loc = find_location(c(TL = TL, TR = TR, BL = BL, BR = BR), Unrelated),
-    unrelated2_loc = find_location(c(TL = TL, TR = TR, BL = BL, BR = BR), Unrelated2)
-  ) %>% 
+    unrelated_loc = find_location(
+      c(TL = TL, TR = TR, BL = BL, BR = BR),
+      Unrelated
+    ),
+    unrelated2_loc = find_location(
+      c(TL = TL, TR = TR, BL = BL, BR = BR),
+      Unrelated2
+    )
+  ) %>%
   ungroup()
 
 
@@ -1038,16 +1286,23 @@ Once we do this we can use the `assign_aoi()` function to loop through our objec
 
 ```{r}
 
-assign_L2 <- webgazeR::assign_aoi(dat_colnames_L2,X="x", Y="y",aoi_loc = aoi_loc)
+assign_L2 <- webgazeR::assign_aoi(
+  dat_colnames_L2,
+  X = "x",
+  Y = "y",
+  aoi_loc = aoi_loc
+)
 
 
 AOI_L2 <- assign_L2 %>%
-  mutate(loc1 = case_when(
-    AOI==1 ~ "TL", 
-    AOI==2 ~ "TR", 
-    AOI==3 ~ "BL", 
-    AOI==4 ~ "BR"
-  ))
+  mutate(
+    loc1 = case_when(
+      AOI == 1 ~ "TL",
+      AOI == 2 ~ "TR",
+      AOI == 3 ~ "BL",
+      AOI == 4 ~ "BR"
+    )
+  )
 ```
 
 In `AOI_L2` we label looks to Targets, Unrelated, and Cohort items with 1 (looked) and 0 (no look) using the `case_when` function from the `tidyverse` [@wickham2017]
@@ -1066,33 +1321,71 @@ The locations of looks need to be pivoted into long format—that is, converted 
 
 ```{r}
 dat_long_aoi_me_L2 <- AOI_L2 %>%
-  select(subject, trial, condition, target, cohort, unrelated, unrelated2, time, x, y, RT_audio) %>%
+  select(
+    subject,
+    trial,
+    condition,
+    target,
+    cohort,
+    unrelated,
+    unrelated2,
+    Target,
+    Cohort,
+    Unrelated,
+    Unrelated2,
+    time,
+    x,
+    y,
+    RT_audio
+  ) %>%
+  # rename so we can pair Looks vs item
+  rename(
+    target_Looks = target,
+    cohort_Looks = cohort,
+    unrelated_Looks = unrelated,
+    unrelated2_Looks = unrelated2,
+    target_item = Target,
+    cohort_item = Cohort,
+    unrelated_item = Unrelated,
+    unrelated2_item = Unrelated2
+  ) %>%
   pivot_longer(
-    cols = c(target, unrelated, unrelated2, cohort),
-    names_to = "condition1",
-    values_to = "Looks"
+    cols = c(
+      target_Looks,
+      cohort_Looks,
+      unrelated_Looks,
+      unrelated2_Looks,
+      target_item,
+      cohort_item,
+      unrelated_item,
+      unrelated2_item
+    ),
+    names_to = c("condition1", ".value"),
+    names_sep = "_"
   )
+
+
 ```
 
 We further clean up the object by first cleaning up the condition codes. They have a numeral appended to them and that should be removed. We then adjust the timing in the `gaze_sub_L2_comp` object by aligning time to the actual audio onset. To achieve this, we subtract `RT_audio` from time for each trial. In addition, we subtract 300 ms from this to account for the 100 ms of silence at the beginning of each audio clip and 200 ms to account for the oculomotor delay when planning an eye movement [@viviani1990]. Additionally, we set our interest period between 0 ms (audio onset) and 2000 ms. This was chosen based on the time course figures in @sarrett2022 . It is important that you choose your interest area carefully and preferably you preregister it. The interest period you choose can bias your findings [@peelle2021]. We also filter out gaze coordinates that fall outside the standardized window, ensuring only valid data points are retained. The resulting object `gaze_sub_long_L2` provides the corrected time column spanning from -200 ms to 2000 ms relative to stimulus onset with looks outside the screen removed.
 
 ```{r}
-# repalce the numbers appended to conditions that somehow got added 
+# repalce the numbers appended to conditions that somehow got added
 dat_long_aoi_me_comp <- dat_long_aoi_me_L2 %>%
   mutate(condition = str_replace(condition, "TCUU-SPENG\\d*", "TCUU-SPENG")) %>%
-  mutate(condition = str_replace(condition, "TCUU-SPSP\\d*", "TCUU-SPSP"))%>% 
-  na.omit() 
+  mutate(condition = str_replace(condition, "TCUU-SPSP\\d*", "TCUU-SPSP")) %>%
+  na.omit()
 
 ```
 
 ```{r}
 
-# dat_long_aoi_me_comp has condition corrected 
+# dat_long_aoi_me_comp has condition corrected
 
-gaze_sub_L2_long <-dat_long_aoi_me_comp%>% 
-group_by(subject, trial, condition) %>%
-  mutate(time = (time-RT_audio)-300) %>% # subtract audio rt onset and account for occ motor planning and silence in audio
- filter(time >= -200, time < 2000)
+gaze_sub_L2_long <- dat_long_aoi_me_comp %>%
+  group_by(subject, trial, condition) %>%
+  mutate(time = (time - RT_audio) - 300) %>% # subtract audio rt onset and account for occ motor planning and silence in audio
+  filter(time >= -200, time < 2000)
 ```
 
 ## Samples to Bins
@@ -1105,7 +1398,12 @@ In addition, the `downsample_gaze()` allows you to aggregate across other variab
 
 ```{r}
 
-gaze_sub_L2 <- webgazeR::downsample_gaze(gaze_sub_L2_long, bin.length=100, timevar="time", aggvars=c("condition", "condition1", "time_bin"))
+gaze_sub_L2 <- webgazeR::downsample_gaze(
+  gaze_sub_L2_long,
+  bin.length = 100,
+  timevar = "time",
+  aggvars = c("condition", "condition1", "time_bin")
+)
 
 ```
 
@@ -1115,11 +1413,11 @@ gaze_sub_L2 <- webgazeR::downsample_gaze(gaze_sub_L2_long, bin.length=100, timev
 #| echo: false
 
 gaze_sub_L2 %>%
-  mutate(across(where(is.numeric), ~round(.x, 2))) %>%
+  mutate(across(where(is.numeric), ~ round(.x, 2))) %>%
   head() %>%
-  flextable() %>% 
-    fontsize(size = 12) %>%  # Reduce font size
-  padding(padding = 2) %>%  # Reduce padding inside cells
+  flextable() %>%
+  fontsize(size = 12) %>% # Reduce font size
+  padding(padding = 2) %>% # Reduce padding inside cells
   autofit() %>%
   theme_apa()
 ```
@@ -1129,14 +1427,16 @@ To simplify the analysis, we combine the two unrelated conditions and average th
 ```{r}
 # Average Fix for unrelated and unrelated2, then combine with the rest
 gaze_sub_L2_avg <- gaze_sub_L2 %>%
-    group_by(condition, time_bin) %>%
-    summarise(
-        Fix = mean(Fix[condition1 %in% c("unrelated", "unrelated2")], na.rm = TRUE),
-        condition1 = "unrelated",  # Assign the combined label
-        .groups = "drop"
-    ) %>%
-    # Combine with rows that do not include unrelated or unrelated2
-    bind_rows(gaze_sub_L2 %>% filter(!condition1 %in% c("unrelated", "unrelated2")))
+  group_by(condition, time_bin) %>%
+  summarise(
+    Fix = mean(Fix[condition1 %in% c("unrelated", "unrelated2")], na.rm = TRUE),
+    condition1 = "unrelated", # Assign the combined label
+    .groups = "drop"
+  ) %>%
+  # Combine with rows that do not include unrelated or unrelated2
+  bind_rows(
+    gaze_sub_L2 %>% filter(!condition1 %in% c("unrelated", "unrelated2"))
+  )
 
 ```
 
@@ -1145,7 +1445,12 @@ The above will not include the subject variable. If you want to keep participant
 ```{r}
 #| eval: false
 # add subject-level data
-gaze_sub_L2_id <- webgazeR::downsample_gaze(gaze_sub_L2_long, bin.length=100, timevar="time", aggvars=c("subject", "condition", "condition1", "time_bin"))
+gaze_sub_L2_id <- webgazeR::downsample_gaze(
+  gaze_sub_L2_long,
+  bin.length = 100,
+  timevar = "time",
+  aggvars = c("subject", "condition", "condition1", "time_bin")
+)
 ```
 
 ### Upsampling
@@ -1155,27 +1460,40 @@ Users may wish to upsample their data rather than downsample it. This is standar
 Our webgazeR package provides several functions to assist with this process. The `upsample_gaze()` function allows users to upsample their gaze data to a higher sampling rate (e.g., 250 Hz or even 1000 Hz). After upsampling, users can apply the `smooth_gaze()` function to reduce noise (`webgazeR` uses a n-point moving average) followed by the `interpolate_gaze()` function to fill in missing values using linear interpolation. Below we show you how to use the function, but do not apply to the data.
 
 ```{r}
-#| eval: false 
+#| eval: false
 AOI_upsample <- AOI %>%
   group_by(subject, trial) %>%
   upsample_gaze(
     gaze_cols = c("x", "y"),
-    upsample_pupil = FALSE, 
-    target_hz = 250)
+    upsample_pupil = FALSE,
+    target_hz = 250
+  )
 ```
 
 ```{r}
 #| eval: false
 
-AOI_smooth=smooth_gaze(AOI_upsample, n = 5, x_col = "x", y_col = "y",
-                        trial_col = "trial", subject_col = "subject")
+AOI_smooth = smooth_gaze(
+  AOI_upsample,
+  n = 5,
+  x_col = "x",
+  y_col = "y",
+  trial_col = "trial",
+  subject_col = "subject"
+)
 ```
 
 ```{r}
 #| eval: false
-#| 
-aoi_interp <- interpolate_gaze(deduplicated_data,x_col = "x_pred_normalised", y_col = "y_pred_normalised",
-                        trial_col = "trial", subject_col = "subject", time_col="time" )
+#|
+aoi_interp <- interpolate_gaze(
+  deduplicated_data,
+  x_col = "x_pred_normalised",
+  y_col = "y_pred_normalised",
+  trial_col = "trial",
+  subject_col = "subject",
+  time_col = "time"
+)
 ```
 
 ## Aggregation
@@ -1184,7 +1502,12 @@ Aggregation is an optional step. If you do not plan to analyze proportion data, 
 
 ```{r}
 # get back trial level data with no aggregation
-gaze_sub_id <- downsample_gaze(gaze_sub_L2_long, bin.length=100, timevar="time", aggvars="none")
+gaze_sub_id <- downsample_gaze(
+  gaze_sub_L2_long,
+  bin.length = 100,
+  timevar = "time",
+  aggvars = "none"
+)
 ```
 
 We need to make sure we only have one unrelated value.
@@ -1192,10 +1515,12 @@ We need to make sure we only have one unrelated value.
 ```{r}
 # make only one unrelated condition
 gaze_sub_id <- gaze_sub_id %>%
-  mutate(condition1 = case_when(
-    condition1 %in% c("unrelated", "unrelated2") ~ "unrelated",
-    TRUE ~ condition1
-  ))
+  mutate(
+    condition1 = case_when(
+      condition1 %in% c("unrelated", "unrelated2") ~ "unrelated",
+      TRUE ~ condition1
+    )
+  )
 ```
 
 ## Visualizing Time Course Data
@@ -1212,32 +1537,43 @@ Below, we have plotted the time-course data for each condition in @fig-L2comp. B
 #| echo: false
 
 tcru <- plot_IA_proportions(
-    gaze_sub_L2_avg, 
-    ia_column = "condition1",
-    time_column = "time_bin",
-    proportion_column = "Fix",
-    condition_column = "condition", 
-    ia_mapping = list(target = "Target", cohort = "Cohort", unrelated = "Unrelated"), use_color=TRUE) + 
-    facet_wrap(
-        ~ condition,             
-        labeller = labeller(
-            condition = c(
-                "TCUU-ENGSP" = "A) No Competitor",
-                "TCUU-SPENG" = "B) Spanish-English",
-                "TCUU-SPSP" = "C) Spanish-Spanish"
-            )
-        ),
-        ncol = 3
-    ) +
-    theme(
-        strip.text = element_text(size = 14),  
-        panel.spacing = unit(1, "lines")
-    )
+  gaze_sub_L2_avg,
+  ia_column = "condition1",
+  time_column = "time_bin",
+  proportion_column = "Fix",
+  condition_column = "condition",
+  ia_mapping = list(
+    target = "Target",
+    cohort = "Cohort",
+    unrelated = "Unrelated"
+  ),
+  use_color = TRUE
+) +
+  facet_wrap(
+    ~condition,
+    labeller = labeller(
+      condition = c(
+        "TCUU-ENGSP" = "A) No Competitor",
+        "TCUU-SPENG" = "B) Spanish-English",
+        "TCUU-SPSP" = "C) Spanish-Spanish"
+      )
+    ),
+    ncol = 3
+  ) +
+  theme(
+    strip.text = element_text(size = 14),
+    panel.spacing = unit(1, "lines")
+  )
 
 # Print the plot
 tcru
 
-ggsave(here::here("_manuscript", "Figures", "Figure6.png"), width=12, height=18, dpi=500)
+ggsave(
+  here::here("_manuscript", "Figures", "Figure6.png"),
+  width = 12,
+  height = 18,
+  dpi = 500
+)
 
 ```
 
@@ -1249,7 +1585,11 @@ Thus far, we have used the coordinates representing the four quadrants of the sc
 #| label: eye data gorilla L2
 #| echo: false
 # Get the list of all files in the folder
-vwp_files_L2  <- list.files(here::here("data", "L2", "raw"), pattern = "\\.xlsx$", full.names = TRUE)
+vwp_files_L2 <- list.files(
+  here::here("data", "L2", "raw"),
+  pattern = "\\.xlsx$",
+  full.names = TRUE
+)
 
 # Exclude files that contain "calibration" in their filename
 vwp_paths_filtered_L2 <- vwp_files_L2[!grepl("calibration", vwp_files_L2)]
@@ -1263,7 +1603,10 @@ We will use the function `extract_aois()` to get the standardized coordinates fo
 #| cache: true
 
 # apply the extract_aois fucntion
-aois_L2 <- extract_aois(vwp_paths_filtered_L2, zone_names =  c("TL", "BR", "TR", "BL"))
+aois_L2 <- extract_aois(
+  vwp_paths_filtered_L2,
+  zone_names = c("TL", "BR", "TR", "BL")
+)
 ```
 
 ```{r}
@@ -1273,11 +1616,11 @@ aois_L2 <- extract_aois(vwp_paths_filtered_L2, zone_names =  c("TL", "BR", "TR",
 #| echo: false
 
 aois_L2 %>%
-  flextable() %>% 
-     fontsize(size = 12) %>%  # Reduce font size
+  flextable() %>%
+  fontsize(size = 12) %>% # Reduce font size
   padding(padding = 0) %>%
   font(fontname = "Times New Roman", part = "all") %>%
-  set_table_properties(layout="autofit") %>% # Reduce padding inside cells
+  set_table_properties(layout = "autofit") %>% # Reduce padding inside cells
   autofit() %>%
   theme_apa()
 ```
@@ -1300,21 +1643,40 @@ quadrants <- tibble(
 )
 # Create the plot
 ggplot() +
-  geom_rect(data = quadrants, aes(xmin = x, xmax = x + width, ymin = y, ymax = y + height, fill = color), 
-            color = 'black', alpha = 0) +
-  geom_text(data = quadrants, aes(x = x + width/2, y = y + height/2, label = label), color = 'black', size = 5) +
+  geom_rect(
+    data = quadrants,
+    aes(xmin = x, xmax = x + width, ymin = y, ymax = y + height, fill = color),
+    color = 'black',
+    alpha = 0
+  ) +
+  geom_text(
+    data = quadrants,
+    aes(x = x + width / 2, y = y + height / 2, label = label),
+    color = 'black',
+    size = 5
+  ) +
   scale_fill_identity() +
   coord_fixed() +
   labs(x = 'Normalized X', y = 'Normalized Y') +
   theme_minimal(base_size = 14)
 
-ggsave(here::here("_manuscript", "Figures", "Figure7.png"), width=8, height=12, dpi=400)
+ggsave(
+  here::here("_manuscript", "Figures", "Figure7.png"),
+  width = 8,
+  height = 12,
+  dpi = 400
+)
 
 ```
 
 ```{r}
 
-assign_L2_gor <- webgazeR::assign_aoi(dat_colnames_L2,X="x", Y="y",aoi_loc = aois_L2)
+assign_L2_gor <- webgazeR::assign_aoi(
+  dat_colnames_L2,
+  X = "x",
+  Y = "y",
+  aoi_loc = aois_L2
+)
 
 ```
 
@@ -1323,28 +1685,36 @@ assign_L2_gor <- webgazeR::assign_aoi(dat_colnames_L2,X="x", Y="y",aoi_loc = aoi
 
 AOI_L2_gor <- assign_L2_gor %>%
 
-  mutate(loc1 = case_when(
+  mutate(
+    loc1 = case_when(
+      AOI == 1 ~ "BL",
 
-    AOI==1 ~ "BL", 
+      AOI == 2 ~ "TL",
 
-    AOI==2 ~ "TL", 
+      AOI == 3 ~ "TR",
 
-    AOI==3 ~ "TR", 
-
-    AOI==4 ~ "BR"
-
-  ))
+      AOI == 4 ~ "BR"
+    )
+  )
 ```
 
 ```{r}
 #| echo: false
-AOI_L2_gor$target <- ifelse(AOI_L2_gor$loc1==AOI_L2_gor$targ_loc, 1, 0) # if in coordinates 1, if not 0. 
+AOI_L2_gor$target <- ifelse(AOI_L2_gor$loc1 == AOI_L2_gor$targ_loc, 1, 0) # if in coordinates 1, if not 0.
 
-AOI_L2_gor$unrelated <- ifelse(AOI_L2_gor$loc1 == AOI_L2_gor$unrelated_loc, 1, 0)# if in coordinates 1, if not 0. 
+AOI_L2_gor$unrelated <- ifelse(
+  AOI_L2_gor$loc1 == AOI_L2_gor$unrelated_loc,
+  1,
+  0
+) # if in coordinates 1, if not 0.
 
-AOI_L2_gor$unrelated2 <- ifelse(AOI_L2_gor$loc1 == AOI_L2_gor$unrelated2_loc, 1, 0)# if in coordinates 1, if not 0. 
+AOI_L2_gor$unrelated2 <- ifelse(
+  AOI_L2_gor$loc1 == AOI_L2_gor$unrelated2_loc,
+  1,
+  0
+) # if in coordinates 1, if not 0.
 
-AOI_L2_gor$cohort <- ifelse(AOI_L2_gor$loc1 == AOI_L2_gor$cohort_loc, 1, 0)# if in coordinates 1, if not 0. 
+AOI_L2_gor$cohort <- ifelse(AOI_L2_gor$loc1 == AOI_L2_gor$cohort_loc, 1, 0) # if in coordinates 1, if not 0.
 
 ```
 
@@ -1352,61 +1722,77 @@ AOI_L2_gor$cohort <- ifelse(AOI_L2_gor$loc1 == AOI_L2_gor$cohort_loc, 1, 0)# if 
 #| echo: false
 
 dat_long_aoi_me_L2_gor <- AOI_L2_gor %>%
-  select(subject, trial, condition, target, cohort, unrelated, unrelated2, time, x, y, RT_audio) %>%
-    pivot_longer(
-        cols = c(target, unrelated, unrelated2,cohort),
-        names_to = "condition1",
-        values_to = "Looks"
-    )
+  select(
+    subject,
+    trial,
+    condition,
+    target,
+    cohort,
+    unrelated,
+    unrelated2,
+    time,
+    x,
+    y,
+    RT_audio
+  ) %>%
+  pivot_longer(
+    cols = c(target, unrelated, unrelated2, cohort),
+    names_to = "condition1",
+    values_to = "Looks"
+  )
 ```
 
 ```{r}
 #| echo: false
 
-# repalce the numbers appended to conditions that somehow got added 
+# repalce the numbers appended to conditions that somehow got added
 dat_long_aoi_me_comp_L2_gor <- dat_long_aoi_me_L2_gor %>%
   mutate(condition = str_replace(condition, "TCUU-SPENG\\d*", "TCUU-SPENG")) %>%
-  mutate(condition = str_replace(condition, "TCUU-SPSP\\d*", "TCUU-SPSP"))%>% 
-  na.omit() 
+  mutate(condition = str_replace(condition, "TCUU-SPSP\\d*", "TCUU-SPSP")) %>%
+  na.omit()
 
 ```
 
 ```{r}
 #| echo: false
 
-# dat_long_aoi_me_comp has condition corrected 
+# dat_long_aoi_me_comp has condition corrected
 
-gaze_sub_L2_long_gor <-dat_long_aoi_me_comp_L2_gor%>% 
-group_by(subject, trial, condition) %>%
-  mutate(time = (time-RT_audio)-300) %>% # subtract audio rt onset and account for occ motor planning and silence in audio
- filter(time >= -200, time < 2000) %>% 
-   dplyr::filter(x > 0,
-                x  < 1,
-                y > 0,
-                y < 1)
+gaze_sub_L2_long_gor <- dat_long_aoi_me_comp_L2_gor %>%
+  group_by(subject, trial, condition) %>%
+  mutate(time = (time - RT_audio) - 300) %>% # subtract audio rt onset and account for occ motor planning and silence in audio
+  filter(time >= -200, time < 2000) %>%
+  dplyr::filter(x > 0, x < 1, y > 0, y < 1)
 
 ```
 
 ```{r}
 #| echo: false
 
-gaze_sub_L2_gor <- downsample_gaze(gaze_sub_L2_long_gor, bin.length=100, timevar="time", aggvars=c("condition", "condition1", "time_bin"))
+gaze_sub_L2_gor <- downsample_gaze(
+  gaze_sub_L2_long_gor,
+  bin.length = 100,
+  timevar = "time",
+  aggvars = c("condition", "condition1", "time_bin")
+)
 
 ```
 
 ```{r}
 #| echo: false
-#| 
+#|
 # Average Fix for unrelated and unrelated2, then combine with the rest
-gaze_sub_L2_gor  <- gaze_sub_L2_gor %>%
-    group_by(condition, time_bin) %>%
-    summarise(
-        Fix = mean(Fix[condition1 %in% c("unrelated", "unrelated2")], na.rm = TRUE),
-        condition1 = "unrelated",  # Assign the combined label
-        .groups = "drop"
-    ) %>%
-    # Combine with rows that do not include unrelated or unrelated2
-    bind_rows(gaze_sub_L2_gor %>% filter(!condition1 %in% c("unrelated", "unrelated2")))
+gaze_sub_L2_gor <- gaze_sub_L2_gor %>%
+  group_by(condition, time_bin) %>%
+  summarise(
+    Fix = mean(Fix[condition1 %in% c("unrelated", "unrelated2")], na.rm = TRUE),
+    condition1 = "unrelated", # Assign the combined label
+    .groups = "drop"
+  ) %>%
+  # Combine with rows that do not include unrelated or unrelated2
+  bind_rows(
+    gaze_sub_L2_gor %>% filter(!condition1 %in% c("unrelated", "unrelated2"))
+  )
 
 ```
 
@@ -1417,36 +1803,44 @@ gaze_sub_L2_gor  <- gaze_sub_L2_gor %>%
 #| fig-height: 10
 #| echo: false
 
-
 tcru <- plot_IA_proportions(
-    gaze_sub_L2_gor, 
-    ia_column = "condition1",
-    time_column = "time_bin",
-    proportion_column = "Fix",
-    condition_column = "condition", 
-    ia_mapping = list(target = "Target", cohort = "Cohort", unrelated = "Unrelated")
-) + 
-      facet_wrap(
-        ~ condition,             
-        labeller = labeller(
-            condition = c(
-                "TCUU-ENGSP" = "A) No Competitor",
-                "TCUU-SPENG" = "B) Spanish-English",
-                "TCUU-SPSP" = "C) Spanish-Spanish"
-            )
-        ),
-        ncol = 1
-    ) +
-    theme(
-        strip.text = element_text(size = 14),  
-        panel.spacing = unit(1, "lines")
-    )
+  gaze_sub_L2_gor,
+  ia_column = "condition1",
+  time_column = "time_bin",
+  proportion_column = "Fix",
+  condition_column = "condition",
+  ia_mapping = list(
+    target = "Target",
+    cohort = "Cohort",
+    unrelated = "Unrelated"
+  )
+) +
+  facet_wrap(
+    ~condition,
+    labeller = labeller(
+      condition = c(
+        "TCUU-ENGSP" = "A) No Competitor",
+        "TCUU-SPENG" = "B) Spanish-English",
+        "TCUU-SPSP" = "C) Spanish-Spanish"
+      )
+    ),
+    ncol = 1
+  ) +
+  theme(
+    strip.text = element_text(size = 14),
+    panel.spacing = unit(1, "lines")
+  )
 
 
 # Print the plot
 tcru
 
-ggsave(here::here("_manuscript", "Figures", "Figure8.png"), width=8, height=12, dpi=400)
+ggsave(
+  here::here("_manuscript", "Figures", "Figure8.png"),
+  width = 8,
+  height = 12,
+  dpi = 400
+)
 
 ```
 
@@ -1478,24 +1872,34 @@ Below you find sample code to perform multilevel CPA in R (please see the Github
 
 ```{r}
 #| echo: false
-gaze_sub_L2_long <-dat_long_aoi_me_comp%>% 
-group_by(subject, trial, condition) %>%
-  mutate(time = (time-RT_audio)-300) %>% # subtract audio rt onset and account for occ motor planning and silence in audio
- filter(time >= -200, time < 2000)
+gaze_sub_L2_long <- dat_long_aoi_me_comp %>%
+  group_by(subject, trial, condition) %>%
+  mutate(time = (time - RT_audio) - 300) %>% # subtract audio rt onset and account for occ motor planning and silence in audio
+  filter(time >= -200, time < 2000)
 ```
 
 ```{r}
 #| echo: false
 # downsample our data into 100 ms bins but not aggreagating
 
-gaze_sub_L2_cp <- downsample_gaze(gaze_sub_L2_long, bin.length=100, timevar="time", aggvars=c("condition", "condition1", "time_bin"))
+gaze_sub_L2_cp <- downsample_gaze(
+  gaze_sub_L2_long,
+  bin.length = 100,
+  timevar = "time",
+  aggvars = c("condition", "condition1", "time_bin")
+)
 
 ```
 
 ```{r}
 #| echo: false
 # downsample our data into 100 ms bins but not aggreagating
-gaze_sub_L2_long_cp <- downsample_gaze(gaze_sub_L2_long, bin.length=100, timevar="time", aggvars=c("none"))
+gaze_sub_L2_long_cp <- downsample_gaze(
+  gaze_sub_L2_long,
+  bin.length = 100,
+  timevar = "time",
+  aggvars = c("none")
+)
 
 ```
 
@@ -1503,18 +1907,23 @@ gaze_sub_L2_long_cp <- downsample_gaze(gaze_sub_L2_long, bin.length=100, timevar
 #| echo: false
 
 gaze_sub_id <- gaze_sub_L2_long_cp %>%
-  mutate(condition1 = case_when(
-    condition1 %in% c("unrelated", "unrelated2") ~ "unrelated",
-    TRUE ~ condition1
-  ))
+  mutate(
+    condition1 = case_when(
+      condition1 %in% c("unrelated", "unrelated2") ~ "unrelated",
+      TRUE ~ condition1
+    )
+  )
 ```
 
 ```{r}
 #| echo: false
-#| 
+#|
 gaze_sub_L2_cp1 <- gaze_sub_id %>%
-  filter(condition=="TCUU-SPSP", condition1=="cohort" | condition1=="unrelated") %>%
-  mutate(condition1_code=ifelse(condition1=="cohort", 0.5, -0.5))
+  filter(
+    condition == "TCUU-SPSP",
+    condition1 == "cohort" | condition1 == "unrelated"
+  ) %>%
+  mutate(condition1_code = ifelse(condition1 == "cohort", 0.5, -0.5))
 
 ```
 
@@ -1525,22 +1934,41 @@ gaze_sub_L2_cp1 <- gaze_sub_id %>%
 library(permutes) # cpa
 library(permuco) # cpa
 
-total_perms <- 5000
+total_perms <- 500
 
-cpa.lme <-  permutes::clusterperm.glmer(Looks~ condition1_code + (1|subject), data=gaze_sub_L2_cp1, series.var=~time_bin, nperm = total_perms)
+cpa.lme <- permutes::clusterperm.glmer(
+  Looks ~ condition1_code + (1 + condition1_code | subject) + (1 | item),
+  data = gaze_sub_L2_cp1,
+  series.var = ~time_bin,
+  nperm = total_perms
+)
 ```
 
 ```{r}
 #| label: clustermass
 #| echo: false
-sig.clusters = cpa.lme %>% 
-    filter(Factor=='condition1_code', !is.na(cluster_mass), p.cluster_mass<.05) %>% 
-    mutate_at(vars(time_bin), as.numeric) %>% 
-    group_by(cluster) %>% 
-    summarise(cluster_mass=max(cluster_mass), p.cluster_mass=max(p.cluster_mass), bin_start=min(time_bin), bin_end=max(time_bin), t=mean(t)) %>% 
+sig.clusters = cpa.lme %>%
+  filter(
+    Factor == 'condition1_code',
+    !is.na(cluster_mass),
+    p.cluster_mass < .05
+  ) %>%
+  mutate_at(vars(time_bin), as.numeric) %>%
+  group_by(cluster) %>%
+  summarise(
+    cluster_mass = max(cluster_mass),
+    p.cluster_mass = max(p.cluster_mass),
+    bin_start = min(time_bin),
+    bin_end = max(time_bin),
+    t = mean(t)
+  ) %>%
   # make sure report corrct time windows
-    mutate(sign=ifelse(t<0,-1,1), time_start=(bin_start-2)*100, time_end=(bin_end-2)*100) %>% 
-    mutate_at(vars(sign), as.factor)
+  mutate(
+    sign = ifelse(t < 0, -1, 1),
+    time_start = (bin_start - 2) * 100,
+    time_end = (bin_end - 2) * 100
+  ) %>%
+  mutate_at(vars(sign), as.factor)
 ```
 
 ```{r}
@@ -1548,13 +1976,13 @@ sig.clusters = cpa.lme %>%
 #| tbl-cap: "Clustermass statistics for the Spanish-Spanish condition"
 #| echo: false
 
-sig.clusters %>% 
-    mutate(across(where(is.numeric), ~round(.x, 2))) %>%
- flextable() %>% 
-    fontsize(size = 12) %>%  # Reduce font size
-  padding(padding = 2) %>%  # Reduce padding inside cells
+sig.clusters %>%
+  mutate(across(where(is.numeric), ~ round(.x, 2))) %>%
+  flextable() %>%
+  fontsize(size = 12) %>% # Reduce font size
+  padding(padding = 2) %>% # Reduce padding inside cells
   font(fontname = "Times New Roman", part = "all") %>%
-  set_table_properties(layout="autofit") %>% # Reduce padding inside cells
+  set_table_properties(layout = "autofit") %>% # Reduce padding inside cells
   autofit()
 ```
 
@@ -1562,41 +1990,59 @@ sig.clusters %>%
 #| echo: false
 # Filter data for Spanish-Spanish condition
 gaze_sub_L2_SPSP <- gaze_sub_L2_cp %>%
-    filter(condition == "TCUU-SPSP")
+  filter(condition == "TCUU-SPSP")
 
 # Plot the Spanish-Spanish condition
 SPSP <- plot_IA_proportions(
-    gaze_sub_L2_SPSP, 
-    ia_column = "condition1",
-    time_column = "time_bin",
-    proportion_column = "Fix",
-    condition_column = "condition", 
-    ia_mapping = list(target = "Target", cohort = "Cohort", unrelated = "Unrelated")
+  gaze_sub_L2_SPSP,
+  ia_column = "condition1",
+  time_column = "time_bin",
+  proportion_column = "Fix",
+  condition_column = "condition",
+  ia_mapping = list(
+    target = "Target",
+    cohort = "Cohort",
+    unrelated = "Unrelated"
+  )
 ) +
-    facet_wrap(
-        ~ condition,             # Facet by condition
-        labeller = labeller(
-            condition = c(
-                "TCUU-SPSP" = "Spanish-Spanish Condition"
-            )
+  facet_wrap(
+    ~condition, # Facet by condition
+    labeller = labeller(
+      condition = c(
+        "TCUU-SPSP" = "Spanish-Spanish Condition"
+      )
+    )
+  ) +
+
+  labs(tag = "A") + # Optional tag for labeling
+
+  theme(
+    strip.text = element_text(size = 14), # Adjust facet label text size
+    panel.spacing = unit(1, "lines") # Add space between panels
+  ) +
+  # Add the shaded region from 500 ms to 1000 ms
+  geom_rect(
+    aes(xmin = 500, xmax = 1100, ymin = -Inf, ymax = Inf), # Shaded region
+    fill = "grey",
+    alpha = 0.01 # Color and transparency
+  ) +
+
+  geom_textline(
+    aes(
+      vjust = ifelse(
+        condition1 == "unrelated",
+        1, # Move Unrelated above the line
+        ifelse(
+          condition1 == "target",
+          1.5, # Move Target below the line
+          0
         )
-    ) +
-
-    labs(tag = "A") + # Optional tag for labeling
-
-    theme(
-        strip.text = element_text(size = 14),  # Adjust facet label text size
-        panel.spacing = unit(1, "lines")       # Add space between panels
-    ) +
-    # Add the shaded region from 500 ms to 1000 ms
-    geom_rect(
-        aes(xmin = 500, xmax = 1100, ymin = -Inf, ymax = Inf), # Shaded region
-        fill = "grey", alpha = 0.01                           # Color and transparency
-    ) + 
-  
-  geom_textline(aes(vjust = ifelse(condition1 == "unrelated", 1,  # Move Unrelated above the line
-                           ifelse(condition1 == "target", 1.5,  # Move Target below the line
-                                  0)), label=condition1), size=5) + theme(legend.position = "none") # Place labels at the end of the line + theme(legend.position = "none")
+      ),
+      label = condition1
+    ),
+    size = 5
+  ) +
+  theme(legend.position = "none") # Place labels at the end of the line + theme(legend.position = "none")
 
 
 ```
@@ -1604,9 +2050,12 @@ SPSP <- plot_IA_proportions(
 ```{r}
 #| echo: false
 
-gaze_sub_L2_cp_engeng <- gaze_sub_L2_long_cp  %>%
-  filter(condition=="TCUU-SPENG", condition1=="cohort" | condition1=="unrelated") %>%
-  mutate(condition1_code=ifelse(condition1=="cohort", 0.5, -0.5))
+gaze_sub_L2_cp_engeng <- gaze_sub_L2_long_cp %>%
+  filter(
+    condition == "TCUU-SPENG",
+    condition1 == "cohort" | condition1 == "unrelated"
+  ) %>%
+  mutate(condition1_code = ifelse(condition1 == "cohort", 0.5, -0.5))
 
 ```
 
@@ -1622,9 +2071,19 @@ total_perms <- 1000
 perms_per_core <- total_perms / num_cores
 
 # Step 4: Use foreach to run the function in parallel
-cpa.glmer <- foreach(i = 1:num_cores, .combine = 'rbind', .packages = 'permutes') %dopar% {
- permutes::clusterperm.glmer(Looks~ condition1_code + (1|subject) + (1|trial), data=gaze_sub_L2_cp_engeng, series.var=~time_bin, nperm = perms_per_core)
-}
+cpa.glmer <- foreach(
+  i = 1:num_cores,
+  .combine = 'rbind',
+  .packages = 'permutes'
+) %dopar%
+  {
+    permutes::clusterperm.glmer(
+      Looks ~ condition1_code + (1 | subject) + (1 | trial),
+      data = gaze_sub_L2_cp_engeng,
+      series.var = ~time_bin,
+      nperm = perms_per_core
+    )
+  }
 
 # Step 5: Stop the parallel backend
 stopCluster(cl)
@@ -1635,15 +2094,31 @@ stopCluster(cl)
 #| echo: false
 #| eval: false
 
-sig.clusters = cpa.glmer %>% filter(Factor=='condition1_code', !is.na(cluster_mass), p.cluster_mass<.05) %>% 
-    mutate_at(vars(time_bin), as.numeric) %>% group_by(cluster) %>% 
-    summarise(cluster_mass=max(cluster_mass), p.cluster_mass=max(p.cluster_mass), bin_start=min(time_bin), bin_end=max(time_bin), t=mean(t)) %>% 
-    mutate(sign=ifelse(t<0,-1,1), time_start=(bin_start-2)*100, time_end=(bin_end-2)*100) %>% 
-    mutate_at(vars(sign), as.factor)
+sig.clusters = cpa.glmer %>%
+  filter(
+    Factor == 'condition1_code',
+    !is.na(cluster_mass),
+    p.cluster_mass < .05
+  ) %>%
+  mutate_at(vars(time_bin), as.numeric) %>%
+  group_by(cluster) %>%
+  summarise(
+    cluster_mass = max(cluster_mass),
+    p.cluster_mass = max(p.cluster_mass),
+    bin_start = min(time_bin),
+    bin_end = max(time_bin),
+    t = mean(t)
+  ) %>%
+  mutate(
+    sign = ifelse(t < 0, -1, 1),
+    time_start = (bin_start - 2) * 100,
+    time_end = (bin_end - 2) * 100
+  ) %>%
+  mutate_at(vars(sign), as.factor)
 
 
 sig.clusters %>%
-tt(width=.9)
+  tt(width = .9)
 
 ```
 
@@ -1651,57 +2126,74 @@ tt(width=.9)
 #| echo: false
 
 # Filter data for Spanish-Spanish condition
-gaze_sub_L2_SPENG<- gaze_sub_L2_cp %>%
-    filter(condition == "TCUU-SPENG")
+gaze_sub_L2_SPENG <- gaze_sub_L2_cp %>%
+  filter(condition == "TCUU-SPENG")
 
 ## Plot the Spanish-Spanish condition
 # Plot the Spanish-Spanish condition
 SPENG <- plot_IA_proportions(
-    gaze_sub_L2_SPENG, 
-    ia_column = "condition1",
-    time_column = "time_bin",
-    proportion_column = "Fix",
-    condition_column = "condition", 
-    ia_mapping = list(target = "Target", cohort = "Cohort", unrelated = "Unrelated")
+  gaze_sub_L2_SPENG,
+  ia_column = "condition1",
+  time_column = "time_bin",
+  proportion_column = "Fix",
+  condition_column = "condition",
+  ia_mapping = list(
+    target = "Target",
+    cohort = "Cohort",
+    unrelated = "Unrelated"
+  )
 ) +
-    facet_wrap(
-        ~ condition,             # Facet by condition
-        labeller = labeller(
-            condition = c(
-                "TCUU-SPENG" = "Spanish-English Condition"
-            )
+  facet_wrap(
+    ~condition, # Facet by condition
+    labeller = labeller(
+      condition = c(
+        "TCUU-SPENG" = "Spanish-English Condition"
+      )
+    )
+  ) +
+  labs(tag = "B") + # Optional tag for labeling
+  theme(
+    strip.text = element_text(size = 14), # Adjust facet label text size
+    panel.spacing = unit(1, "lines") # Add space between panels
+  ) +
+  # Add the shaded region from 500 ms to 1000 ms
+  geom_rect(
+    aes(xmin = 200, xmax = 400, ymin = -Inf, ymax = Inf), # Shaded region
+    fill = "grey",
+    alpha = 0.01 # Color and transparency
+  ) +
+
+  geom_textline(
+    aes(
+      vjust = ifelse(
+        condition1 == "unrelated",
+        1, # Move Unrelated above the line
+        ifelse(
+          condition1 == "target",
+          1.5, # Move Target below the line
+          0
         )
-    ) +
-    labs(tag = "B") +         # Optional tag for labeling
-    theme(
-        strip.text = element_text(size = 14),  # Adjust facet label text size
-        panel.spacing = unit(1, "lines")       # Add space between panels
-    ) +
-    # Add the shaded region from 500 ms to 1000 ms
-    geom_rect(
-        aes(xmin = 200, xmax = 400, ymin = -Inf, ymax = Inf), # Shaded region
-        fill = "grey", alpha = 0.01                           # Color and transparency
-    ) + 
- 
- geom_textline(aes(vjust = ifelse(condition1 == "unrelated", 1,  # Move Unrelated above the line
-                           ifelse(condition1 == "target", 1.5,  # Move Target below the line
-                                  0)), label=condition1), size=5) + theme(legend.position = "none") # Place labels at the end of the line + theme(legend.position = "none")
+      ),
+      label = condition1
+    ),
+    size = 5
+  ) +
+  theme(legend.position = "none") # Place labels at the end of the line + theme(legend.position = "none")
 
 
 ```
 
 ```{r}
 #| label: fig-clustermass
-#| fig-cap: "Average looks in the cross-linguistic VWP task over time for the Spanish-Spanish condition (a) and the Spanish-English condition (b). The shaded rectangles indicate when cohort looks were greater than chance based on the CPA." 
+#| fig-cap: "Average looks in the cross-linguistic VWP task over time for the Spanish-Spanish condition (a) and the Spanish-English condition (b). The shaded rectangles indicate when cohort looks were greater than chance based on the CPA."
 #| echo: false
 #| fig.width: 8
 #| fig.height: 12
 
-
 # Combine plots vertically using cowplot
 combined_plot <- plot_grid(
-  SPSP , 
-  SPENG , 
+  SPSP,
+  SPENG,
   nrow = 2, # Stack plots vertically
   align = "v" # Align vertically
 )
@@ -1709,7 +2201,12 @@ combined_plot <- plot_grid(
 
 combined_plot
 
-ggsave(here::here("_manuscript", "Figures", "Figure9.png"), width = 12, height=8, dpi=400)
+ggsave(
+  here::here("_manuscript", "Figures", "Figure9.png"),
+  width = 12,
+  height = 8,
+  dpi = 400
+)
 ```
 
 In the analysis for the Spanish-Spanish condition, one significant cluster was observed between 500 and 1,100 ms, as indicated in the summary statistics from @tbl-clustermass. The positive `SumStatistic` value associated with this cluster suggests that competition was greater during this time window. This result implies that cohorts in the Spanish-Spanish condition exhibited stronger effects or competition compared to unrelated items. In @fig-clustermass significant clusters are highlighted for both the Spanish-Spanish and Spanish-English conditions. Both conditions show one significant cluster. Overall, the analysis suggests that both the Spanish-Spanish and Spanish-English conditions demonstrate significant competitor effects.
@@ -1747,16 +2244,39 @@ In sum, while there are notable differences in methods and samples, the converge
 ```{r}
 #| echo: false
 
-eye_quest_good1 <- read_csv(here::here("data", "L2", "data_exp_196386-v5_questionnaire-7ac3.csv"))
-eye_quest_good2 <- read_csv(here::here("data", "L2", "data_exp_196386-v6_questionnaire-7ac3.csv"))
+eye_quest_good1 <- read_csv(here::here(
+  "data",
+  "L2",
+  "data_exp_196386-v5_questionnaire-7ac3.csv"
+))
+eye_quest_good2 <- read_csv(here::here(
+  "data",
+  "L2",
+  "data_exp_196386-v6_questionnaire-7ac3.csv"
+))
 
-eye_quest_bad1 <- read_csv(here::here("data", "L2", "data_exp_196386-v5_questionnaire-ng98.csv"))
-eye_quest_bad2 <- read_csv(here::here("data", "L2", "data_exp_196386-v6_questionnaire-ng98.csv"))
+eye_quest_bad1 <- read_csv(here::here(
+  "data",
+  "L2",
+  "data_exp_196386-v5_questionnaire-ng98.csv"
+))
+eye_quest_bad2 <- read_csv(here::here(
+  "data",
+  "L2",
+  "data_exp_196386-v6_questionnaire-ng98.csv"
+))
 
-  
-agg_eye_data_quest <- rbind(eye_quest_good1, eye_quest_good2, eye_quest_bad1, eye_quest_bad2) # bind the two datasets together
 
- eye_quests  <- agg_eye_data_quest %>% select(`Participant Private ID`, Question, Response, Key) %>% filter(Key=="value")
+agg_eye_data_quest <- rbind(
+  eye_quest_good1,
+  eye_quest_good2,
+  eye_quest_bad1,
+  eye_quest_bad2
+) # bind the two datasets together
+
+eye_quests <- agg_eye_data_quest %>%
+  select(`Participant Private ID`, Question, Response, Key) %>%
+  filter(Key == "value")
 ```
 
 ```{r}
@@ -1770,8 +2290,8 @@ eye_quests %>%
   filter(Key == "value") %>%
   select(-Key) %>%
   distinct() %>%
-    as_tibble() |> 
- tt(width=.9)
+  as_tibble() |>
+  tt(width = .9)
 ```
 
 ```{r}
@@ -1860,15 +2380,16 @@ percentage_responses_combined <- percentage_responses_combined %>%
 percentage_responses_filtered <- percentage_responses_combined %>%
   filter(
     # Exclude specific questions
-    !Question %in% c(
-      "6.\tPlease estimate how far you think you were sitting from the camera during the experiment (an arm's length from your monitor is about 20 inches (51 cm).",
-      "7.\tApproximately how many times did you look at your phone during the experiment?",
-      "10. When you had to calibrate, were the instructions clear?",
-      "11. What additional information would you add to help make things easier to understand?",
-      "If yes, please list below:",
-      "If no, what brand of camera are you using?",
-      "8.\tApproximately how many times did you get up during the experiment?"
-    )
+    !Question %in%
+      c(
+        "6.\tPlease estimate how far you think you were sitting from the camera during the experiment (an arm's length from your monitor is about 20 inches (51 cm).",
+        "7.\tApproximately how many times did you look at your phone during the experiment?",
+        "10. When you had to calibrate, were the instructions clear?",
+        "11. What additional information would you add to help make things easier to understand?",
+        "If yes, please list below:",
+        "If no, what brand of camera are you using?",
+        "8.\tApproximately how many times did you get up during the experiment?"
+      )
   )
 
 # Arrange and finalize the table
@@ -1878,12 +2399,12 @@ final_table <- percentage_responses_filtered %>%
   arrange(Question, Response) %>%
   na.omit() %>%
   mutate(Good = round(percentage_good, 3), Bad = round(percentage_bad, 3)) %>%
-  select(-percentage_good,-percentage_bad)
+  select(-percentage_good, -percentage_bad)
 # View the final cleaned table
 
 final_table |>
   mutate(across(where(is.numeric), ~ round(.x, 2))) |>
- tt(width=.9)
+  tt(width = .9)
 ```
 
 ## Limitations
