@@ -1937,7 +1937,7 @@ library(permuco) # cpa
 total_perms <- 1000
 
 cpa.lme <- permutes::clusterperm.glmer(
-  Looks ~ condition1_code + (1 + condition1_code | subject) + (1 | item),
+  Looks ~ condition1_code + (1 + condition1_code | subject),
   data = gaze_sub_L2_cp1,
   series.var = ~time_bin,
   nperm = total_perms
@@ -2078,7 +2078,7 @@ cpa.glmer <- foreach(
 ) %dopar%
   {
     permutes::clusterperm.glmer(
-      Looks ~ condition1_code + (1 | subject) + (1 | trial),
+      Looks ~ condition1_code + (1 | subject),
       data = gaze_sub_L2_cp_engeng,
       series.var = ~time_bin,
       nperm = perms_per_core
